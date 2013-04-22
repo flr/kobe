@@ -1,0 +1,25 @@
+\name{kobe-methods}
+\docType{methods}
+\alias{kobe,character,character-method}
+\alias{kobe,data.frame,missing-method}
+\title{ ~~ Methods for Function \code{kobe} in Package \pkg{kobe} ~~}
+
+\description{
+ ~~ Methods for function \code{kobe} in package \pkg{kobe} ~~
+}
+
+\section{Generic function}{
+ kobe(object,method) 
+}
+\section{Methods}{\describe{
+	\item{\code{signature(object = "character", method = "character")}}{
+	}
+
+	\item{\code{signature(object = "data.frame", method = "missing")}}{
+	}
+	}
+}
+
+
+\keyword{methods}
+\keyword{kobePhase}
