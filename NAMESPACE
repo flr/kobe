@@ -10,5 +10,3 @@ exportMethods(kobe2sm)
 exportMethods(kobeP)
 exportMethods(kobeSmry)
 exportMethods(kobeTrks)
-exportMethods(kobe)
-
