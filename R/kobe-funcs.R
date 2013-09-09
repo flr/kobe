@@ -32,7 +32,6 @@ kobeDens=function(x,y,n=11,na.rm=FALSE){
     x=x[.na]
     y=y[.na]}
   
-  
   dat=data.frame(x=x,y=y,n=n)
   f1 =with(dat, kde2d(x,y,n=n)) 
   f2 =data.frame(expand.grid(x=f1$x, y=f1$y), z=as.vector(f1$z))
@@ -65,7 +64,7 @@ kobeFn=function(object,what=c("sims","trks","pts","smry","wrms")[1],prob=c(0.75,
             smry. =NULL
             wrms. =NULL
             sims. =NULL
-           
+          
             ## trks
             if ("trks" %in% what){
               
@@ -97,9 +96,8 @@ kobeFn=function(object,what=c("sims","trks","pts","smry","wrms")[1],prob=c(0.75,
               sims. =object
             
             res=list(trks=trks.,pts=pts.,smry=smry.,wrms=wrms.,sims=sims.)
-            
-            res}
-
+           
+            if (length(what)==1) res[[what]] else res[what]}
 
 
 #Utility functions for summarising time series to create performance measures

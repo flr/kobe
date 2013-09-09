@@ -42,6 +42,7 @@ Collate:
     'kobeTrks.R'
     'kobe-read-methods.R'
     'kobe-SAM.R'
+    'kobe-bsp.R'
     'kobeShade.R'
     'kobeInterp.R'
     'kobe-ss3.R'
