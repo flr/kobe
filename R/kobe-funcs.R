@@ -162,7 +162,7 @@ incr=function(x) c(NA,(x[-1]-x[-length(x)]>0))
 #Discount rate is chosen which reflects the risk (the higher the risk the higher the
 #discount rate) and this is used to discount all forecast future cash flows to calculate a present value:
 #PV = (CF1)/(1+r) + (CF2)/((1+r)2) + (CF3)/((1+r)3) ?????????
-dRate=function(x,r) x/(1+r)^(0:(length(x)-1))
+dRate=function(x,r) sum(x/(1+r)^(0:(length(x)-1)))
 
 #' incr
 #' @description 
@@ -222,3 +222,20 @@ recovered=function(stock,harvest) {
   as.logical(cumsum(harvest*stock))}
   
 
+pMeasure=function(stk,brp){
+  
+  res=FLQuants(stock     =stock(stk),
+               ssb       =ssb(stk),
+               rec       =rec(stk),
+               catch     =catch(stk),
+               fbar      =fbar(stk),   
+               harvest   =catch(stk)%/%stock(stk),
+               stockRel  =stock(stk)%/%refpts(brp)["msy","biomass"],
+               ssbRel    =ssb(  stk)%/%refpts(brp)["msy","ssb"],
+               recRel    =rec(  stk)%/%refpts(brp)["msy","rec"],
+               catchRel  =catch(stk)%/%refpts(brp)["msy","yield"],
+               fbarRel   =fbar( stk)%/%refpts(brp)["msy","harvest"],
+               harvestRel=(catch(stk)/stock(stk))%/%(refpts(brp)["msy","yield"]/refpts(brp)["msy","biomass"]))
+  
+  
+  model.frame(res,drop=T)}

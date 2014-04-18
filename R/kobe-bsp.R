@@ -3,22 +3,10 @@
 ########################################################################################
 
 #### exported function
-kobeBsp=function(f,b,dir="",what=c("sims","trks","pts","smry","wrms")[1],prob=c(0.75,0.5,.25),year=NULL,nwrms=10,minyear=0){
-    
-  getBSP=function(fileF,fileB,firstyear=0){
-    resF=transform(melt(read.csv(fileF,header=F)),year=as.numeric(variable),
-                   harvest=value)[,-(1:2)]
-    resB=transform(melt(read.csv(fileB,header=F)),year=as.numeric(variable),
-                   stock=value)[,-(1:2)]
-    res=cbind(resF,stock=resB$stock)
-    
-    res$year=res$year-min(res$year)+firstyear
-    return(res)}
+kobeBsp=function(f,b,dir="",what=c("sims","trks","pts","smry","wrms")[1],prob=c(0.75,0.5,.25),year=NULL,nwrms=10){
   
-  res=getBSP(f,b,minyear)
+  res=ioBsp(f,b,what=what,prob=prob,nwrms=nwrms,year=year)
   
-  res=ioBSP(res,what=what,prob=prob,year=year,nwrms=nwrms)
-    
 #   if (length(prb)>1){
 #     res=mlply(prb, function(x,bio,prob=prob,nwrms=nwrms,what=what)
 #       ioAspic(bio=bio,prb=x,prob=prob,nwrms=nwrms,what=what),
@@ -36,11 +24,14 @@ kobeBsp=function(f,b,dir="",what=c("sims","trks","pts","smry","wrms")[1],prob=c(
   else
     return(res[what]) }
 
-
-## Heavy lifting functions ##############################################################
-ioBSP=function(res,what=c("sims","trks","pts","smry","wrms")[1],prob=c(0.75,0.5,0.25),year=NULL,nwrms=10){
+## Heavy lifting functions 
+ioAspic=function(f,b,prob=c(0.75,0.5,.25),what=c("sims","trks","pts","smry","wrms")[1],year=NULL,nwrms=10,firstyear){
   
   if (!all(what %in% c("trks","pts","smry","wrms","sims"))) stop("what not in valid options")
+  
+  res=getBSP(f,b,firstyear)
+  
+  if (is.null(year)) pts=max(res$year)
   
   trks. =NULL
   pts.  =NULL
@@ -51,11 +42,11 @@ ioBSP=function(res,what=c("sims","trks","pts","smry","wrms")[1],prob=c(0.75,0.5,
   if ("trks" %in% what){ 
     stock  =ddply(res,.(year),function(x) quantile(x$stock,    prob, na.rm=T))
     harvest=ddply(res,.(year),function(x) quantile(x$harvest,  prob, na.rm=T))
-    trks.=data.frame(melt(stock,id.vars="year"),harvest=melt(harvest,id.vars="year")[,3])
+    trks.=data.frame(melt(stock,id.vars="year"),"harvest"=melt(harvest,id.vars="year")[,3])
     names(trks.)[c(2,3)]=c("Percentile","stock")}
   
-  if ("pts" %in% what & !is.null(year))
-    pts.=res[res$year %in% year,]
+  if ("pts" %in% what)
+    pts.=res[res$year %in% pts,]
   
   if ("sims" %in% what)
     sims.=res
@@ -70,9 +61,24 @@ ioBSP=function(res,what=c("sims","trks","pts","smry","wrms")[1],prob=c(0.75,0.5,
                                                  overFished =mean(  x$overFished,  na.rm=T),
                                                  overFishing=mean(  x$overFishing, na.rm=T)))
   
-  #if ("wrms" %in% what)
-  #  wrms.=res[res$iter %in% sample(unique(res$iter),nwrms),c("iter","year","ssb","harvest")]
+  if ("wrms" %in% what)
+    wrms.=res[res$iter %in% sample(unique(res$iter),nwrms),c("iter","year","stock","harvest")]
   
   res=list(trks=trks.,pts=pts.,smry=smry.,wrms=wrms.,sims=sims.)
   
-  return(res)}  
+      #if (length(what)==1) return(res[[what]])
+  
+  return(list(trks=trks.,pts=pts.,smry=smry.,wrms=wrms.,sims=sims.))}
+
+#fileF="/home/laurie/Desktop/Dropbox/collaboration/alb-wg/Inputs/BSP/for Kobe plots/kobeFalb2013SAf11.csv"
+#fileB="/home/laurie/Desktop/Dropbox/collaboration/alb-wg/Inputs/BSP/for Kobe plots/kobeBalb2013SAf11.csv"
+#getBSP(fileF,fileB,1928)
+  
+getBSP=function(fileF,fileB,firstyear=0){
+  resF=transform(melt(read.csv(fileF,header=F)),year=as.numeric(variable)+firstyear,
+                        harvest=value)[,-(1:2)]
+  resB=transform(melt(read.csv(fileB,header=F)),year=as.numeric(variable)+firstyear,
+                        stock=value)[,-(1:2)]
+  res=cbind(resF,stock=resB$stock)
+  return(res)}
+
