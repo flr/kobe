@@ -1,9 +1,10 @@
 \name{kobeSS3}
 \alias{kobeSS3}
-\title{Reads SS3 assessment results and returns stock and harvest rate relative  to MSY reference points}
+\title{Reads SS3 results and returns stock and harvest rate relative to MSY reference points}
 \usage{
   kobeSS3(object,nrows=-1,thin=1,
-          what=c("sims","trks","pts","smry","wrms")[1], prob=c(0.75,0.5,0.25),pts=NULL,yrs=NULL,nwrms=10)
+          what=c("sims","trks","pts","smry","wrms")[1], 
+          prob=c(0.75,0.5,0.25),pts=NULL,yrs=NULL,nwrms=10)
 }
 \arguments{
   \item{object}{character: derived posteriors file with MCMC runs.}

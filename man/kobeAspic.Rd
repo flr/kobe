@@ -4,7 +4,8 @@
 
 \usage{
   kobeAspic(object,prb,dir="", 
-            what=c("sims","trks","pts","smry","wrms")[1], prob=c(0.75,0.5,0.25),year=NULL,nwrms=10)
+            what=c("sims","trks","pts","smry","wrms")[1], 
+            prob=c(0.75,0.5,0.25),year=NULL,nwrms=10)
 }
 \arguments{
   \item{object}{character: ".bio" file with estimates of stock biomass and harvest rate trajectories for each ASPIC bootstrap trial.}

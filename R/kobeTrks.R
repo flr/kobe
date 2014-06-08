@@ -1,3 +1,24 @@
+##############################################################
+#' @name kobeTrks
+#' @title Creates tracks for plotting on phase plot
+#' @description
+#' 
+#' Creates tracks for plotting in the Kobe Phase Plot
+#' 
+#' @aliases kobeTrks-method kobeTrks,numeric,numeric-method kobeTrks,data.frame,missing-method
+#' 
+#'
+#' @param   stock   an object of class \code{vector,data.frame,...}
+#' @param   harvest an object of class \code{vector,data.frame,...}
+#' @param   prob    a numeric vector with probabilities
+#' @param   na.rm   logical
+#' @export
+#' @docType methods
+#' @rdname  kobeTrks-method
+#'
+#' @examples
+#' \dontrun{kobeTrks()}
+#'
 setMethod('kobeTrks', signature(stock="numeric",harvest="numeric"),
       function(stock,harvest,prob=c(0.25,0.5,0.75),na.rm=FALSE){
                                    

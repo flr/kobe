@@ -1,9 +1,10 @@
-	\name{kobe2box}
+\name{kobe2box}
 \alias{kobe2box}
 \title{Reads pro2box projection results and returns stock and harvest rate relative to MSY reference points or proxies.}
 \usage{
   kobe2box(object,proxy=c("fmsy","fmax","f0.1","f20","f30","f40","f90max","f75max")[3], 
-                  what =c("sims","trks","pts","smry","wrms")[1], prob=c(0.75,0.5,0.25),year=NULL,nwrms=10)
+                  what =c("sims","trks","pts","smry","wrms")[1], 
+                  prob=c(0.75,0.5,0.25),year=NULL,nwrms=10)
 }
 \arguments{
   \item{object}{character; directory in which pro2box projection files are found.}

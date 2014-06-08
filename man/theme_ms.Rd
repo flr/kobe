@@ -23,10 +23,12 @@ tick marks, grid color, etc.
 \source{see https://github.com/hadley/ggplot2/wiki/Themes}
 
 \examples{
+ \dontrun{
+library(ggplot2)
 data(prj)
 ggplot(subset(prj$trks, Percentile=="50\%"))             + 
            geom_line(aes(year,stock,group=TAC,col=TAC)) +
-           theme_ms()
+           theme_ms()}
 }
 \keyword{ggplot2}
 \keyword{theme}

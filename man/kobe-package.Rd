@@ -2,13 +2,11 @@
 \alias{kobe-package}
 \docType{package}
 \title{
-Tools for Tuna RFMOs in the Kobe
+Tools for provide scientific fisheries advice
 }
 \description{
 
-Scientific Advice within the tuna Regional Fisheries Management Organisations (tRFMOs) is based on a common framework. This requires estimating the probability that fishing mortality is less than FMSY and SSB greater than BMSY	for a range of management options; e.g. a range of total allowable catchess (TAC). 
-
-This package provides methods for summarising stock assessment results (i.e. estimates of stock status, reference points and projections) in the Kobe advice format.
+The tuna Regional Fisheries Management Organisations (tRFMOs) use a common framework for providing scintific advice, i.e. the Kobe II Framework. This is based on maintaining fishing mortality below FMSY and stock biomass above  BMSY. This package provides methods for summarising results from stock assessments and Management Strategy Evaluations in the Kobe format.
 
 }
 \details{

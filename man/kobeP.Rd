@@ -2,8 +2,6 @@
 \docType{methods}
 \alias{kobeP}
 \alias{kobeP-methods}
-\alias{kobeP,data.frame,missing-method}
-\alias{kobeP,numeric,numeric-method}
 
 \title{Calculates whether each point corresponds to being over-fished or subject to over-fishing and being in the red, green or yellow regions of the kobe phase plots quadrants.}
 \usage{
@@ -30,7 +28,7 @@ res=head(kobeP(sims$stock,sims$harvest))
 
 \seealso{
 
-\code{\link{kobePhase}},\code{\link{kobeInterp}},\code{\link{kobeP}}
+\code{\link{kobeInterp}},\code{\link{kobeP}}
 
 
 }
