@@ -35,7 +35,8 @@ kobeSS=function(object,nrows=-1,thin=1,what=c("sims","trks","pts","smry","wrms")
       return(res[what]) }
 
 ## Heavy lifting functions ##############################################################
-ioSS=function(x,prob=c(0.75,0.5,0.25),yrs=NULL,year=NULL,nwrms=10,what=c("sims","trks","pts","smry","wrms"),nrows=-1,thin=1){
+ioSS=function(x,prob=c(0.75,0.5,0.25),yrs=NULL,year=NULL,nwrms=10,
+              what=c("sims","trks","pts","smry","wrms"),nrows=-1,thin=1){
  
     if (is.null(yrs)){
        nms=names(read.csv(x,sep=" ",nrows=1))
@@ -103,13 +104,13 @@ ioSS=function(x,prob=c(0.75,0.5,0.25),yrs=NULL,year=NULL,nwrms=10,what=c("sims",
        pts.=res[res$year %in% yrs,]
     
     if ("smry" %in% what)
-       smry   =ddply(res,  .(year), function(x) data.frame(stock      =median(x$stock,     na.rm=T),
-                                                           harvest    =median(x$harvest,   na.rm=T),
-                                                           red        =mean(x$red,         na.rm=T),
-                                                           yellow     =mean(x$yellow,      na.rm=T),
-                                                           green      =mean(x$green,       na.rm=T),
-                                                           overFished =mean(x$overFished,  na.rm=T),
-                                                           overFishing=mean(x$overFishing, na.rm=T)))
+       smry   =ddply(res,  .(year), function(x) data.frame(stock      =median(x$stock,     na.rm=TRUE),
+                                                           harvest    =median(x$harvest,   na.rm=TRUE),
+                                                           red        =mean(x$red,         na.rm=TRUE),
+                                                           yellow     =mean(x$yellow,      na.rm=TRUE),
+                                                           green      =mean(x$green,       na.rm=TRUE),
+                                                           overFished =mean(x$overFished,  na.rm=TRUE),
+                                                           overFishing=mean(x$overFishing, na.rm=TRUE)))
     
     if ("wrms" %in% what)
        wrms=res[res$iter %in% sample(unique(res$iter),nwrms),c("iter","year","stock","harvest")]

@@ -1,6 +1,5 @@
 #https://github.com/wch/ggplot2/wiki/New-theme-system
 
-
 theme_ms <- function(base_size = 12, base_family = "",...) { 
   # Starts with theme_grey and then modify some parts 
   res=theme_grey(base_size = base_size, base_family   = base_family) %+replace% 

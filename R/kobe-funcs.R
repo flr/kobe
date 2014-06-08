@@ -1,12 +1,50 @@
-utils::globalVariables(c("xFac","yFac"))
+##################################################################################
+##                                                                              ##
+##  A range of methods for                                                      ##
+##     file IO,                                                                 ##
+##     summarising time series and                                              ##    
+##     plotting densities on kobe plots                                         ##                        
+##                                                                              ##
+##                                                                              ##
+##################################################################################
+
+#' @importFrom plyr ddply ldply .
+#' @importFrom MASS kde2d bandwidth.nrd 
+#' @importFrom emdbook HPDregionplot
+#' @importFrom coda mcmc
+#' @import methods
+
+
+utils::globalVariables(c("xFac","yFac","freq","count"))
 
 ac=as.character
 
-getExt <- function(file)
+getExt=function(file)
   tolower(substr(file,max(gregexpr("\\.", file)[[1]])+1,nchar(file)))
 
-
-## Calculates frequency of points in squares
+#' kobeFreq
+#' @description 
+#' Calculates the frequency of an obervation in a 2D cell
+#'           
+#' @aliases kobeFreq
+#' 
+#' @param x a vector holding a time series
+#' @param y a vector holding a time series
+#' @param x.n a numeric vector giving number of bins
+#' @param y.n a numeric vector giving number of bins
+#' @param na.rm logical; if true, any NA and NaN's are removed from x before calculations
+#'
+#'
+#' @return a \code{data.frame} frequency by bin
+#' @export
+#' @docType methods
+#' @rdname kobeFreq
+#' 
+#' @examples
+#' \dontrun{
+#'    y=rnorm(20)
+#'    x=rnorm(20)
+#'    kobeFreq(x,y)}
 kobeFreq=function(x,y,x.n=11,y.n=x.n,na.rm=FALSE){
   
   if (na.rm){
@@ -15,17 +53,50 @@ kobeFreq=function(x,y,x.n=11,y.n=x.n,na.rm=FALSE){
     y=y[.na]}
   
   df=data.frame(x=x,y=y)
-  df=data.frame(df,xFac=cut(df$x,seq(min(df$x),max(df$x),length.out=x.n)),
+  df=data.frame(df,xFac  =cut(df$x,  seq(min(df$x),  max(df$x),  length.out=x.n)),
                 yFac=cut(df$y,seq(min(df$y),max(df$y),length.out=y.n)))
   
   c.=ddply(data.frame(df,count=1),.(xFac,yFac), function(x) count(x$count))[,c("xFac","yFac","freq")]
   
   p.=merge(df,c.,by=c("xFac","yFac"))[,c("x","y","freq","xFac","yFac")]
+  p.=ddply(p.,.(xFac,yFac),with, sum(freq))
+  names(p.)=c("x","y","freq")
   
-  return(p.[order(p.$freq),])}
+  return(p.)}
 
 ## calculates density of points
-kobeDens=function(x,y,n=11,na.rm=FALSE){
+#' kobeDens
+#' @description 
+#' Calculates the Densities of obervation in a 2D cell using Two-dimensional
+#'  kernel density estimation with an axis-aligned bivariate normal kernel, 
+#'  evaluated on a square grid.
+#'           
+#' @aliases 
+#' kobeDens
+#' 
+#' @param x a vector 
+#' @param y a vector
+#' @param n Number of grid points in each direction. Can be scalar or a length-2 integer vector.
+#' @param h  vector of bandwidths for x and y directions. Defaults to normal reference bandwidth 
+#' (see bandwidth.nrd). A scalar value will be taken to apply to both directions.
+#' @param lims The limits of the rectangle covered by the grid as c(xl, xu, yl, yu).
+#' @param na.rm logical; if true, any NA and NaN's are removed from x before calculations
+#'
+#' @return a \code{data.frame} with three variables
+#' \code{x, y} coordinates of the grid points, vectors of length n.
+#' \code{z} An n[1] by n[2] matrix of the estimated density: rows correspond to the value of 
+#' x, columns to the value of y.
+#' 
+#' @export
+#' @docType methods
+#' @rdname kobeDens
+#' 
+#' @examples
+#' \dontrun{
+#'    y=rnorm(20)
+#'    x  =rnorm(20)
+#'    kobeDens(x,y)}
+kobeDens=function(x,y,h=c(bandwidth.nrd(x),bandwidth.nrd(y)),n=11,lims=c(range(x),range(y)),na.rm=FALSE){
   
   if (na.rm){
     .na=is.na(x)|is.na(y)|is.nan(x)|is.nan(y)
@@ -33,74 +104,58 @@ kobeDens=function(x,y,n=11,na.rm=FALSE){
     y=y[.na]}
   
   dat=data.frame(x=x,y=y,n=n)
-  f1 =with(dat, kde2d(x,y,n=n)) 
+  f1 =with(dat, kde2d(x,y,h=h,n=n,lims=lims)) 
   f2 =data.frame(expand.grid(x=f1$x, y=f1$y), z=as.vector(f1$z))
   
   return(f2)}
 
-## calculates 2D probabilities
-kobeProb=function(x,y,prob=c(0.5, 0.75,0.95),na.rm=FALSE){
+## calculates probabilities
+#' kobeProb
+#' @description 
+#' Calculates the probability of an obervations occurring in a 2D cell using HPDregionplot 
+#' Given a sample calculates the  bivariate region of highest marginal posterior density 
+#' for two variables, using kde2d from MASS to calculate a bivariate density.
+#'            
+#' @aliases 
+#' kobeProb
+#' 
+#' @param x a vector
+#' @param y a vector
+#' @param prob probability levels
+#' @param n number of points at which to evaluate the density grid
+#' @param h bandwidth of 2D kernel smoother (previous default value was c(1,1), which worked 
+#' poorly with some plots with very small scales; if not specified, defaults to values in kde2d)
+#' @param lims limits, specified as (x.lower,x.upper,y.lower,y.upper) (passed to kde2d)
+#' @param na.rm logical; if true, any NA and NaN's are removed from x before calculations
+#'
+#' @return a \code{data.frame} with three variables
+#' \code{x, y} coordinates of the grid points, vectors of length n.
+#' \code{level} contours corresponding to \code{prob}
+#' 
+#' 
+#' @export
+#' @docType methods
+#' @rdname kobeProb
+#' 
+#' @examples
+#' \dontrun{
+#'    y=rnorm(20)
+#'    x  =rnorm(20)
+#'    kobeProb(x,y)}
+kobeProb=function(x,y,prob=c(0.5, 0.75,0.95),n=21,h=c(bandwidth.nrd(x),bandwidth.nrd(y)),lims=NULL,na.rm=FALSE){
   
   if (na.rm){
     .na=is.na(x)|is.na(y)|is.nan(x)|is.nan(y)
     x=x[.na]
     y=y[.na]}
-    
-  tmp=HPDregionplot(mcmc(data.frame(x,y)),prob=prob)
   
+  tmp=HPDregionplot(mcmc(data.frame(x,y)),prob=prob,h=h)
   
   prb=ldply(tmp, function(dat) data.frame(level=dat$level,x=dat$x, y=dat$y))
   
   return(prb)}
 
-setMethod('kobe',  signature(object="data.frame",method="missing"), 
-          function(object,what=c("sims","trks","pts","smry","wrms")[1],prob=c(0.75,0.5,.25),year=NULL,nwrms=10){ 
-            kobeFn(object,what=what,prob=prob,year=year,nwrms=nwrms)})
-
-kobeFn=function(object,what=c("sims","trks","pts","smry","wrms")[1],prob=c(0.75,0.5,.25),year=NULL,nwrms=10){         
-            
-            trks. =NULL
-            pts.  =NULL
-            smry. =NULL
-            wrms. =NULL
-            sims. =NULL
-          
-            ## trks
-            if ("trks" %in% what){
-              
-              trks.=rbind(ddply(object,.(year), function(x) data.frame(quantity="stock",  pctl=prob,value=quantile(x$stock,    prob, na.rm=T))),
-                          ddply(object,.(year), function(x) data.frame(quantity="harvest",pctl=prob,value=quantile(x$harvest,  prob, na.rm=T))))
-
-             trks.=transform(trks.,pctl=paste(substr(ac(signif(pctl,2)),3,nchar(ac(signif(pctl,2)))),ifelse(nchar(ac(trks.$pctl))==3,"0",""),"%",sep=""))
-             trks.=cast(trks.,year+pctl~quantity,value="value") 
-              }
-            
-            if ("pts" %in% what & !is.null(year))
-              pts. =object[object$year==year,]
-            
-            
-            if ("smry" %in% what)
-              smry. =ddply(kobeP(sims), .(year), function(x) data.frame(stock      =median(stock(object),       na.rm=T),
-                                                                        harvest    =median(harvest(object),     na.rm=T),
-                                                                        red        =mean(  x$red,         na.rm=T),
-                                                                        yellow     =mean(  x$yellow,      na.rm=T),
-                                                                        green      =mean(  x$green,       na.rm=T),
-                                                                        overFished =mean(  x$overFished,  na.rm=T),
-                                                                        overFishing=mean(  x$overFishing, na.rm=T)))
-            if ("wrms" %in% what){          
-              wrms =sample(unique(res$iter),nwrms)
-              wrms.=sims[sims$iter %in% wrms,]
-            }
-            
-            if ("sims" %in% what)     
-              sims. =object
-            
-            res=list(trks=trks.,pts=pts.,smry=smry.,wrms=wrms.,sims=sims.)
-           
-            if (length(what)==1) res[[what]] else res[what]}
-
-
-#Utility functions for summarising time series to create performance measures
+#Utility methods for summarising time series to create performance measures
 
 #' iav
 #' @description 
@@ -108,20 +163,22 @@ kobeFn=function(object,what=c("sims","trks","pts","smry","wrms")[1],prob=c(0.75,
 #' Used to show how variable a quantity like yield 
 #' is under different management strategies within a Management Strategy Evaluation.
 #'      
-#' @aliases 
-#' iav
+#' @aliases  iav
 #' 
-#' @param x; a vector holding a time series
+#' @param x a vector holding a time series
 #' @return a \code{vector} with the inter-annual variation each time step
+#' 
+#' 
 #' @export
-#' @docType functions
-#' @rdname utils
+#' @docType methods
+#' @rdname iav
 #' 
 #' @examples
+#' \dontrun{
 #'    x=rnorm(2)
 #'    iav(x)
 #'    ## inter-annual average variation
-#'    mean(iav(x),na.rm=T)
+#'    mean(iav(x),na.rm=T)}
 iav=function(x) if (length(x)==1) return(NA) else c(NA,(x[-1]-x[-length(x)])/x[-length(x)])
 
 
@@ -132,55 +189,92 @@ iav=function(x) if (length(x)==1) return(NA) else c(NA,(x[-1]-x[-length(x)])/x[-
 #' @aliases 
 #' incr
 #' 
-#' @param x; a vector holding a time series
+#' @param x a vector holding a time series
 #' @return a \code{logical} indicating an increase
 #' @export
-#' @docType functions
-#' @rdname utils
+#' @docType methods
+#' @rdname incr
 #' 
 #' @examples
+#' \dontrun{
 #'    x=rnorm(2)
-#'    incr(x)
+#'    incr(x)}
 incr=function(x) c(NA,(x[-1]-x[-length(x)]>0))
 
-#' incr
+
+#' recovered
 #' @description 
-#' Is a quantity increasing from 1 time step to another \code{(x[t+1]-x[t])>0} 
+#' Has the stock recovered yet? i.e. stock>=1 and harvest<=1 in the current or an earlier time step.
+#' In other words has it been in the green Kobe quadrant.
 #'      
 #' @aliases 
-#' incr
+#' recovered
 #' 
-#' @param x; a vector holding a time series
-#' @return a \code{logical} indicating an increase
+#' @param stock a vector holding a time series
+#' @param harvest a vector holding a time series
+#' @return a \code{logical} indicating a recovered stock
+#' 
 #' @export
-#' @docType functions
-#' @rdname utils
+#' @docType methods
+#' @rdname recovered
 #' 
 #' @examples
-#'    x=rnorm(2)
-#'    incr(x)
-#Discount rate is chosen which reflects the risk (the higher the risk the higher the
-#discount rate) and this is used to discount all forecast future cash flows to calculate a present value:
-#PV = (CF1)/(1+r) + (CF2)/((1+r)2) + (CF3)/((1+r)3) ?????????
-dRate=function(x,r) sum(x/(1+r)^(0:(length(x)-1)))
+#' \dontrun{
+#'    harvest=rlnorm(20)
+#'    stock  =rlnorm(20)
+#'    recovered(stock,harvest)}
+recovered=function(stock,harvest) {
+  
+  x =pmin(floor(stock),1)
+  y =1-pmin(floor(harvest),1)
+  
+  as.logical(cumsum(y*x))}
+
+#' dRate
+#' @description 
+#' Discount rate reflects the risk (the higher the risk the higher the discount rate). Is used 
+#' to discount all forecast future cash flows to calculate a present value:
+#'      
+#' @aliases 
+#' dRate
+#' 
+#' @param x a vector holding a time series
+#' @param r a numeric discount rate
+#' @param wtAv a logical, FALSE by default, if TRUE then uses discount rate to calculate a weighted average
+#' @return net present value
+#' 
+#' @export
+#' @docType methods
+#' @rdname dRate
+#' 
+#' @examples
+#' \dontrun{
+#'    x=rnorm(20)
+#'    dRate(x,0.05)}
+dRate=function(x,r,wtAv=FALSE) {
+  if (wtAv) return( sum(x/(1+r)^(0:(length(x)-1)))/sum(1/(1+r)^(0:(length(x)-1))))
+  return(sum(x/(1+r)^(0:(length(x)-1))))
+}
 
 #' incr
 #' @description 
-#' Is a quantity increasing from 1 time step to another \code{(x[t+1]-x[t])>0} 
+#' Break point for segmented regression stock recruitment relationship 
+#' for a given steepness and virgin biomass
 #'      
 #' @aliases 
-#' incr
+#' hinge
 #' 
-#' @param x; a vector holding a time series
-#' @return a \code{logical} indicating an increase
+#' @param s steepness
+#' @param v virgin biomass
+#' @param rec a vector holding constant recruitment level
+#' @return a \code{numeric} giving break point
 #' @export
-#' @docType functions
-#' @rdname utils
+#' @docType methods
+#' @rdname  hinge
 #' 
 #' @examples
-#'    x=rnorm(2)
-#'    incr(x)
-#Break point for segmented regression for a given steepness and virgin biomass
+#' \dontrun{
+#'    hinge(.7,1000,2000)}
 hinge=function(s,v,rec){
   #slope
   x=c(0,v*0.2)
@@ -195,47 +289,3 @@ hinge=function(s,v,rec){
   a=b*x[1]-y[1]
   
   (rec-a)/b}
-
-#' recovered
-#' @description 
-#' Has the stock recovered yet? i.e. stock>=1 and harvest<=1 in the current or an earlier time step.
-#' In other words has it been in the green Kobe quadrant.
-#'      
-#' @aliases 
-#' recovered
-#' 
-#' @param x; a vector holding a time series
-#' @return a \code{logical} indicating an recovered
-#' @export
-#' @docType functions
-#' @rdname utils
-#' 
-#' @examples
-#'    harvest=rlnorm(20)
-#'    stock  =rlnorm(20)
-#'    recovered(stock,harvest)
-recovered=function(stock,harvest) {
-  
-  stock  =pmin(floor(stock),1)
-  harvest=1-pmin(floor(harvest),1)
-  
-  as.logical(cumsum(harvest*stock))}
-  
-
-pMeasure=function(stk,brp){
-  
-  res=FLQuants(stock     =stock(stk),
-               ssb       =ssb(stk),
-               rec       =rec(stk),
-               catch     =catch(stk),
-               fbar      =fbar(stk),   
-               harvest   =catch(stk)%/%stock(stk),
-               stockRel  =stock(stk)%/%refpts(brp)["msy","biomass"],
-               ssbRel    =ssb(  stk)%/%refpts(brp)["msy","ssb"],
-               recRel    =rec(  stk)%/%refpts(brp)["msy","rec"],
-               catchRel  =catch(stk)%/%refpts(brp)["msy","yield"],
-               fbarRel   =fbar( stk)%/%refpts(brp)["msy","harvest"],
-               harvestRel=(catch(stk)/stock(stk))%/%(refpts(brp)["msy","yield"]/refpts(brp)["msy","biomass"]))
-  
-  
-  model.frame(res,drop=T)}

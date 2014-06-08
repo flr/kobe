@@ -1,9 +1,12 @@
+utils::globalVariables(c("variable","value"))
+
 ########################################################################################
 #### aspic stuff for Kobe ##############################################################
 ########################################################################################
 
 #### exported function
-kobeBsp=function(f,b,dir="",what=c("sims","trks","pts","smry","wrms")[1],prob=c(0.75,0.5,.25),year=NULL,nwrms=10){
+kobeBsp=function(f,b,dir="",what=c("sims","trks","pts","smry","wrms")[1],
+                 prob=c(0.75,0.5,.25),year=NULL,nwrms=10){
   
   res=ioBsp(f,b,what=what,prob=prob,nwrms=nwrms,year=year)
   
@@ -25,7 +28,9 @@ kobeBsp=function(f,b,dir="",what=c("sims","trks","pts","smry","wrms")[1],prob=c(
     return(res[what]) }
 
 ## Heavy lifting functions 
-ioAspic=function(f,b,prob=c(0.75,0.5,.25),what=c("sims","trks","pts","smry","wrms")[1],year=NULL,nwrms=10,firstyear){
+ioBsp=function(f,b,prob=c(0.75,0.5,.25),
+               what=c("sims","trks","pts","smry","wrms")[1],
+               year=NULL,nwrms=10,firstyear=0){
   
   if (!all(what %in% c("trks","pts","smry","wrms","sims"))) stop("what not in valid options")
   
@@ -40,8 +45,8 @@ ioAspic=function(f,b,prob=c(0.75,0.5,.25),what=c("sims","trks","pts","smry","wrm
   sims. =NULL
   
   if ("trks" %in% what){ 
-    stock  =ddply(res,.(year),function(x) quantile(x$stock,    prob, na.rm=T))
-    harvest=ddply(res,.(year),function(x) quantile(x$harvest,  prob, na.rm=T))
+    stock  =ddply(res,.(year),function(x) quantile(x$stock,    prob, na.rm=TRUE))
+    harvest=ddply(res,.(year),function(x) quantile(x$harvest,  prob, na.rm=TRUE))
     trks.=data.frame(melt(stock,id.vars="year"),"harvest"=melt(harvest,id.vars="year")[,3])
     names(trks.)[c(2,3)]=c("Percentile","stock")}
   
@@ -53,13 +58,13 @@ ioAspic=function(f,b,prob=c(0.75,0.5,.25),what=c("sims","trks","pts","smry","wrm
   
   if ("smry" %in% what)
     smry. =ddply(data.frame(res,kobeP(res$stock,res$harvest)),
-                 .(year), function(x) data.frame(stock      =median(x$stock,       na.rm=T),
-                                                 harvest    =median(x$harvest,     na.rm=T),
-                                                 red        =mean(  x$red,         na.rm=T),
-                                                 yellow     =mean(  x$yellow,      na.rm=T),
-                                                 green      =mean(  x$green,       na.rm=T),
-                                                 overFished =mean(  x$overFished,  na.rm=T),
-                                                 overFishing=mean(  x$overFishing, na.rm=T)))
+                 .(year), function(x) data.frame(stock      =median(x$stock,       na.rm=TRUE),
+                                                 harvest    =median(x$harvest,     na.rm=TRUE),
+                                                 red        =mean(  x$red,         na.rm=TRUE),
+                                                 yellow     =mean(  x$yellow,      na.rm=TRUE),
+                                                 green      =mean(  x$green,       na.rm=TRUE),
+                                                 overFished =mean(  x$overFished,  na.rm=TRUE),
+                                                 overFishing=mean(  x$overFishing, na.rm=TRUE)))
   
   if ("wrms" %in% what)
     wrms.=res[res$iter %in% sample(unique(res$iter),nwrms),c("iter","year","stock","harvest")]

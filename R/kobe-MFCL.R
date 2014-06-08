@@ -133,8 +133,8 @@ ioMFCL=function(object,what=c("sims","trks","pts","smry","wrms")[1],prob=c(0.75,
   sims. =NULL
   
   if ("trks" %in% what){ 
-    stock  =ddply(res,.(year),function(x) quantile(x$stock,    prob, na.rm=T))
-    harvest=ddply(res,.(year),function(x) quantile(x$harvest,  prob, na.rm=T))
+    stock  =ddply(res,.(year),function(x) quantile(x$stock,    prob, na.rm=TRUE))
+    harvest=ddply(res,.(year),function(x) quantile(x$harvest,  prob, na.rm=TRUE))
     trks.=data.frame(melt(stock,id.vars="year"),harvest=melt(harvest,id.vars="year")[,3])
     names(trks.)[c(2,3)]=c("Percentile","stock")}
   
@@ -146,13 +146,13 @@ ioMFCL=function(object,what=c("sims","trks","pts","smry","wrms")[1],prob=c(0.75,
   
   if ("smry" %in% what)
     smry. =ddply(data.frame(res,kobeP(res$stock,res$harvest)),
-                 .(year), function(x) data.frame(stock      =median(x$stock,       na.rm=T),
-                                                 harvest    =median(x$harvest,     na.rm=T),
-                                                 red        =mean(  x$red,         na.rm=T),
-                                                 yellow     =mean(  x$yellow,      na.rm=T),
-                                                 green      =mean(  x$green,       na.rm=T),
-                                                 overFished =mean(  x$overFished,  na.rm=T),
-                                                 overFishing=mean(  x$overFishing, na.rm=T)))
+                 .(year), function(x) data.frame(stock      =median(x$stock,       na.rm=TRUE),
+                                                 harvest    =median(x$harvest,     na.rm=TRUE),
+                                                 red        =mean(  x$red,         na.rm=TRUE),
+                                                 yellow     =mean(  x$yellow,      na.rm=TRUE),
+                                                 green      =mean(  x$green,       na.rm=TRUE),
+                                                 overFished =mean(  x$overFished,  na.rm=TRUE),
+                                                 overFishing=mean(  x$overFishing, na.rm=TRUE)))
   
   #if ("wrms" %in% what)
   #  wrms.=res[res$iter %in% sample(unique(res$iter),nwrms),c("iter","year","ssb","harvest")]
