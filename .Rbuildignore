@@ -1,2 +1,5 @@
 ^.*\.Rproj$
+^.*\.git$
 ^\.Rproj\.user$
+kobe.Rproj
+.gitignore
