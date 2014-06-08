@@ -1,6 +1,5 @@
 ### borrowed with thanks from
 ###http://wiki.stdout.org/rcookbook/Graphs/Multiple%20graphs%20on%20one%20page%20(ggplot2)/
-  
 
 # Multiple plot function
 #
@@ -13,7 +12,7 @@
 # 3 will go all the way across the bottom.
 #
 multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
-  require(grid)
+  #require(grid)
   
   # Make a list from the ... arguments and plotlist
   plots <- c(list(...), plotlist)
