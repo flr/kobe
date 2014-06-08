@@ -24,7 +24,8 @@ Depends:
     coda,
     emdbook,
     tables,
-    RCurl
+    RCurl,
+    ellipse
 Collate:
     'ggplotFL-multiplot.R'
     'ggplotFL-theme.R'
@@ -32,7 +33,6 @@ Collate:
     'kobePhase.R'
     'kobeSmry.R'
     'kobe-aspic.R'
-    'kobe-MFCL.R'
     'kobeP.R'
     'kobe-ss.R'
     'kobe-2box.R'
