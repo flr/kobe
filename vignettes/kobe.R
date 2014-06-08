@@ -1,4 +1,4 @@
-### R code from vignette source 'kobe.Rnw'
+### R code from vignette source '/home/laurie/Desktop/flr/git/kobe/vignettes/kobe.Rnw'
 ### Encoding: UTF-8
 
 ###################################################
