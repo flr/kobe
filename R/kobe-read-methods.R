@@ -8,7 +8,7 @@ if (!isGeneric('kobe'))
 
 setMethod('kobe',  signature(object='character',method="character"), 
           function(object,
-                   method=c("aspic","adapt","bsp","mfcl","ss","sam","vpa"),
+                   method=c("aspic","adapt","bsp","bdm","mfcl","ss","sam","vpa"),
                    what  =c("sims","trks","pts","smry","wrms")[1],
                    dir   ="",
                    prob  =c(0.75,0.5,0.25),
@@ -21,6 +21,7 @@ setMethod('kobe',  signature(object='character',method="character"),
            ad=kobe2box( object,what=what,prob=prob,year=year,nwrms=nwrms,...),
            as=kobeAspic(object,dir=dir,what=what,prob=prob,year=year,nwrms=nwrms,...),
            bs=kobeBsp(  object,dir=dir,what=what,prob=prob,year=year,nwrms=nwrms,...),
+		   bd=kobeBdm(  object,dir=dir,what=what,prob=prob,year=year,nwrms=nwrms,...),
            mf=kobeMFCL( object,dir=dir,what=what,prob=prob,year=year,nwrms=nwrms,...),
            ss=kobeSS(   object,what=what,prob=prob,year=year,nwrms=nwrms,...))
     })
