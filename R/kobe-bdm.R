@@ -54,7 +54,7 @@ ioBdm=function(object,prob,what,year,nwrms){
     if (!all(what %in% c("trks","pts","smry","wrms","sims"))) stop("what not in valid options")
     
     if (class(object) %in% "bdm")
-       res=readBdm(object,run) else stop("object not of class bdm")
+       res=readBdm(object) else stop("object not of class bdm")
     
     if (is.null(year)) pts=max(object@data$year)
       
