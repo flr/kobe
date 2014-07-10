@@ -51,7 +51,7 @@ kobePhaseMar=function(pts,trks=NULL,mns=FALSE,size=1,
           geom_density(aes(x = stock, y =  ..count.., group=run), fill=col2, col=col3, position = "stack") + 
           geom_density(aes(x = stock, y = -..count.., fill =run, alpha=0.4)) + 
           geom_vline(xintercept=1,col="red")       +
-              scale_x_continuous(limits=c(0,xlim)) +
+          coord_cartesian(xlim=c(0,xlim)) +
               scale_fill_manual(values=col)        +
               xlab(xlab) + ylab(ylab)              +
               theme(legend.position = "none", 
@@ -73,10 +73,11 @@ kobePhaseMar=function(pts,trks=NULL,mns=FALSE,size=1,
     # second density plot, oriented vertically (hence the 'coord_flip()' at the end
       dH<-ggplot(pts) + 
             geom_density(aes(x = harvest, y =  ..count.., group=run), fill=col2, col=col3, position = "stack") + 
-            geom_density(aes(x = harvest, y = -..count..,               fill=run, alpha=0.4)) + 
+            geom_density(aes(x = harvest, y = -..count..,             fill=run, alpha=0.4)) + 
             geom_vline(xintercept=1,col="red")  +
-                scale_x_continuous(limits=c(0,ylim))   +
-                scale_fill_manual(values=col)          +
+            coord_cartesian(xlim=c(0,ylim))   +
+            #scale_x_continuous(limits=c(0,ylim))   +
+            scale_fill_manual(values=col)          +
                 xlab(xlab) + ylab(ylab)                +
                 theme(legend.position = "none", 
                       axis.title.x = element_text(colour ='NA'), 
@@ -98,8 +99,7 @@ kobePhaseMar=function(pts,trks=NULL,mns=FALSE,size=1,
     # kobe phase plot
     kC=kobePhase(pts) +
        geom_point(aes(stock,harvest,col=run,group=run),size=size[1]) +  
-       scale_y_continuous(limits=c(0,ylim)) +
-       scale_x_continuous(limits=c(0,xlim)) +
+       coord_cartesian(xlim=c(0,xlim),ylim=c(0,ylim)) +
        scale_colour_manual(values=col)      +
        xlab(xlab) + ylab(ylab)              +
        theme(legend.position = "none",
@@ -119,21 +119,21 @@ kobePhaseMar=function(pts,trks=NULL,mns=FALSE,size=1,
     if (!is.null(trks))
        kC=kC+geom_path(aes(stock,harvest, col=run,group=run),size=1*size[2], data=trks)   
     
-#     fnVP=function(dH,dS,kC){
-#         vplayout <- function(x, y)
-#         viewport(layout.pos.row = x, layout.pos.col = y)
-#           
-#         grid.newpage()
-#         pushViewport(viewport(layout = grid.layout(5, 5)))  # 5 by 5 grid
-#         print(dS, vp=vplayout(1,1:4))                       # the first density plot will occupy the top of the grid
-#         print(dH +coord_flip(), vp=vplayout(2:5,5))         # 2nd to the left +opts(legend.position = c(0,1.05)) + opts(legend.text = theme_text(colour = "black")) 
-#         print(kC, vp=vplayout(2:5,1:4))                     # the main x/y plot will instead spread across most of the grid
-#         }
-#     
-#     fnVP(dH,dS,kC)
-    print(kC)
+    fnVP=function(dH,dS,kC){
+        vplayout <- function(x, y)
+        viewport(layout.pos.row = x, layout.pos.col = y)
+          
+        grid.newpage()
+        pushViewport(viewport(layout = grid.layout(5, 5)))  # 5 by 5 grid
+        print(dS, vp=vplayout(1,1:4))                       # the first density plot will occupy the top of the grid
+        print(dH +coord_flip(xlim=c(0,ylim)), vp=vplayout(2:5,5))         # 2nd to the left +opts(legend.position = c(0,1.05)) + opts(legend.text = theme_text(colour = "black")) 
+        print(kC, vp=vplayout(2:5,1:4))                     # the main x/y plot will instead spread across most of the grid
+        }
+    
+    fnVP(dH,dS,kC)
+    #print(kC)
 
-    invisible(list(harvest=NULL,stock=NULL,phase=kC))}
+    invisible(list(harvest=dH,stock=dS,phase=kC))}
 
 
 kobePhaseMar2=function(pts,trks=NULL,mns=FALSE,size=1,
@@ -159,7 +159,7 @@ kobePhaseMar2=function(pts,trks=NULL,mns=FALSE,size=1,
     #geom_density(aes(x = stock, y =  ..count.., group=run), fill=col2, col=col3, position = "stack") + 
     geom_density(aes(x = stock, y = ..count.., fill =run, alpha=0.4)) + 
     geom_vline(xintercept=1,col="red")       +
-    scale_x_continuous(limits=c(0,xlim)) +
+    coord_cartesian(xlim=c(0,xlim)) +
     scale_fill_manual(values=col)        +
     xlab(xlab) + ylab(ylab)              +
     theme(legend.position = "none", 
@@ -183,7 +183,7 @@ kobePhaseMar2=function(pts,trks=NULL,mns=FALSE,size=1,
     #geom_density(aes(x = harvest, y =  ..count.., group=run), fill=col2, col=col3, position = "stack") + 
     geom_density(aes(x = harvest, y = ..count..,               fill=run, alpha=0.4)) + 
     geom_vline(xintercept=1,col="red")  +
-    scale_x_continuous(limits=c(0,ylim))   +
+    coord_cartesian(xlim=c(0,ylim))   +
     scale_fill_manual(values=col)          +
     xlab(xlab) + ylab(ylab)                +
     theme(legend.position = "none", 
@@ -206,8 +206,7 @@ kobePhaseMar2=function(pts,trks=NULL,mns=FALSE,size=1,
   # kobe phase plot
   kC=kobePhase(pts) +
     geom_point(aes(stock,harvest,col=run,group=run),size=size[1]) +  
-    scale_y_continuous(limits=c(0,ylim)) +
-    scale_x_continuous(limits=c(0,xlim)) +
+    coord_cartesian(xlim=c(0,xlim),ylim=c(0,ylim)) +
     scale_colour_manual(values=col)      +
     xlab(xlab) + ylab(ylab)              +
     theme(legend.position = "none",
@@ -234,7 +233,7 @@ kobePhaseMar2=function(pts,trks=NULL,mns=FALSE,size=1,
     grid.newpage()
     pushViewport(viewport(layout = grid.layout(5, 5)))  # 5 by 5 grid
     print(dS, vp=vplayout(1,1:4))                       # the first density plot will occupy the top of the grid
-    print(dH +coord_flip(), vp=vplayout(2:5,5))         # 2nd to the left +opts(legend.position = c(0,1.05)) + opts(legend.text = theme_text(colour = "black")) 
+    print(dH +coord_flip(xlim=c(0,ylim)), vp=vplayout(2:5,5))         # 2nd to the left +opts(legend.position = c(0,1.05)) + opts(legend.text = theme_text(colour = "black")) 
     print(kC, vp=vplayout(2:5,1:4))                     # the main x/y plot will instead spread across most of the grid
   }
   
@@ -265,7 +264,7 @@ kobePhaseMar3=function(pts,trks=NULL,mns=FALSE,size=1,
     geom_density(aes(x = stock, y =  ..count.., group=run), fill=col2, col=col3, position = "stack") + 
     #geom_density(aes(x = stock, y = ..count.., fill =run, alpha=0.4)) + 
     geom_vline(xintercept=1,col="red")       +
-    scale_x_continuous(limits=c(0,xlim)) +
+    coord_cartesian(xlim=c(0,xlim)) +
     scale_fill_manual(values=col)        +
     xlab(xlab) + ylab(ylab)              +
     theme(legend.position = "none", 
@@ -289,7 +288,7 @@ kobePhaseMar3=function(pts,trks=NULL,mns=FALSE,size=1,
     geom_density(aes(x = harvest, y =  ..count.., group=run), fill=col2, col=col3, position = "stack") + 
     #geom_density(aes(x = harvest, y = ..count..,               fill=run, alpha=0.4)) + 
     geom_vline(xintercept=1,col="red")  +
-    scale_x_continuous(limits=c(0,ylim))   +
+    coord_cartesian(ylim=c(0,ylim))   +
     scale_fill_manual(values=col)          +
     xlab(xlab) + ylab(ylab)                +
     theme(legend.position = "none", 
@@ -312,8 +311,7 @@ kobePhaseMar3=function(pts,trks=NULL,mns=FALSE,size=1,
   # kobe phase plot
   kC=kobePhase(pts) +
     geom_point(aes(stock,harvest,col=run,group=run),size=size[1]) +  
-    scale_y_continuous(limits=c(0,ylim)) +
-    scale_x_continuous(limits=c(0,xlim)) +
+    coord_cartesian(xli=c(0,xlim),ylim=c(0,ylim)) +
     scale_colour_manual(values=col)      +
     xlab(xlab) + ylab(ylab)              +
     theme(legend.position = "none",
@@ -340,7 +338,7 @@ kobePhaseMar3=function(pts,trks=NULL,mns=FALSE,size=1,
     grid.newpage()
     pushViewport(viewport(layout = grid.layout(5, 5)))  # 5 by 5 grid
     print(dS, vp=vplayout(1,1:4))                       # the first density plot will occupy the top of the grid
-    print(dH +coord_flip(), vp=vplayout(2:5,5))         # 2nd to the left +opts(legend.position = c(0,1.05)) + opts(legend.text = theme_text(colour = "black")) 
+    print(dH +coord_flip(xlim=c(0,ylim)), vp=vplayout(2:5,5))         # 2nd to the left +opts(legend.position = c(0,1.05)) + opts(legend.text = theme_text(colour = "black")) 
     print(kC, vp=vplayout(2:5,1:4))                     # the main x/y plot will instead spread across most of the grid
   }
   

@@ -5,17 +5,17 @@ utils::globalVariables(c("x","y","fill"))
 setGeneric('kobePhase',  function(object,...)         standardGeneric('kobePhase'))
 
 ### provide a back drop on which to overlay data
-kobePhaseFn=function(object,xlim,ylim){    
-  quads<- rbind(data.frame(x=c(-Inf,-Inf,Inf,Inf), y=c(-Inf,Inf,Inf,-Inf), fill=as.factor("yellow")),
-                data.frame(x=c(   1,   1,Inf,Inf), y=c(-Inf,  1,  1,-Inf), fill=as.factor("green")),
-                data.frame(x=c(-Inf,-Inf,  1,  1), y=c(   1,Inf,Inf,   1), fill=as.factor("red")))
+kobePhaseFn=function(object,xlim,ylim,quadcol=c("yellow","green","red")){    
+  quads<- rbind(data.frame(x=c(-Inf,-Inf,Inf,Inf), y=c(-Inf,Inf,Inf,-Inf), fill=as.factor(quadcol[1])),
+                data.frame(x=c(   1,   1,Inf,Inf), y=c(-Inf,  1,  1,-Inf), fill=as.factor(quadcol[2])),
+                data.frame(x=c(-Inf,-Inf,  1,  1), y=c(   1,Inf,Inf,   1), fill=as.factor(quadcol[3])))
   
+  print(quadcol)
   p=ggplot(object)+geom_polygon(data=quads,aes(x,y,fill=fill)) +
-    scale_fill_manual(values = c("yellow","green","red"), guide="none") +
+    scale_fill_manual(values = quadcol, guide="none") +
     ylab(expression(F/F[MSY]))        +
     xlab(expression(SSB/B[MSY]))      +
-    scale_y_continuous(limits=ylim)   +
-    scale_x_continuous(limits=xlim)
+    coord_cartesian(xlim=xlim,ylim=ylim)
   
   invisible(p)}
 
@@ -38,13 +38,14 @@ kobePhaseFn=function(object,xlim,ylim){
 #' @examples
 #' \dontrun{kobePhase()}
 setMethod('kobePhase', signature(object='missing'),
-  function(object,xlim=c(0,2),ylim=xlim){
-    
-       invisible(kobePhaseFn(NULL,xlim,ylim))})
+  function(object,xlim=c(0,2),ylim=xlim,quadcol=c("yellow","green","red")){
+   
+       invisible(kobePhaseFn(NULL,xlim,ylim,quadcol=quadcol))})
 
 setMethod('kobePhase', signature(object='data.frame'),
   function(object,xlim=c(0,ceiling(2*max(object$stock,  na.rm=TRUE))/2),
-                  ylim=c(0,ceiling(2*max(object$harvest,na.rm=T))/2)){
+                  ylim=c(0,ceiling(2*max(object$harvest,na.rm=T))/2),
+                  quadcol=c("yellow","green","red")){
     
-       invisible(kobePhaseFn(object,xlim,ylim))})
+       invisible(kobePhaseFn(object,xlim,ylim,quadcol=quadcol))})
 
