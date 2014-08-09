@@ -238,7 +238,8 @@ or \code{ggplot2}  e.g.
 
 \begin{figure}\begin{center}
 <<echo=TRUE,fig=TRUE,width=7,height=3>>=
-ggplot(assmt)                                       + 
+data(sims)
+ggplot(subset(sims,TAC==15000&year<=2010&Run=="run02"))+ 
   geom_hline(aes(yintercept=1),col="red",size=2)    + 
   geom_line( aes(year,stock,group=iter,col=iter))   +
   theme(legend.position="none")
@@ -281,6 +282,7 @@ The Kobe II strategy matrice (K2SM) summarise the probabilities for different le
 An example phase plot is shown in figure \ref{}
 \begin{figure}\begin{center}
 <<echo=TRUE,fig=TRUE,width=7,height=6>>=
+data(sims)
 kp=kobePhase(subset(sims, year==2010 & TAC==15000)) +
          geom_point(aes(stock,harvest,group=Run,col=Run)) 
 kp
@@ -402,7 +404,7 @@ ggplot(subset(pie.dat,value>0), aes(x =factor(1), y=value, fill = variable)) +
   geom_bar(width=1,stat="identity") + 
   coord_polar(theta="y") +
   labs(fill='Kobe Quadrant') + xlab('') + ylab('')       +
-  scale_fill_manual(values=c("red","green","yellow"))    + 
+  scale_fill_manual(values=c("red","yellow","green"))    + 
   facet_wrap(~Run)                                       + 
   scale_x_discrete(breaks=NULL)                          +
   scale_y_continuous(breaks=NULL) 

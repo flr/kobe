@@ -86,16 +86,17 @@ io2box=function(x,proxy=c("fmsy","fmax","f0.1","f20","f30","f40","f90max","f75ma
       sims.=res
 
    if ("trks" %in% what){ 
-       ssb =ddply(res,.(year,tac),function(x) quantile(x$ssb,    prob))
-       hvt =ddply(res,.(year,tac),function(x) quantile(x$harvest,prob))
-       trks.=data.frame(melt(ssb,id.vars=c("year","tac")),harvest=melt(hvt,id.vars=c("year","tac"))[,4])
-       names(trks.)[3:4]=c("Percentile","ssb")}
+       stock=ddply(res,.(year,tac),function(x) quantile(x$stock,  prob))
+       hvt  =ddply(res,.(year,tac),function(x) quantile(x$harvest,prob))
+       trks.=data.frame(melt(stock,id.vars=c("year","tac")),harvest=melt(hvt,id.vars=c("year","tac"))[,4])
+       names(trks.)[3:4]=c("Percentile","stock")}
 
-   if ("pts" %in% what & !is.null(year))
-        pts.=res[res$year %in% year,]
+   if ("pts" %in% what){
+     if (is.null(year)) year=max(as.numeric(as.character(res$year)))
+        pts.=res[res$year %in% year,]}
            
    if ("smry" %in% what)
-       smry.   =ddply(res,  .(year), function(x) data.frame(ssb        =median(x$ssb,       na.rm=TRUE),
+       smry.   =ddply(res,  .(year), function(x) data.frame(stock      =median(x$stock,     na.rm=TRUE),
                                                             harvest    =median(x$harvest,   na.rm=TRUE),
                                                             red        =mean(x$red,         na.rm=TRUE),
                                                             yellow     =mean(x$yellow,      na.rm=TRUE),
@@ -104,7 +105,7 @@ io2box=function(x,proxy=c("fmsy","fmax","f0.1","f20","f30","f40","f90max","f75ma
                                                             overFishing=mean(x$overFishing, na.rm=TRUE)))
     
    if ("wrms" %in% what)
-       wrms.=res[res$iter %in% sample(unique(res$iter),nwrms),c("iter","year","ssb","harvest")]
+       wrms.=res[res$iter %in% sample(unique(res$iter),nwrms),c("iter","year","stock","harvest")]
  
   
   return(list(trks=trks.,pts=pts.,smry=smry.,wrms=wrms.,sims=sims.))}

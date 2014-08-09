@@ -114,22 +114,23 @@ ggplot(subset(prj$trks,year<=2020))                           +
 
 
 ###################################################
-### code chunk number 15: kobe.Rnw:283-286
+### code chunk number 15: kobe.Rnw:283-287
 ###################################################
+data(sims)
 kp=kobePhase(subset(sims, year==2010 & TAC==15000)) +
          geom_point(aes(stock,harvest,group=Run,col=Run)) 
 kp
 
 
 ###################################################
-### code chunk number 16: kobe.Rnw:297-299
+### code chunk number 16: kobe.Rnw:298-300
 ###################################################
 data(sims)
 head(sims)
 
 
 ###################################################
-### code chunk number 17: kobe.Rnw:311-315
+### code chunk number 17: kobe.Rnw:312-316
 ###################################################
 dat =subset(sims,year<=2010 & TAC==15000)
 trks=ddply(dat,.(Run,year,TAC), function(x) kobeTrks(x$stock,x$harvest,prob=c(0.5)))
@@ -138,7 +139,7 @@ head(trks)
 
 
 ###################################################
-### code chunk number 18: kobe.Rnw:324-328
+### code chunk number 18: kobe.Rnw:325-329
 ###################################################
 kp + geom_path( aes(stock,harvest,group=Run,col=Run), data=trks) +
      geom_point(aes(stock,harvest,group=Run), data=subset(trks,year==2010),col="cyan",size=3)+
@@ -147,7 +148,7 @@ kp + geom_path( aes(stock,harvest,group=Run,col=Run), data=trks) +
 
 
 ###################################################
-### code chunk number 19: kobe.Rnw:338-343 (eval = FALSE)
+### code chunk number 19: kobe.Rnw:339-344 (eval = FALSE)
 ###################################################
 ## kp2 = kp + geom_path(aes(x,y,group=level),colour="blue",
 ##                     data=ddply(subset(sims,year==2010 & TAC==15000),.(Run), 
@@ -157,13 +158,13 @@ kp + geom_path( aes(stock,harvest,group=Run,col=Run), data=trks) +
 
 
 ###################################################
-### code chunk number 20: kobe.Rnw:347-348 (eval = FALSE)
+### code chunk number 20: kobe.Rnw:348-349 (eval = FALSE)
 ###################################################
 ## print(kp2)
 
 
 ###################################################
-### code chunk number 21: kobe.Rnw:358-363
+### code chunk number 21: kobe.Rnw:359-364
 ###################################################
 pts =subset(sims, year==2010 & TAC==15000)
 
@@ -173,7 +174,7 @@ ggplot(pts) +
 
 
 ###################################################
-### code chunk number 22: kobe.Rnw:371-374
+### code chunk number 22: kobe.Rnw:372-375
 ###################################################
 ggplot(pts) + 
   geom_density(aes(x=stock, y=..count.., group=Run, fill=Run), 
@@ -181,14 +182,14 @@ ggplot(pts) +
 
 
 ###################################################
-### code chunk number 23: kobe.Rnw:381-383
+### code chunk number 23: kobe.Rnw:382-384
 ###################################################
 ### Bespoke Stuff ###
 print(kobePhaseMar(transform(pts,group=Run)))          
 
 
 ###################################################
-### code chunk number 24: kobe.Rnw:394-408
+### code chunk number 24: kobe.Rnw:395-409
 ###################################################
 ### Pies ###
 pie.dat=ddply(subset(sims,year==2010 & TAC==15000),.(Run),kobeSmry,o=T)
@@ -207,7 +208,7 @@ ggplot(subset(pie.dat,value>0), aes(x =factor(1), y=value, fill = variable)) +
 
 
 ###################################################
-### code chunk number 25: kobe.Rnw:417-457
+### code chunk number 25: kobe.Rnw:418-458
 ###################################################
 library(akima)
 Interp=function(x,levels=seq(0.0,1.0,0.05),
@@ -252,7 +253,7 @@ k2p
 
 
 ###################################################
-### code chunk number 26: kobe.Rnw:477-483
+### code chunk number 26: kobe.Rnw:478-484
 ###################################################
 t.=ddply(subset(sims,year %in% 2013:2022),.(year,TAC),  kobeSmry)
 
