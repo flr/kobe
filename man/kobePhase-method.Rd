@@ -7,7 +7,8 @@
 \alias{kobePhase-method}
 \title{kobePhase}
 \usage{
-\S4method{kobePhase}{missing}(object, xlim = c(0, 2), ylim = xlim)
+\S4method{kobePhase}{missing}(object, xlim = c(0, 2), ylim = xlim,
+  quadcol = c("yellow", "green", "red"))
 }
 \arguments{
 \item{object}{an object of class \code{missing,data.frame,...}}

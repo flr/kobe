@@ -1,12 +1,29 @@
+##############################################################
+#' @name kobeShade
+#' @title Creates Kobe II Strategy Matrices 
+#' @description
+#' 
+#' Creates latex tables with shading for inclusion in latex docs.
+#' 
+#' @aliases kobeShade-method kobeShade,numeric-method  kobeShade,matrix-method kobeShade,data.frame-method
+#' 
+#'
+#' @param   object   an object of class \code{vector,data.frame,...}
+#' @param   breaks vector of breaks
+#' @param   shades vector of colours for shading 
+#' @export
+#' @docType methods
+#' @rdname  kobeShade
+#'
 setMethod('kobeShade', signature(object='numeric'),
           function(object,breaks=c(-0.1,50,60,70,80,90,100),
-                     kobeShades=c("","\\cellcolor{gray90}","\\cellcolor{gray80}","\\cellcolor{gray70}","\\cellcolor{gray60}","\\cellcolor{gray50}"),
+                     kobeShades=c("\\cellcolor{gray100}","\\cellcolor{gray90}","\\cellcolor{gray80}","\\cellcolor{gray70}","\\cellcolor{gray60}","\\cellcolor{gray50}"),
                      pct="\\%",...){
 
   #Kobe II strategy matrices to be prepared by the SCRS should highlight in a similar format as
   #shown in Annex Table 2 a progression of probabilities over 50 % and in the range of 50-59 %, 60-
   #69 %, 70-79 %, 80-89 % and ??? 90 %.
-  object=pmin(pmax(object,0),1)*100         
+  object=pmin(pmax(object,0)*100)         
   res   =data.frame("order"=seq(length(object)),object=round(object),"level"=cut(object,breaks))
   gry   =data.frame(level=attributes(unique(res$level))$levels,kobeShades)
   res  =merge(res,gry,all.x=TRUE)
@@ -20,7 +37,7 @@ setMethod('kobeShade', signature(object='numeric'),
 
 setMethod('kobeShade', signature(object='data.frame'),
           function(object,breaks =c(-0.1,50,60,70,80,90,100),
-                   kobeShades=c("","\\cellcolor{gray90}","\\cellcolor{gray80}","\\cellcolor{gray70}","\\cellcolor{gray60}","\\cellcolor{gray50}"),
+                   kobeShades=c("\\cellcolor{gray100}","\\cellcolor{gray90}","\\cellcolor{gray80}","\\cellcolor{gray70}","\\cellcolor{gray60}","\\cellcolor{gray50}"),
                    pct="\\%",...){
 
      as.data.frame(apply(object,2,kobeShade,breaks=breaks,kobeShades=kobeShades,pct=pct))
@@ -34,7 +51,7 @@ setMethod('kobeShade', signature(object='data.frame'),
 #             as.data.frame(apply(object,2,kobeShade,breaks=breaks,kobeShades=kobeShades,pct=pct))})
 setMethod('kobeShade', signature(object='matrix'),
           function(object,breaks =c(-0.1,50,60,70,80,90,100),
-                   kobeShades=c("","\\cellcolor{gray90}","\\cellcolor{gray80}","\\cellcolor{gray70}","\\cellcolor{gray60}","\\cellcolor{gray50}"),
+                   kobeShades=c("\\cellcolor{gray100}","\\cellcolor{gray90}","\\cellcolor{gray80}","\\cellcolor{gray70}","\\cellcolor{gray60}","\\cellcolor{gray50}"),
                    pct="\\%",...){
 
      apply(object,2,kobeShade,breaks=breaks,kobeShades=kobeShades,pct=pct)})
