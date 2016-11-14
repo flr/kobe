@@ -77,7 +77,7 @@ ioBdm=function(object,prob,what,year,nwrms){
       sims.=res
     
     if ("smry" %in% what)
-       smry. =ddply(data.frame(res,kobeP(as.numeric(res$stock),as.numeric(res$harvest))),
+       smry. =ddply(data.frame(res,prob(as.numeric(res$stock),as.numeric(res$harvest))),
                            .(year), function(x) data.frame(stock      =median(x$stock,       na.rm=TRUE),
                                                            harvest    =median(x$harvest,     na.rm=TRUE),
                                                            red        =mean(  x$red,         na.rm=TRUE),

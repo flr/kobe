@@ -22,11 +22,11 @@ ac=as.character
 getExt=function(file)
   tolower(substr(file,max(gregexpr("\\.", file)[[1]])+1,nchar(file)))
 
-#' kobeFreq
+#' freq
 #' @description 
 #' Calculates the frequency of an obervation in a 2D cell
 #'           
-#' @aliases kobeFreq
+#' @aliases freq
 #' 
 #' @param x a vector holding a time series
 #' @param y a vector holding a time series
@@ -38,14 +38,14 @@ getExt=function(file)
 #' @return a \code{data.frame} frequency by bin
 #' @export
 #' @docType methods
-#' @rdname kobeFreq
+#' @rdname freq
 #' 
 #' @examples
 #' \dontrun{
 #'    y=rnorm(20)
 #'    x=rnorm(20)
-#'    kobeFreq(x,y)}
-kobeFreq=function(x,y,x.n=11,y.n=x.n,na.rm=FALSE){
+#'    freq(x,y)}
+freq=function(x,y,x.n=11,y.n=x.n,na.rm=FALSE){
   
   if (na.rm){
     .na=is.na(x)|is.na(y)|is.nan(x)|is.nan(y)
@@ -65,14 +65,14 @@ kobeFreq=function(x,y,x.n=11,y.n=x.n,na.rm=FALSE){
   return(p.)}
 
 ## calculates density of points
-#' kobeDens
+#' density
 #' @description 
 #' Calculates the Densities of obervation in a 2D cell using Two-dimensional
 #'  kernel density estimation with an axis-aligned bivariate normal kernel, 
 #'  evaluated on a square grid.
 #'           
 #' @aliases 
-#' kobeDens
+#' density
 #' 
 #' @param x a vector 
 #' @param y a vector
@@ -89,14 +89,14 @@ kobeFreq=function(x,y,x.n=11,y.n=x.n,na.rm=FALSE){
 #' 
 #' @export
 #' @docType methods
-#' @rdname kobeDens
+#' @rdname density
 #' 
 #' @examples
 #' \dontrun{
 #'    y=rnorm(20)
 #'    x  =rnorm(20)
-#'    kobeDens(x,y)}
-kobeDens=function(x,y,h=c(bandwidth.nrd(x),bandwidth.nrd(y)),n=11,lims=c(range(x),range(y)),na.rm=FALSE){
+#'    density(x,y)}
+density=function(x,y,h=c(bandwidth.nrd(x),bandwidth.nrd(y)),n=11,lims=c(range(x),range(y)),na.rm=FALSE){
   
   if (na.rm){
     .na=is.na(x)|is.na(y)|is.nan(x)|is.nan(y)
@@ -110,14 +110,14 @@ kobeDens=function(x,y,h=c(bandwidth.nrd(x),bandwidth.nrd(y)),n=11,lims=c(range(x
   return(f2)}
 
 ## calculates probabilities
-#' kobeProb
+#' prob
 #' @description 
 #' Calculates the probability of an obervations occurring in a 2D cell using HPDregionplot 
 #' Given a sample calculates the  bivariate region of highest marginal posterior density 
 #' for two variables, using kde2d from MASS to calculate a bivariate density.
 #'            
 #' @aliases 
-#' kobeProb
+#' prob
 #' 
 #' @param x a vector
 #' @param y a vector
@@ -135,14 +135,14 @@ kobeDens=function(x,y,h=c(bandwidth.nrd(x),bandwidth.nrd(y)),n=11,lims=c(range(x
 #' 
 #' @export
 #' @docType methods
-#' @rdname kobeProb
+#' @rdname prob
 #' 
 #' @examples
 #' \dontrun{
 #'    y=rnorm(20)
 #'    x  =rnorm(20)
-#'    kobeProb(x,y)}
-kobeProb=function(x,y,prob=c(0.5, 0.75,0.95),n=21,h=c(bandwidth.nrd(x),bandwidth.nrd(y)),lims=NULL,na.rm=FALSE){
+#'    prob(x,y)}
+prob=function(x,y,prob=c(0.5, 0.75,0.95),n=21,h=c(bandwidth.nrd(x),bandwidth.nrd(y)),lims=NULL,na.rm=FALSE){
   
   if (na.rm){
     .na=is.na(x)|is.na(y)|is.nan(x)|is.nan(y)

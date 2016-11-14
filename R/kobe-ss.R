@@ -82,7 +82,7 @@ ioSS=function(x,prob=c(0.75,0.5,0.25),yrs=NULL,year=NULL,nwrms=10,
     res$var=substr(res$variable,1,1)
     res    =data.frame(res[res$var=="B",c("Iter","year","value")],harvest=res[res$var=="F","value"])
     names(res)[c(1,3)]=c("iter","stock")
-    res    =data.frame(res, kobeP(res$stock,res$harvest))
+    res    =data.frame(res, prob(res$stock,res$harvest))
     res[is.na(res)]=0
    
     sims=NULL
@@ -116,4 +116,120 @@ ioSS=function(x,prob=c(0.75,0.5,0.25),yrs=NULL,year=NULL,nwrms=10,
        wrms=res[res$iter %in% sample(unique(res$iter),nwrms),c("iter","year","stock","harvest")]
     
     return(list(trks=trks,pts=pts.,smry=smry,wrms=wrms,sims=sims))}
+
+readSSBoot<-function(object){
+  
+  object=subset(object,object$Label%in%c("B_Bmsy","F_Fmsy","SSB_MSY","Fstd_MSY"))
+  names(object)[5001:5002]=c("quantity","year")
+  object=subset(object,)
+  object=melt(object,id=c("quantity","year"))
+  
+  tmp=as.data.frame(t(array(unlist(strsplit(object[,1], "_")),dim=c(2,dim(object)[1]))))
+  tac=as.data.frame(t(array(unlist(strsplit(as.character(object[,3]), "_")),dim=c(3,dim(object)[1]))))[,-1]
+  tac=transform(tac,iter=V2,
+                tac=1000*as.numeric(substr(as.character(V3),2,nchar(as.character(V3)))))
+  object=cbind(tmp,tac,object)
+  
+  bmsy=subset(object,(V1%in%"SSB" &(V2%in%"MSY")))[,c("iter","tac","value")]
+  fmsy=subset(object,(V1%in%"Fstd"&(V2%in%"MSY")))[,c("iter","tac","value")]
+  rs1=subset(object,(V2%in%"Fmsy"&V1%in%"F"))[,     c("year","iter","tac","value")]
+  rs2=subset(object,(V2%in%"Bmsy"&V1%in%"B"))[,     c("year","iter","tac","value")]
+  res=cbind(rs1[,1:3],stock=rs2[,"value"],harvest=rs1[,"value"])
+  
+  res=merge(res,bmsy)
+  names(res)[6]="bmsy"
+  res=merge(res,fmsy)
+  names(res)[7]="fmsy"
+  
+  res}
+
+readSSCovar<-function(file){
+  
+  res=read.csv(file,stringsAsFactors=FALSE,
+               skip=6,header=FALSE,sep="")
+  
+  names(res)=c("xActive","yActive","xAll","yAll","xType","yType","x","y","data")
+  res[,-(1:4)]}
+
+readSSCovarRefs<-function(file){
+  refs=c("SPB_Virgin","SPB_Initial","SSB_Unfished",             "Bzero_again",
+         "TotBio_Unfished",         "SmryBio_Unfished",         "Recr_Unfished",           
+         "SSB_Btgt",                "SPR_Btgt",                 "Fstd_Btgt",               
+         "TotYield_Btgt",           "SSB_SPRtgt",               "Fstd_SPRtgt",             
+         "TotYield_SPRtgt",         "SSB_MSY",                  "SPR_MSY",                 
+         "Fstd_MSY",                "TotYield_MSY",             "RetYield_MSY")
+  
+  res=readSSCovar(file)
+  res=subset(res,x%in%refs&y=="_")[,c("x","data")]
+  
+  res}
+
+readSSCovarSeries<-function(file,var=c("SPB","Recr","F","SPRratio","Bratio","Main_RecrDev")[1:3]){    
+  
+  #unique(subset(tmp,y=="_"&substr(x,nchar(x)-3,nchar(x))=="1999")$x)
+  
+  #SPR_ratio_basis: (1-SPR)/(1-SPR_40%)
+  #F_report_basis: (F)/(Fmsy);_with_F=sum(full_Fs)
+  #B_ratio_denominator: 40%*Virgin_Biomass
+    
+  
+  res=readSSCovar(file)
+  
+  rtn=mdply(var,function(v){
+    rs2=subset(res,substr(x,1,nchar(v)+1)==paste(v,"_",sep="")&y=="_")[,c("x","data")]
+    
+    wrn=options()$warn
+    options(warn=-1)
+    rs2=transform(rs2,year=as.numeric(substr(x,nchar(v)+2,nchar(x))))[,c("year","data")]
+    options(warn=wrn)
+    subset(rs2,!is.na(year))})
+  
+  transform(rtn,qname=var[X1])[,c("qname","year","data")]}
+
+readSSCovarV2<-function(file,var){
+  
+  var=paste(var,"_",sep="")
+  
+  res=read.csv(file,stringsAsFactors=FALSE,
+               skip=6,header=FALSE,sep="")
+  
+  cov=subset(res,substr(x,1,4)==var&substr(y,1,length(var))==var)[,c("x","y","data")]
+  cov=as.matrix(cast(cov,x~y),dim(hat)[1],dim(hat)[1])
+  cov[upper.tri(cov)]=t(cov[lower.tri(cov)])
+  
+  cov[upper.tri(cov)]=NA
+  t.=t(cov)
+  t.[lower.tri(cov)]=cov[lower.tri(cov)]
+  diag(t.)=1
+  cov=t.[-(dim(t.)[1]-0:1),-(dim(t.)[1]-0:1)]
+  
+  hat=subset(res,substr(x,1,4)==var&substr(y,1,1)=="_")[-(1:2),c("x","data")]
+  
+  list(hat=hat,cov=cov)}
+
+# system("sed  's/SR_LN(R0)/r0_NA/g'  a.txt>b.txt")
+#system("rename 's/^-/_/' /home/laurie/Desktop/Dropbox/scrsPapers/scrs-2016-014/inputs/covar/*")
+
+tmp=t(matrix(c(
+"SSB_Unfished","Unfished reproductive potential (SSB is commonly female mature spawning biomass)",
+"TotBio_Unfished","Total age 0+ biomass on Jan 1",
+"SmryBio_Unfished","Biomass for ages at or above the summary age on Jan 1",
+"Recr_Unfished","Unfished recruitment",
+"SSB_Btgt","SSB at user specified SSB target",
+"SPR_Btgt","Spawner potential ratio (SPR) at F intensity that produces user specified SSB target",
+"Fstd_Btgt","F statistic at F intensity that produces user specified SSB target",
+"TotYield_Btgt","Total yield at F intensity that produces user specified SSB target",
+"SSB_SPRtgt","SSB at user specified SPR target (but taking into account the spawner-recruitment relationship)",
+"Fstd_SPRtgt","F intensity that produces user specified SPR target",
+"TotYield_SPRtgt","Total yield at F intensity that produces user specified SPR target",
+"SSB_MSY","SSB at F intensity that is associated with MSY; this F intensity may be directly calculated to produce MSY, or can be mapped to F_SPR or F_Btgt",
+"SPR_MSY","Spawner potential ratio (SPR) at F intensity associated with MSY",
+"Fstd_MSY","F statistic at F intensity associated with MSY",
+"TotYield_MSY","Total yield (biomass) at MSY",
+"RetYield_MSY","Retained yield (biomass) at MSY"),2,16))
+
+refNames=tmp[,2]
+names(refNames)<-tmp[,1]
+
+rm(tmp)
 

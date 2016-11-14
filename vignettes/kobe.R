@@ -133,7 +133,7 @@ head(sims)
 ### code chunk number 17: kobe.Rnw:312-316
 ###################################################
 dat =subset(sims,year<=2010 & TAC==15000)
-trks=ddply(dat,.(Run,year,TAC), function(x) kobeTrks(x$stock,x$harvest,prob=c(0.5)))
+trks=ddply(dat,.(Run,year,TAC), function(x) trks(x$stock,x$harvest,prob=c(0.5)))
 
 head(trks)
 

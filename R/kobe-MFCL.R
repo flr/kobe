@@ -145,7 +145,7 @@ ioMFCL=function(object,what=c("sims","trks","pts","smry","wrms")[1],prob=c(0.75,
     sims.=res
   
   if ("smry" %in% what)
-    smry. =ddply(data.frame(res,kobeP(res$stock,res$harvest)),
+    smry. =ddply(data.frame(res,prob(res$stock,res$harvest)),
                  .(year), function(x) data.frame(stock      =median(x$stock,       na.rm=TRUE),
                                                  harvest    =median(x$harvest,     na.rm=TRUE),
                                                  red        =mean(  x$red,         na.rm=TRUE),

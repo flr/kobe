@@ -79,7 +79,7 @@ ioSS3=function(x,prob=c(0.75,0.5,0.25),yrs=NULL,pts=NULL,nwrms=10,what=c("sims",
     res$var=substr(res$variable,1,1)
     res    =data.frame(res[res$var=="B",c("Iter","year","value")],harvest=res[res$var=="F","value"])
     names(res)[c(1,3)]=c("iter","stock")
-    res    =data.frame(res, kobeP(res$stock,res$harvest))
+    res    =data.frame(res, prob(res$stock,res$harvest))
     res[is.na(res)]=0
    
     sims=NULL
@@ -101,7 +101,7 @@ ioSS3=function(x,prob=c(0.75,0.5,0.25),yrs=NULL,pts=NULL,nwrms=10,what=c("sims",
        pts.=res[res$year %in% yrs,]
     
     if ("smry" %in% what)
-       smry   =ddply(res,  .(year), function(x) data.frame(stock      =median(x$stock,       na.rm=TRUE),
+       smry   =ddply(res,  .(year), function(x) data.frame(stock      =median(x$stock,     na.rm=TRUE),
                                                            harvest    =median(x$harvest,   na.rm=TRUE),
                                                            red        =mean(x$red,         na.rm=TRUE),
                                                            yellow     =mean(x$yellow,      na.rm=TRUE),

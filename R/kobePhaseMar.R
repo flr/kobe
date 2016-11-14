@@ -33,7 +33,8 @@ kobePhaseMar=function(pts,trks=NULL,mns=FALSE,size=1,
              ylab=expression(F:F[MSY]),
              xlim=2,ylim=xlim,
              col =colorRampPalette(c("orange","blue"),space="Lab"),
-             shade=.5,col2=grey(shade),col3=grey(shade*1.1)){
+             shade=.5,col2=grey(shade),col3=grey(shade*1.1),
+             layer=NULL){
      
     if (!("run" %in% names(pts)))
        pts=cbind(pts,run=factor(1))
@@ -103,9 +104,9 @@ kobePhaseMar=function(pts,trks=NULL,mns=FALSE,size=1,
        scale_colour_manual(values=col)      +
        xlab(xlab) + ylab(ylab)              +
        theme(legend.position = "none",
-             axis.text.y  = element_text(colour="grey", angle=90), 
+             axis.text.y=element_text(colour="black", angle=90), 
              plot.margin = unit(c(0, 0, 1, 1), "lines")
-       )
+       )+layer
    
 #     if (length(run)>1){
 #         dS=dS+scale_fill_manual(values=col)
@@ -141,7 +142,8 @@ kobePhaseMar2=function(pts,trks=NULL,mns=FALSE,size=1,
                        ylab=expression(F:F[MSY]),
                        xlim=2,ylim=xlim,
                        col =colorRampPalette(c("orange","blue"),space="Lab"),
-                       shade=.5,col2=grey(shade),col3=grey(shade*1.1)){
+                       shade=.5,col2=grey(shade),col3=grey(shade*1.1),
+                       layer=NULL){
   
   if (!("run" %in% names(pts)))
     pts=cbind(pts,run=factor(1))
@@ -210,9 +212,9 @@ kobePhaseMar2=function(pts,trks=NULL,mns=FALSE,size=1,
     scale_colour_manual(values=col)      +
     xlab(xlab) + ylab(ylab)              +
     theme(legend.position = "none",
-          axis.text.y  = element_text(colour="grey", angle=90), 
-          plot.margin = unit(c(0, 0, 1, 1), "lines")
-    )
+          axis.text.y  = element_text(colour="black", angle=90), 
+          plot.margin = unit(c(0, 0, 1, 1), "lines"))+
+    layer
   
   #     if (length(run)>1){
   #         dS=dS+scale_fill_manual(values=col)
@@ -246,7 +248,8 @@ kobePhaseMar3=function(pts,trks=NULL,mns=FALSE,size=1,
                        ylab=expression(F:F[MSY]),
                        xlim=2,ylim=xlim,
                        col =colorRampPalette(c("orange","blue"),space="Lab"),
-                       shade=.5,col2=grey(shade),col3=grey(shade*1.1)){
+                       shade=.5,col2=grey(shade),col3=grey(shade*1.1),
+                       layer=NULL){
   
   if (!("run" %in% names(pts)))
     pts=cbind(pts,run=factor(1))
@@ -315,9 +318,9 @@ kobePhaseMar3=function(pts,trks=NULL,mns=FALSE,size=1,
     scale_colour_manual(values=col)      +
     xlab(xlab) + ylab(ylab)              +
     theme(legend.position = "none",
-          axis.text.y  = element_text(colour="grey", angle=90), 
-          plot.margin = unit(c(0, 0, 1, 1), "lines")
-    )
+          axis.text.y  = element_text(colour="black", angle=90), 
+          plot.margin = unit(c(0, 0, 1, 1), "lines"))+
+    layer
   
   #     if (length(run)>1){
   #         dS=dS+scale_fill_manual(values=col)

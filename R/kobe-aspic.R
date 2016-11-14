@@ -108,7 +108,7 @@ ioAspic=function(bio,prb,prob=c(0.75,0.5,.25),
     if (!is.null(prb)){
       if (tolower(getExt(prb)) %in% "prb") 
           prb.=aspicPrb(prb) else stop("First  arg not a .prb file")
-      res=rbind(bio.,prb.)
+      res=rbind.fill(bio.,prb.)
       res=res[!is.na(res$stock) & !is.na(res$harvest),]
       }
     else
@@ -135,7 +135,7 @@ ioAspic=function(bio,prb,prob=c(0.75,0.5,.25),
       sims.=res
     
     if ("smry" %in% what)
-       smry. =ddply(data.frame(res,kobeP(res$stock,res$harvest)),
+       smry. =ddply(data.frame(res,prob(res$stock,res$harvest)),
                            .(year), function(x) data.frame(stock      =median(x$stock,       na.rm=TRUE),
                                                            harvest    =median(x$harvest,     na.rm=TRUE),
                                                            red        =mean(  x$red,         na.rm=TRUE),
@@ -145,7 +145,7 @@ ioAspic=function(bio,prb,prob=c(0.75,0.5,.25),
                                                            overFishing=mean(  x$overFishing, na.rm=TRUE)))
     
     if ("wrms" %in% what)
-      wrms.=res[res$iter %in% sample(unique(res$iter),nwrms),c("iter","year","stock","harvest")]
+      wrms.=res[res$iter %in% sample(unique(res$iter),nwrms),c("iter","year","stock","harvest","bmsy","fmsy")]
     
     res=list(trks=trks.,pts=pts.,smry=smry.,wrms=wrms.,sims=sims.)
     

@@ -1,19 +1,19 @@
-setMethod('kobeP', signature(stock="numeric",harvest="numeric"),
+setMethod('prob', signature(stock="numeric",harvest="numeric"),
     function(stock,harvest){
                                   
-    res=kobePFn(data.frame(stock=stock,harvest=harvest))
+    res=probFn(data.frame(stock=stock,harvest=harvest))
       
     return(res)})
 
-setMethod('kobeP', signature(stock='data.frame',harvest="missing"),
+setMethod('prob', signature(stock='data.frame',harvest="missing"),
     function(stock){
      
-    res=kobePFn(stock)
+    res=probFn(stock)
       
     return(res)})
 
 
-kobePFn=function(x) {
+probFn=function(x) {
   
   b =  pmax(pmin(as.integer(x$stock),  1),0)
   f =1-pmax(pmin(as.integer(x$harvest),1),0)

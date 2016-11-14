@@ -2,15 +2,12 @@
 
 utils::globalVariables(c("x","y","fill"))
 
-setGeneric('kobePhase',  function(object,...)         standardGeneric('kobePhase'))
-
 ### provide a back drop on which to overlay data
 kobePhaseFn=function(object,xlim,ylim,quadcol=c("yellow","green","red")){    
   quads<- rbind(data.frame(x=c(-Inf,-Inf,Inf,Inf), y=c(-Inf,Inf,Inf,-Inf), fill=as.factor(quadcol[1])),
                 data.frame(x=c(   1,   1,Inf,Inf), y=c(-Inf,  1,  1,-Inf), fill=as.factor(quadcol[2])),
                 data.frame(x=c(-Inf,-Inf,  1,  1), y=c(   1,Inf,Inf,   1), fill=as.factor(quadcol[3])))
   
-  print(quadcol)
   p=ggplot(object)+geom_polygon(data=quads,aes(x,y,fill=fill)) +
     scale_fill_manual(values = quadcol, guide="none") +
     ylab(expression(F/F[MSY]))        +

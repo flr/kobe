@@ -5,10 +5,10 @@ utils::globalVariables(c("variable","value"))
 ########################################################################################
 
 #### exported function
-kobeBsp=function(f,b,dir="",what=c("sims","trks","pts","smry","wrms")[1],
+kobeBsp=function(b,f,dir="",what=c("sims","trks","pts","smry","wrms")[1],
                  prob=c(0.75,0.5,.25),year=NULL,nwrms=10){
   
-  res=ioBsp(f,b,what=what,prob=prob,nwrms=nwrms,year=year)
+  res=ioBsp(b,f,what=what,prob=prob,nwrms=nwrms,year=year)
   
 #   if (length(prb)>1){
 #     res=mlply(prb, function(x,bio,prob=prob,nwrms=nwrms,what=what)
@@ -28,7 +28,7 @@ kobeBsp=function(f,b,dir="",what=c("sims","trks","pts","smry","wrms")[1],
     return(res[what]) }
 
 ## Heavy lifting functions 
-ioBsp=function(f,b,prob=c(0.75,0.5,.25),
+ioBsp=function(b,f,prob=c(0.75,0.5,.25),
                what=c("sims","trks","pts","smry","wrms")[1],
                year=NULL,nwrms=10,firstyear=0){
   
@@ -57,7 +57,7 @@ ioBsp=function(f,b,prob=c(0.75,0.5,.25),
     sims.=res
   
   if ("smry" %in% what)
-    smry. =ddply(data.frame(res,kobeP(res$stock,res$harvest)),
+    smry. =ddply(data.frame(res,prob(res$stock,res$harvest)),
                  .(year), function(x) data.frame(stock      =median(x$stock,       na.rm=TRUE),
                                                  harvest    =median(x$harvest,     na.rm=TRUE),
                                                  red        =mean(  x$red,         na.rm=TRUE),
@@ -79,7 +79,7 @@ ioBsp=function(f,b,prob=c(0.75,0.5,.25),
 #fileB="/home/laurie/Desktop/Dropbox/collaboration/alb-wg/Inputs/BSP/for Kobe plots/kobeBalb2013SAf11.csv"
 #getBSP(fileF,fileB,1928)
   
-getBSP=function(fileF,fileB,firstyear=0){
+getBSP=function(fileB,fileF,firstyear=0){
   resF=transform(melt(read.csv(fileF,header=F)),year=as.numeric(variable)+firstyear,
                         harvest=value)[,-(1:2)]
   resB=transform(melt(read.csv(fileB,header=F)),year=as.numeric(variable)+firstyear,

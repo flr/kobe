@@ -1,11 +1,11 @@
 ##############################################################
-#' @name kobeShade
+#' @name shade
 #' @title Creates Kobe II Strategy Matrices 
 #' @description
 #' 
 #' Creates latex tables with shading for inclusion in latex docs.
 #' 
-#' @aliases kobeShade-method kobeShade,numeric-method  kobeShade,matrix-method kobeShade,data.frame-method
+#' @aliases shade-method shade,numeric-method  shade,matrix-method shade,data.frame-method
 #' 
 #'
 #' @param   object   an object of class \code{vector,data.frame,...}
@@ -13,11 +13,11 @@
 #' @param   shades vector of colours for shading 
 #' @export
 #' @docType methods
-#' @rdname  kobeShade
+#' @rdname  shade
 #'
-setMethod('kobeShade', signature(object='numeric'),
+setMethod('shade', signature(object='numeric'),
           function(object,breaks=c(-0.1,50,60,70,80,90,100),
-                     kobeShades=c("\\cellcolor{gray100}","\\cellcolor{gray90}","\\cellcolor{gray80}","\\cellcolor{gray70}","\\cellcolor{gray60}","\\cellcolor{gray50}"),
+                     shades=c("\\cellcolor{gray100}","\\cellcolor{gray90}","\\cellcolor{gray80}","\\cellcolor{gray70}","\\cellcolor{gray60}","\\cellcolor{gray50}"),
                      pct="\\%",...){
 
   #Kobe II strategy matrices to be prepared by the SCRS should highlight in a similar format as
@@ -25,36 +25,36 @@ setMethod('kobeShade', signature(object='numeric'),
   #69 %, 70-79 %, 80-89 % and ??? 90 %.
   object=pmin(pmax(object,0)*100)         
   res   =data.frame("order"=seq(length(object)),object=round(object),"level"=cut(object,breaks))
-  gry   =data.frame(level=attributes(unique(res$level))$levels,kobeShades)
+  gry   =data.frame(level=attributes(unique(res$level))$levels,shades)
   res  =merge(res,gry,all.x=TRUE)
   res  =res[order(res$order),]
   
   res$object=paste(ac(round(res$object)),pct,sep="")
   
-  res=with(res,paste(kobeShades,object,sep=" "))
+  res=with(res,paste(shades,object,sep=" "))
   
   return(res)})
 
-setMethod('kobeShade', signature(object='data.frame'),
+setMethod('shade', signature(object='data.frame'),
           function(object,breaks =c(-0.1,50,60,70,80,90,100),
-                   kobeShades=c("\\cellcolor{gray100}","\\cellcolor{gray90}","\\cellcolor{gray80}","\\cellcolor{gray70}","\\cellcolor{gray60}","\\cellcolor{gray50}"),
+                   shades=c("\\cellcolor{gray100}","\\cellcolor{gray90}","\\cellcolor{gray80}","\\cellcolor{gray70}","\\cellcolor{gray60}","\\cellcolor{gray50}"),
                    pct="\\%",...){
 
-     as.data.frame(apply(object,2,kobeShade,breaks=breaks,kobeShades=kobeShades,pct=pct))
+     as.data.frame(apply(object,2,shade,breaks=breaks,shades=shades,pct=pct))
      })
 
-# setMethod('kobeShade', signature(object='cast_df'),
+# setMethod('shade', signature(object='cast_df'),
 #           function(object,breaks =c(-0.1,50,60,70,80,90,100),
-#                    kobeShades=c("","\\cellcolor{gray90}","\\cellcolor{gray80}","\\cellcolor{gray70}","\\cellcolor{gray60}","\\cellcolor{gray50}"),
+#                    shades=c("","\\cellcolor{gray90}","\\cellcolor{gray80}","\\cellcolor{gray70}","\\cellcolor{gray60}","\\cellcolor{gray50}"),
 #                    pct="\\%",...){
 #             
-#             as.data.frame(apply(object,2,kobeShade,breaks=breaks,kobeShades=kobeShades,pct=pct))})
-setMethod('kobeShade', signature(object='matrix'),
+#             as.data.frame(apply(object,2,shade,breaks=breaks,shades=shades,pct=pct))})
+setMethod('shade', signature(object='matrix'),
           function(object,breaks =c(-0.1,50,60,70,80,90,100),
-                   kobeShades=c("\\cellcolor{gray100}","\\cellcolor{gray90}","\\cellcolor{gray80}","\\cellcolor{gray70}","\\cellcolor{gray60}","\\cellcolor{gray50}"),
+                   shades=c("\\cellcolor{gray100}","\\cellcolor{gray90}","\\cellcolor{gray80}","\\cellcolor{gray70}","\\cellcolor{gray60}","\\cellcolor{gray50}"),
                    pct="\\%",...){
 
-     apply(object,2,kobeShade,breaks=breaks,kobeShades=kobeShades,pct=pct)})
+     apply(object,2,shade,breaks=breaks,shades=shades,pct=pct)})
 
 setMethod('kobe2sm', signature(object='data.frame'),
           function(object,cex   =1.0,
