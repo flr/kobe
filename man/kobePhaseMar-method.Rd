@@ -35,6 +35,8 @@ kobePhaseMar(pts, trks = NULL, mns = FALSE, size = 1,
 \item{col2}{grey(shade)  by default}
 
 \item{col3}{grey(shade*1.1)  by default}
+
+\item{layer}{a ggplot2 layer to add to phase plot}
 }
 \value{
 a list with 3 ggplot objects, the 2 marginal densities and the phase plot

@@ -20,6 +20,10 @@
 \item{breaks}{vector of breaks}
 
 \item{shades}{vector of colours for shading}
+
+\item{pct}{adds percent sign}
+
+\item{...}{other arguments}
 }
 \description{
 Creates latex tables with shading for inclusion in latex docs.

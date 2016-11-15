@@ -20,6 +20,7 @@ utils::globalVariables(c("stock","..count..","group","harvest","run"))
 #' @param  shade .5  by default
 #' @param  col2 grey(shade)  by default
 #' @param  col3 grey(shade*1.1)  by default
+#' @param  layer a ggplot2 layer to add to phase plot
 #' 
 #' @return a list with 3 ggplot objects, the 2 marginal densities and the phase plot
 #' @export kobePhaseMar
@@ -314,7 +315,7 @@ kobePhaseMar3=function(pts,trks=NULL,mns=FALSE,size=1,
   # kobe phase plot
   kC=kobePhase(pts) +
     geom_point(aes(stock,harvest,col=run,group=run),size=size[1]) +  
-    coord_cartesian(xli=c(0,xlim),ylim=c(0,ylim)) +
+    coord_cartesian(xlim=c(0,xlim),ylim=c(0,ylim)) +
     scale_colour_manual(values=col)      +
     xlab(xlab) + ylab(ylab)              +
     theme(legend.position = "none",

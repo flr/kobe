@@ -1,20 +1,19 @@
 ##############################################################
 #' @name shade
-#' @title Creates Kobe II Strategy Matrices 
+#' @title Creates Kobe II Strategy Matrices
 #' @description
-#' 
 #' Creates latex tables with shading for inclusion in latex docs.
 #' 
 #' @aliases shade-method shade,numeric-method  shade,matrix-method shade,data.frame-method
 #' 
-#'
 #' @param   object   an object of class \code{vector,data.frame,...}
 #' @param   breaks vector of breaks
 #' @param   shades vector of colours for shading 
+#' @param   pct adds percent sign
+#' @param  ...	other arguments
 #' @export
 #' @docType methods
 #' @rdname  shade
-#'
 setMethod('shade', signature(object='numeric'),
           function(object,breaks=c(-0.1,50,60,70,80,90,100),
                      shades=c("\\cellcolor{gray100}","\\cellcolor{gray90}","\\cellcolor{gray80}","\\cellcolor{gray70}","\\cellcolor{gray60}","\\cellcolor{gray50}"),

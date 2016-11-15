@@ -28,6 +28,7 @@ kobePhaseFn=function(object,xlim,ylim,quadcol=c("yellow","green","red")){
 #' @param   object an object of class \code{missing,data.frame,...}
 #' @param   xlim a numeric vector with x-axis limits, by default is c(0.2) 
 #' @param   ylim a numeric vector with y-axis limits, by default is the same as xlim 
+#' @param   quadcol colours for the quadrants
 #' @export
 #' @docType methods
 #' @rdname  kobePhase-method

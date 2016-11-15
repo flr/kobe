@@ -12,11 +12,15 @@ Description: The tuna Regional Fisheries Management Organisations (tRFMOs) use
     results from stock assessments and Management Strategy Evaluations in the
     Kobe format.
 License: GPL (>= 2)
+VignetteBuilder: 
+    knitr
 Depends:
     R(>= 3.0.1),
     methods
 Suggests:
     akima,
+    knitr,
+    rmarkdown
 Imports:
     plyr,
     reshape,
@@ -25,6 +29,7 @@ Imports:
     emdbook,
     coda
 Collate: 
+        data.R
 	ggplotFL-multiplot.R  
 	kobe-funcs.R     
 	kobe-pid.R           

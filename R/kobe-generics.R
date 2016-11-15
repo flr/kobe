@@ -1,3 +1,9 @@
+utils::globalVariables(c("read.csv","read.table","quantile","median",
+                         "var","grey","colorRampPalette",
+                         "V2","V3","V1","X1","par","mtext","rbind.fill",
+                         "mdply","modifyList","coefficients","lm",
+                         "kobeFn","kobe2smFn"))
+
 setGeneric('kobe',      function(object,method,...) standardGeneric('kobe'))
 setGeneric('read.kobe', function(object,method,...) standardGeneric('read.kobe'))
 

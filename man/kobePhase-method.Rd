@@ -17,6 +17,8 @@
 \item{xlim}{a numeric vector with x-axis limits, by default is c(0.2)}
 
 \item{ylim}{a numeric vector with y-axis limits, by default is the same as xlim}
+
+\item{quadcol}{colours for the quadrants}
 }
 \description{
 Creates The Kobe Phase Plot
