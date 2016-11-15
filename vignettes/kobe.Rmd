@@ -8,7 +8,7 @@ vignette: >
   %\VignetteIndexEntry{kobe}
   \usepackage[utf8]{inputenc}
   %\VignetteEncoding{UTF-8}
-bibliography: /home/laurie/bib/refs.bib
+bibliography: refs.bib
 tags: FLPKG FLR
 license: Creative Commons Attribution-ShareAlike 4.0 International
 ---
