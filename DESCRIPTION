@@ -33,8 +33,7 @@ Collate:
 	ggplotFL-multiplot.R  
 	kobe-funcs.R     
 	kobe-pid.R           
-	kobe-ss3.R
-	ggplotFL-theme.R      
+	kobe-ss3.R      
 	kobe-generics.R  
 	kobe-prob.R              
 	kobe-ss.R

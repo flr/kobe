@@ -100,8 +100,9 @@ kobePhaseMar=function(pts,trks=NULL,mns=FALSE,size=1,
   
     # kobe phase plot
     kC=kobePhase(pts) +
-       geom_point(aes(stock,harvest,col=run,group=run),size=size[1]) +  
-       coord_cartesian(xlim=c(0,xlim),ylim=c(0,ylim)) +
+      geom_point(aes(stock,harvest,group=run),col="black",size=size[1]) +  
+      geom_point(aes(stock,harvest,col=run,group=run),size=size[1]*.5) +  
+      coord_cartesian(xlim=c(0,xlim),ylim=c(0,ylim)) +
        scale_colour_manual(values=col)      +
        xlab(xlab) + ylab(ylab)              +
        theme(legend.position = "none",
@@ -208,7 +209,8 @@ kobePhaseMar2=function(pts,trks=NULL,mns=FALSE,size=1,
   
   # kobe phase plot
   kC=kobePhase(pts) +
-    geom_point(aes(stock,harvest,col=run,group=run),size=size[1]) +  
+    geom_point(aes(stock,harvest,group=run),col="black",size=size[1]) +  
+    geom_point(aes(stock,harvest,col=run,group=run),size=size[1]*.5) +  
     coord_cartesian(xlim=c(0,xlim),ylim=c(0,ylim)) +
     scale_colour_manual(values=col)      +
     xlab(xlab) + ylab(ylab)              +
@@ -314,7 +316,8 @@ kobePhaseMar3=function(pts,trks=NULL,mns=FALSE,size=1,
   
   # kobe phase plot
   kC=kobePhase(pts) +
-    geom_point(aes(stock,harvest,col=run,group=run),size=size[1]) +  
+    geom_point(aes(stock,harvest,group=run),col="black",size=size[1]) +  
+    geom_point(aes(stock,harvest,col=run,group=run),size=size[1]*.5) +  
     coord_cartesian(xlim=c(0,xlim),ylim=c(0,ylim)) +
     scale_colour_manual(values=col)      +
     xlab(xlab) + ylab(ylab)              +
