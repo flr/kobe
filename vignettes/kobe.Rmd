@@ -309,8 +309,8 @@ scale_y_continuous(breaks=NULL)
 
 The strategy matrix lays out the probability of meeting management objectives under different options, this may include if desired ending overfishing or rebuilding overfished stocks. An intention is to facilitate the application of the PA by providing Commissions with a basis to evaluate and adopt management options at various levels of risk, enabling management taken accounting for uncertainty. 
 
-<!--
-<<echo=TRUE,fig=TRUE,width=6,height=8,eval=TRUE>>=
+
+```{r,eval=FALSE}
 library(akima)
 Interp=function(x,levels=seq(0.0,1.0,0.05),
                col   =c(colorRampPalette(c("red4","red"))(12),colorRampPalette(c("yellowgreen","darkgreen"))(8)),
@@ -330,7 +330,7 @@ Interp=function(x,levels=seq(0.0,1.0,0.05),
   
   res}
 
-kobe2012=subset(sims,year %in% 2013:2022)
+kobe2012=subset(yft,year %in% 2013:2022)
   
 pdat=subset(ddply(kobe2012,.(year,TAC),kobeSmry),
             select=c(year,TAC,green,underFished,underFishing))
@@ -351,36 +351,25 @@ k2p = ggplot(aes(x=x,y=y,z=w),data=pdat)                 +
            facet_wrap(~variable,ncol=1)                       +
            xlab("Year")+ylab("TAC") 
 k2p
-@
-\end{center}\end{figure}
+```
 
-
-\clearpage
-\section{Tabulation}
-
-\subsection{Kobe II Strategy Matrix}
 
 Three Kobe matrices Tables~\ref{tab:k2sm1}, \ref{tab:k2sm3} and \ref{tab:k2sm3} summarise the probabilities (by the ranges 
 of 50-59 \%, 60- 69 \%, 70-79 \%, 80-89 \% and greater or equal to 90 \%) for different levels of catch across multiple years of 
 
-\begin{itemize}
- \item  Biomass or SSB being greater than $B_{MSY}$ ;
- \item  Fishing Mortality or Harvest Rate being less than $F_{MSY}$; and 
- \item  the combined probability of Biomass or SSB being greater than $B_{MSY}$ and Fishing Mortality or Harvest Rate being less than $F_{MSY}$ 
-\end{itemize}
++  Biomass or SSB being greater than $B_{MSY}$ ;
++  Fishing Mortality or Harvest Rate being less than $F_{MSY}$; and 
++  the combined probability of Biomass or SSB being greater than $B_{MSY}$ and Fishing Mortality or Harvest Rate being less than $F_{MSY}$ 
 
 
-<<results=hide, quiet=TRUE, echo=TRUE>>=
+```{r,eval=FALSE}
 t.=ddply(subset(sims,year %in% 2013:2022),.(year,TAC),  kobeSmry)
 
 k2smTab=list()
 k2smTab[[1]]=cast(subset(t., year %in% 2013:2022),TAC~year,value="underFishing")
 k2smTab[[2]]=cast(subset(t., year %in% 2013:2022),TAC~year,value="underFished")
 k2smTab[[3]]=cast(subset(t., year %in% 2013:2022),TAC~year,value="green")
-@ 
-
--->
-
+```
 
 ### Decision Tables
 

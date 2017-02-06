@@ -256,77 +256,12 @@ trks=ddply(yft,.(method,scenario,year),
 <div id="strategy-matrix" class="section level3">
 <h3>Strategy Matrix</h3>
 <p>The strategy matrix lays out the probability of meeting management objectives under different options, this may include if desired ending overfishing or rebuilding overfished stocks. An intention is to facilitate the application of the PA by providing Commissions with a basis to evaluate and adopt management options at various levels of risk, enabling management taken accounting for uncertainty.</p>
-<!--
-<<echo=TRUE,fig=TRUE,width=6,height=8,eval=TRUE>>=
-library(akima)
-Interp=function(x,levels=seq(0.0,1.0,0.05),
-               col   =c(colorRampPalette(c("red4","red"))(12),colorRampPalette(c("yellowgreen","darkgreen"))(8)),
-               nIterp=101){
-
-  x=x[!is.na(x[,1]) & !is.na(x[,2]) & !is.na(x[,3]),]
-  
-  ##### smooth
-  t.<-interp(x[,1],x[,2],x[,3],
-                    xo=seq(min(x[,1]),   max(x[,1]), length=nIterp),
-                    yo=seq(min(x[,2]),   max(x[,2]), length=nIterp),
-                    duplicate="mean")
-  
-  
-  res=cbind(expand.grid(x=t.$x,y=t.$y),z=cut(t.$z,levels,include.lowest=T),w=c(t.$z))
-  res$col=col[as.numeric(res$z)]
-  
-  res}
-
-kobe2012=subset(sims,year %in% 2013:2022)
-  
-pdat=subset(ddply(kobe2012,.(year,TAC),kobeSmry),
-            select=c(year,TAC,green,underFished,underFishing))
-pdat=melt(pdat,id.vars=c("year","TAC"))
-pdat=ddply(pdat, .(variable), function(x) Interp(data.frame(x$year,x$TAC,x$value)))
-
-col.=c(colorRampPalette(c("red4","red"))(12),
-       colorRampPalette(c("yellowgreen","darkgreen"))(8))
-
-k2p = ggplot(aes(x=x,y=y,z=w),data=pdat)                 +
-           geom_tile(aes(x,y,fill=z))                    +
-           scale_fill_manual(values=col.,guide="none")   +
-           stat_contour(aes(colour= ..level..),size=1.2,  
-                            breaks=c(0.6,0.7,0.8,0.9))   +
-           scale_colour_gradient(low="grey", high="black", 
-                                 breaks=c(0.6,0.7,0.8,0.9),
-                                  labels=c(0.6,0.7,0.8,0.9),limits=c(0.6,1))    +
-           facet_wrap(~variable,ncol=1)                       +
-           xlab("Year")+ylab("TAC") 
-k2p
-@
-\end{center}\end{figure}
-
-
-\clearpage
-\section{Tabulation}
-
-\subsection{Kobe II Strategy Matrix}
-
-Three Kobe matrices Tables~\ref{tab:k2sm1}, \ref{tab:k2sm3} and \ref{tab:k2sm3} summarise the probabilities (by the ranges 
-of 50-59 \%, 60- 69 \%, 70-79 \%, 80-89 \% and greater or equal to 90 \%) for different levels of catch across multiple years of 
-
-\begin{itemize}
- \item  Biomass or SSB being greater than $B_{MSY}$ ;
- \item  Fishing Mortality or Harvest Rate being less than $F_{MSY}$; and 
- \item  the combined probability of Biomass or SSB being greater than $B_{MSY}$ and Fishing Mortality or Harvest Rate being less than $F_{MSY}$ 
-\end{itemize}
-
-
-<<results=hide, quiet=TRUE, echo=TRUE>>=
-t.=ddply(subset(sims,year %in% 2013:2022),.(year,TAC),  kobeSmry)
-
-k2smTab=list()
-k2smTab[[1]]=cast(subset(t., year %in% 2013:2022),TAC~year,value="underFishing")
-k2smTab[[2]]=cast(subset(t., year %in% 2013:2022),TAC~year,value="underFished")
-k2smTab[[3]]=cast(subset(t., year %in% 2013:2022),TAC~year,value="green")
-@ 
-
--->
+<p>Three Kobe matrices Tables~,  and  summarise the probabilities (by the ranges of 50-59 %, 60- 69 %, 70-79 %, 80-89 % and greater or equal to 90 %) for different levels of catch across multiple years of</p>
+<ul>
+<li>Biomass or SSB being greater than <span class="math inline">\(B_{MSY}\)</span> ;</li>
+<li>Fishing Mortality or Harvest Rate being less than <span class="math inline">\(F_{MSY}\)</span>; and</li>
+<li>the combined probability of Biomass or SSB being greater than <span class="math inline">\(B_{MSY}\)</span> and Fishing Mortality or Harvest Rate being less than <span class="math inline">\(F_{MSY}\)</span></li>
+</ul>
 </div>
 <div id="decision-tables" class="section level3">
 <h3>Decision Tables</h3>
@@ -375,8 +310,8 @@ kobePhase()+
 <li>R version 3.3.2 (2016-10-31)</li>
 <li>FLCore: 2.6.0.20170130</li>
 <li>FLPKG:</li>
-<li><strong>Compiled</strong>: Mon Feb 6 20:37:29 2017</li>
-<li><strong>Git Hash</strong>: 082f5da</li>
+<li><strong>Compiled</strong>: Mon Feb 6 21:46:24 2017</li>
+<li><strong>Git Hash</strong>: b168353</li>
 </ul>
 </div>
 <div id="author-information" class="section level2">

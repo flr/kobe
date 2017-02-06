@@ -1,17 +1,31 @@
-### borrowed with thanks from
-###http://wiki.stdout.org/rcookbook/Graphs/Multiple%20graphs%20on%20one%20page%20(ggplot2)/
-
-# Multiple plot function
-#
-# ggplot objects can be passed in ..., or to plotlist (as a list of ggplot objects)
-# - cols:   Number of columns in layout
-# - layout: A matrix specifying the layout. If present, 'cols' is ignored.
-#
-# If the layout is something like matrix(c(1,2,3,3), nrow=2, by.row=TRUE),
-# then plot 1 will go in the upper left, 2 will go in the upper right, and
+#' @title multiplot
+#' 
+#' @description 
+#' ggplot objects can be passed in ..., or to plotlist (as a list of ggplot objects)
+#' - cols:   Number of columns in layout
+#' - layout: A matrix specifying the layout. If present, 'cols' is ignored.
+#' If the layout is something like matrix(c(1,2,3,3), nrow=2, by.row=TRUE),
+#' then plot 1 will go in the upper left, 2 will go in the upper right, and
 # 3 will go all the way across the bottom.
-#
-multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
+#'
+#' borrowed with thanks from
+#' http://wiki.stdout.org/rcookbook/Graphs/Multiple%20graphs%20on%20one%20page%20(ggplot2)/
+#' 
+#' @param ... \code{ggplot} objects
+#' @param plotlist a list \code{ggplot} objects 
+#' @param cols number of columns in plot grid, by default=1 
+#' 
+#' @return an \code{ggplot2} object
+#' 
+#' @export
+#' @rdname multiplot
+#' 
+#' @examples
+#' \dontrun{
+#' multiplot(plot(1),plot(2))
+#' } 
+
+multiplot <- function(..., plotlist=NULL, cols=1) {
   #require(grid)
   
   # Make a list from the ... arguments and plotlist
