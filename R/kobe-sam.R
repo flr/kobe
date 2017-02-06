@@ -2,7 +2,7 @@
 # ### sam stuff for Kobe ################################################################
 # #######################################################################################
 
-utils::globalVariables(c("pctl","FLQuant","stock.n<-","propagate","stock.n","harvest<-","mvrnorm"))
+utils::globalVariables(c("pctl","FLQuant","stock.n<-","propagate","stock.n","harvest<-","mvrnorm","llply"))
 
 readSam<-function(file, reduced=FALSE){
   # Function to read a basic fit

@@ -1,3 +1,5 @@
+utils::globalVariables(c("bandwidth.nrd","HPDregionplot","mcmc"))
+
 #' prob
 #' @description 
 #' Calculates the probability of an obervations occurring in a 2D cell using HPDregionplot 

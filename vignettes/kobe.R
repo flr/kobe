@@ -3,13 +3,16 @@ library(knitr)
 ## Global options
 opts_chunk$set(echo    =!TRUE,
                eval    =TRUE,
+               cache   =!FALSE,
+               cache.path="cache/",
                prompt  =FALSE,
                comment =NA,
                message =FALSE,
                tidy    =FALSE,
                warnings=FALSE,
                fig.height=4.5,
-               fig.width =4.5)
+               fig.width =4.5,
+               fig.path  ="tex/")
 
 ## ---- pkgs, echo=FALSE, message=FALSE------------------------------------
 sink(NULL)
@@ -33,9 +36,13 @@ library(kobe)
 data(yft)
 
 ## ----data-yft2,echo=TRUE-------------------------------------------------
+library(kobe)
+data(yft)
 head(yft)
 
 ## ----kpp,echo=TRUE-------------------------------------------------------
+library(ggplot2)
+
 kobePhase(subset(yft,year==2014))+
   geom_point(aes(stock,harvest))
 
@@ -47,8 +54,6 @@ trks=ddply(yft, .(method,scenario), with, quantile(stock))
 
 ## ----plyr3,echo=TRUE-----------------------------------------------------
 trks=ddply(yft, .(method,scenario,year), with, quantile(stock))
-
-head(trks)
 
 ## ----plyr4,echo=TRUE-----------------------------------------------------
 head(trks)

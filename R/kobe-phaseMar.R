@@ -1,4 +1,4 @@
-utils::globalVariables(c("stock","..count..","group","harvest","run"))
+utils::globalVariables(c("stock","..count..","group","harvest","run","is"))
 #' @importFrom grid grid.newpage pushViewport viewport grid.layout unit
 #' 
 #' @name kobePhaseMar
@@ -6,7 +6,7 @@ utils::globalVariables(c("stock","..count..","group","harvest","run"))
 #' @description 
 #' Plots a Kobe Phase Plot with marginal densities
 #' '      
-#' @aliases kobePhaseMar
+#' @aliases kobePhaseMar kobePhaseMar2 kobePhaseMar3
 #' 
 #' @param  pts data.frame with stock and harvest variables respresenting points for a year
 #' @param  trks data.frame with stock and harvest variables respresenting tracks, NULL by default

@@ -1,7 +1,7 @@
 Package: kobe
 Type: Package
 Title: Tools for Scientific Fisheries Management Advice
-Version: 2.0.0
+Version: 2.1.0
 Date: 2014-06-07
 Author: Laurence Kell
 Maintainer: Laurence Kell <laurie.kell@iccat.int>
@@ -12,8 +12,7 @@ Description: The tuna Regional Fisheries Management Organisations (tRFMOs) use
     results from stock assessments and Management Strategy Evaluations in the
     Kobe format.
 License: GPL (>= 2)
-VignetteBuilder: 
-    knitr
+VignetteBuilder: knitr
 Depends:
     R(>= 3.0.1),
     methods
@@ -23,36 +22,34 @@ Suggests:
     rmarkdown
 Imports:
     plyr,
-    reshape,
     ggplot2,
     MASS,
     emdbook,
     coda
-Collate: 
-        data.R
-	ggplotFL-multiplot.R  
-	kobe-funcs.R     
-	kobe-pid.R           
-	kobe-ss3.R      
-	kobe-generics.R  
-	kobe-prob.R              
-	kobe-ss.R
-	kobe-2box.R           
-	kobe-hcr.R       
-	kobe-read-methods.R  
-	kobe-trks.R
-	kobe-aav.R            
-	kobe-interp.R     
-	kobe-read.R          
-	kobe-utilities.R
-	kobe-aspic.R          
-	kobe-MFCL.R      
-	kobe-SAM.R
-	kobe-bdm.R            
-	kobePhaseMar.R   
-	kobe-shade.R
-	kobe-bsp.R            
-	kobePhase.R      
-	kobe-smry.R
-BuildResaveData: xz
+Collate:
+    kobe-generics.R
+    kobe-data.R
+    kobe-multiplot.R
+    kobe-2box.R
+    kobe-phase.R
+    kobe-phaseMar.R
+    kobe-smry.R
+    kobe-trks.R
+    kobe-prob.R
+    kobe-aav.R
+    kobe-aspic.R
+    kobe-aspm.R
+    kobe-bdm.R
+    kobe-bsp.R
+    kobe-funcs.R
+    kobe-hcr.R
+    kobe-interp.R
+    kobe-mfcl.R
+    kobe-pid.R
+    kobe-read.R
+    kobe-sam.R
+    kobe-shade.R
+    kobe-ss3.R
+    kobe-utilities.R
+BuildResaveData: NA
 RoxygenNote: 5.0.1

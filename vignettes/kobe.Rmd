@@ -5,10 +5,9 @@ date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: rmarkdown:::html_document
 vignette: >
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteIndexEntry{kobe}
-  \usepackage[utf8]{inputenc}
+  %\VignetteIndexEntry{Vignette Title}
   %\VignetteEncoding{UTF-8}
-bibliography: refs.bib
+bibliography: /home/laurie/bib/refs.bib
 tags: FLPKG FLR
 license: Creative Commons Attribution-ShareAlike 4.0 International
 ---
@@ -18,13 +17,16 @@ library(knitr)
 ## Global options
 opts_chunk$set(echo    =!TRUE,
                eval    =TRUE,
+               cache   =!FALSE,
+               cache.path="cache/",
                prompt  =FALSE,
                comment =NA,
                message =FALSE,
                tidy    =FALSE,
                warnings=FALSE,
                fig.height=4.5,
-               fig.width =4.5)
+               fig.width =4.5,
+               fig.path  ="tex/")
 ```
 
 
@@ -111,6 +113,8 @@ data(yft)
 The dataset contains historical estimates of biomass relative to $B_{MSY}$ (stock) and exploitation level relative to $F_{MSY}$ (harvest) for 3 assessment methods and 2 scenarios based on choice of catch per unit effort (CPUE) used to calibrate the models. In each case parameter uncertainty was estimated using bootstrap simulation and so there are 100 replicates (iter).  
 
 ```{r data-yft2,echo=TRUE}
+library(kobe)
+data(yft)
 head(yft)
 ```
 
@@ -123,6 +127,8 @@ The `ggplot` functions expects a `data.frame` for its first argument, `data`; th
 The phase plot plots stock status against fishing mortality relative to target reference points as a two-dimensional phase plot. 
 
 ```{r kpp,echo=TRUE}
+library(ggplot2)
+
 kobePhase(subset(yft,year==2014))+
   geom_point(aes(stock,harvest))
 ```
@@ -144,8 +150,6 @@ plyr functions have a simple naming convention. The first two letters of the fun
 
 ```{r plyr3,echo=TRUE}
 trks=ddply(yft, .(method,scenario,year), with, quantile(stock))
-
-head(trks)
 ```
 
 The first argument, yft, is the input data frame and contains all the data from the last year in the assessment. The next argument are the variables to subset by over which the statistics will be computed, and the third processes the data.frame by each subset. `with` creates an environment constructed from data in which to run `quantile`. 
@@ -305,7 +309,7 @@ scale_y_continuous(breaks=NULL)
 
 The strategy matrix lays out the probability of meeting management objectives under different options, this may include if desired ending overfishing or rebuilding overfished stocks. An intention is to facilitate the application of the PA by providing Commissions with a basis to evaluate and adopt management options at various levels of risk, enabling management taken accounting for uncertainty. 
 
-
+<!--
 <<echo=TRUE,fig=TRUE,width=6,height=8,eval=TRUE>>=
 library(akima)
 Interp=function(x,levels=seq(0.0,1.0,0.05),
@@ -375,7 +379,7 @@ k2smTab[[2]]=cast(subset(t., year %in% 2013:2022),TAC~year,value="underFished")
 k2smTab[[3]]=cast(subset(t., year %in% 2013:2022),TAC~year,value="green")
 @ 
 
-
+-->
 
 
 ### Decision Tables
