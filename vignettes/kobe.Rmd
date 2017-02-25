@@ -2,13 +2,13 @@
 title: "Kobe Advice Framework"
 author: "Laurence Kell"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
-output: rmarkdown:::html_document
+output: rmarkdown::html_vignette
 vignette: >
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{kobe}
   %\VignetteEncoding{UTF-8}
-bibliography: /home/laurie/bib/refs.bib
-tags: FLPKG FLR
+bibliography: refs.bib
+tags: kobe
 license: Creative Commons Attribution-ShareAlike 4.0 International
 ---
 
