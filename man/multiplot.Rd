@@ -31,4 +31,3 @@ http://wiki.stdout.org/rcookbook/Graphs/Multiple%20graphs%20on%20one%20page%20(g
 multiplot(plot(1),plot(2))
 } 
 }
-

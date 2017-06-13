@@ -1,7 +1,7 @@
 
 # kobe
-- Version: 
-- Date: 
+- Version: 2.1.0
+- Date: 2014-06-07
 - Author: Laurence T. Kell <<laurie@kell.es>>
 - Maintainer: Laurence T. Kell <<laurie@kell.es>>
 - Repository: <https://github.com/flr/kobe/>

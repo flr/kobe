@@ -50,4 +50,3 @@ Plots a Kobe Phase Plot with marginal densities
 \examples{
    \dontrun{rnorm(10)}
 }
-

@@ -3,10 +3,10 @@
 \docType{methods}
 \name{shade}
 \alias{shade}
-\alias{shade,data.frame-method}
-\alias{shade,matrix-method}
-\alias{shade,numeric-method}
 \alias{shade-method}
+\alias{shade,numeric-method}
+\alias{shade,matrix-method}
+\alias{shade,data.frame-method}
 \title{Creates Kobe II Strategy Matrices}
 \usage{
 \S4method{shade}{numeric}(object, breaks = c(-0.1, 50, 60, 70, 80, 90, 100),
@@ -28,4 +28,3 @@
 \description{
 Creates latex tables with shading for inclusion in latex docs.
 }
-

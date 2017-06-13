@@ -16,11 +16,10 @@
 \description{
 An example dataset for Atlantic yellowfin
 }
-\author{
-Laurence Kell \email{laurie@kell.es}
-}
 \references{
 \url{http://http://iccat.int/Documents/CVSP/CV070_2014/n_4/CV070041365.pdf/}
 }
+\author{
+Laurence Kell \email{laurie@kell.es}
+}
 \keyword{data}
-

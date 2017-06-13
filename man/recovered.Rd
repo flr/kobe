@@ -25,4 +25,3 @@ In other words has it been in the green Kobe quadrant.
    stock  =rlnorm(20)
    recovered(stock,harvest)}
 }
-

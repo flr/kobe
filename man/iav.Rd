@@ -25,4 +25,3 @@ is under different management strategies within a Management Strategy Evaluation
    ## inter-annual average variation
    mean(iav(x),na.rm=T)}
 }
-

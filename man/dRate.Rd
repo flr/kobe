@@ -26,4 +26,3 @@ to discount all forecast future cash flows to calculate a present value:
    x=rnorm(20)
    dRate(x,0.05)}
 }
-

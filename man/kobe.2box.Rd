@@ -3,8 +3,8 @@
 \docType{methods}
 \name{kobe.2box}
 \alias{kobe.2box}
-\alias{kobe.2box,character-method}
 \alias{kobe.2box-method}
+\alias{kobe.2box,character-method}
 \title{kobe.2box}
 \usage{
 \S4method{kobe.2box}{character}(path, proxy = c("fmsy", "fmax", "f0.1", "f20",
@@ -37,4 +37,3 @@ Creates summary data.frame for presenting advice using VPA2Box projections
 sims=kobe.2box("vpa")
 } 
 }
-

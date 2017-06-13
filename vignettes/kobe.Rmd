@@ -7,7 +7,7 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteIndexEntry{Vignette Title}
   %\VignetteEncoding{UTF-8}
-bibliography: /home/laurie/bib/refs.bib
+bibliography: refs.bib
 tags: FLPKG FLR
 license: Creative Commons Attribution-ShareAlike 4.0 International
 ---
@@ -31,7 +31,6 @@ opts_chunk$set(echo    =!TRUE,
 
 
 ```{r, pkgs, echo=FALSE, message=FALSE}
-sink(NULL)
 warn=options()$warn
 options(warn=-1)
 library(ggplot2)
@@ -40,7 +39,6 @@ library(kobe)
 theme_set(theme_bw())
 options(digits=3)
 options(warn=warn)
-sink()
 ```
 
 [](#top)

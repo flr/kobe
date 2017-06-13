@@ -21,4 +21,3 @@ Is a quantity increasing from 1 time step to another \code{(x[t+1]-x[t])>0}
    x=rnorm(2)
    incr(x)}
 }
-
