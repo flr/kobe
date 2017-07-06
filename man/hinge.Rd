@@ -25,4 +25,3 @@ for a given steepness and virgin biomass
 \dontrun{
    hinge(.7,1000,2000)}
 }
-

@@ -39,4 +39,3 @@ Calculates the Densities of obervation in a 2D cell using Two-dimensional
    x  =rnorm(20)
    density(x,y)}
 }
-

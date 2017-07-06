@@ -3,7 +3,7 @@ Type: Package
 Title: Tools for Scientific Fisheries Management Advice
 Version: 2.1.0
 Date: 2014-06-07
-Author: Laurence Kell
+Authors@R: person("Laurence T.", "Kell", email = "laurie.kell@iccat.int", role = c("cre", "aut"))
 Maintainer: Laurence Kell <laurie.kell@iccat.int>
 Description: The tuna Regional Fisheries Management Organisations (tRFMOs) use
     a common framework for providing scientific advice, i.e. the Kobe II
@@ -52,4 +52,4 @@ Collate:
     kobe-ss3.R
     kobe-utilities.R
 BuildResaveData: NA
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1

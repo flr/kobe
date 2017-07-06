@@ -3,9 +3,9 @@
 \docType{methods}
 \name{smry}
 \alias{smry}
-\alias{smry,data.frame,missing-method}
-\alias{smry,numeric,numeric-method}
 \alias{smry-method}
+\alias{smry,numeric,numeric-method}
+\alias{smry,data.frame,missing-method}
 \title{Creates Summaries i.e. probability of being in the green quadrant}
 \usage{
 \S4method{smry}{numeric,numeric}(stock, harvest, onlyColours = FALSE)
@@ -24,4 +24,3 @@ Creates tracks for plotting in the Kobe Phase Plot
 \dontrun{smry()}
 
 }
-

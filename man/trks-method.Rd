@@ -3,9 +3,9 @@
 \docType{methods}
 \name{trks}
 \alias{trks}
-\alias{trks,data.frame,missing-method}
-\alias{trks,numeric,numeric-method}
 \alias{trks-method}
+\alias{trks,numeric,numeric-method}
+\alias{trks,data.frame,missing-method}
 \title{Creates tracks for plotting on phase plot}
 \usage{
 \S4method{trks}{numeric,numeric}(stock, harvest, prob = c(0.25, 0.5, 0.75),
@@ -27,4 +27,3 @@ Creates tracks for plotting in the Kobe Phase Plot
 \dontrun{trks()}
 
 }
-

@@ -30,4 +30,3 @@ Calculates the frequency of an obervation in a 2D cell
    x=rnorm(20)
    freq(x,y)}
 }
-

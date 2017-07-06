@@ -2,8 +2,8 @@
 % Please edit documentation in R/kobe-prob.R
 \docType{methods}
 \name{probFn2}
-\alias{prob}
 \alias{probFn2}
+\alias{prob}
 \title{prob}
 \usage{
 probFn2(x, y, prob = c(0.5, 0.75, 0.95), n = 21, h = c(bandwidth.nrd(x),
@@ -43,4 +43,3 @@ for two variables, using kde2d from MASS to calculate a bivariate density.
    x  =rnorm(20)
    prob(x,y)}
 }
-

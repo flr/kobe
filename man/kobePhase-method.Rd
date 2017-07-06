@@ -3,9 +3,9 @@
 \docType{methods}
 \name{kobePhase}
 \alias{kobePhase}
-\alias{kobePhase,data.frame-method}
-\alias{kobePhase,missing-method}
 \alias{kobePhase-method}
+\alias{kobePhase,missing-method}
+\alias{kobePhase,data.frame-method}
 \title{kobePhase}
 \usage{
 \S4method{kobePhase}{missing}(object, xlim = c(0, 2), ylim = xlim,
@@ -26,4 +26,3 @@ Creates The Kobe Phase Plot
 \examples{
 \dontrun{kobePhase()}
 }
-
