@@ -1,6 +1,30 @@
-# #######################################################################################
-# ### sam stuff for Kobe ################################################################
-# #######################################################################################
+#' @title kobeSam
+#' @name kobeSam
+#' 
+#' @description Creates summary data.frame for presenting advice using SAM projections
+#' 
+#' @param path \code{character} name of target files 
+#' @param what \code{character} output data.frame all "sims" by default or one of c("sims","trks","pts","smry","wrms",ellipse)[1] 
+#' @param prob \code{numeric} probabilities if trks output, by default c(0.75,0.5,0.25)
+#' @param year \code{numeric} for year when slecting points
+#' @param nits \code{numeric} number of iterations for simulations
+#' @param nwrms \code{numeric} number of worms to select by default 10 
+#' @param bmsy \code{numeric} value for biomass reference point 
+#' @param fmsy \code{numeric} value for F reference point 
+#' 
+#' @return a \code{data.frame} or a list of \code{data.frame} with historical simulations
+#' from SAM, i.e. for both historical assessment results and projections. These can either
+#' be in the form of summaries or all reults
+#' 
+#' @aliases kobeSam-method kobeSam,character-method
+#' @export
+#' @rdname kobeSam
+#' 
+#' 
+#' @examples
+#' \dontrun{
+#' sims=kobeSam("vpa")
+#' } 
 
 utils::globalVariables(c("pctl","FLQuant","stock.n<-","propagate","stock.n","harvest<-","mvrnorm","llply"))
 
@@ -61,11 +85,11 @@ readSam<-function(file, reduced=FALSE){
   
   return(ret)}
 
-kobeSamFn=function(object,what=c("trks","smry","pts","ellipse")[1],prob=c(0.75,0.5,.25),nits=1000,bmsy=1,fmsy=1){
+kobeSamFn=function(path,what=c("trks","smry","pts","ellipse")[1],prob=c(0.75,0.5,.25),nits=1000,bmsy=1,fmsy=1){
 
     #require(ellipse)
   
-    res   =readSam(object)
+    res   =readSam(path)
     
     trks=cbind(melt(data.frame(year=res$years,res$ssb),id="year"),
                melt(res$fbar))[,-c(4,5)]

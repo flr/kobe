@@ -5,9 +5,9 @@ utils::globalVariables(c("ddply",".","melt","grid.newpage","pushViewport","viewp
 # #######################################################################################
 # ### VPA2Box stuff for Kobe ############################################################
 # #######################################################################################
-#' @title kobe.2box
+#' @title kobe2box
 #' 
-#' @name kobe.2box
+#' @name kobe2box
 #' 
 #' @description Creates summary data.frame for presenting advice using VPA2Box projections
 #' 
@@ -22,16 +22,16 @@ utils::globalVariables(c("ddply",".","melt","grid.newpage","pushViewport","viewp
 #' from PRO2BOX, i.e. for both historical assessment results and projections. These can either
 #' be in the form of summaries or all reults
 #' 
-#' @aliases kobe.2box-method kobe.2box,character-method
+#' @aliases kobe2box-method kobe2box,character-method
 #' @export
-#' @rdname kobe.2box
+#' @rdname kobe2box
 #' 
 #' 
 #' @examples
 #' \dontrun{
-#' sims=kobe.2box("vpa")
+#' sims=kobe2box("vpa")
 #' } 
-setMethod('kobe.2box', signature(path='character'),
+setMethod('kobe2box', signature(path='character'),
           function(path,proxy=c("fmsy","fmax","f0.1","f20","f30","f40","f90max","f75max")[3], 
                    what=c("sims","trks","pts","smry","wrms")[1],
                    prob=c(0.75,0.5,0.25),year=NULL,nwrms=10){

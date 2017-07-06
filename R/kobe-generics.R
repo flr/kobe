@@ -5,11 +5,11 @@ utils::globalVariables(c("read.csv","read.table","quantile","median",
                          "kobeFn","kobe2smFn"))
 
 setGeneric('kobe',       function(path,method,...)     standardGeneric('kobe'))
-setGeneric('kobe.2box',  function(path,...)            standardGeneric('kobe.2box'))
-setGeneric('kobe.aspic', function(path,...)            standardGeneric('kobe.aspic'))
-setGeneric('kobe.bsp',   function(path,...)            standardGeneric('kobe.bsp'))
-setGeneric('kobe.mfcl',  function(path,...)            standardGeneric('kobe.mfcl'))
-setGeneric('kobe.ss',    function(path,...)            standardGeneric('kobe.ss'))
+setGeneric('kobe2box',   function(path,...)            standardGeneric('kobe2box'))
+setGeneric('kobeAspic',  function(path,...)            standardGeneric('kobeAspic'))
+setGeneric('kobeBsp',    function(path,...)            standardGeneric('kobeBsp'))
+setGeneric('kobeMfcl',   function(path,...)            standardGeneric('kobeMfcl'))
+setGeneric('kobeSS',     function(path,...)            standardGeneric('kobeSS'))
 
 setGeneric('kobePhase',  function(object,...)         standardGeneric('kobePhase'))
 setGeneric('kobe2sm',    function(object,...)         standardGeneric('kobe2sm'))

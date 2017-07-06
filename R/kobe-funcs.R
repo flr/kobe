@@ -211,7 +211,7 @@ dRate=function(x,r,wtAv=FALSE) {
   return(sum(x/(1+r)^(0:(length(x)-1))))
 }
 
-#' incr
+#' hinge
 #' @description 
 #' Break point for segmented regression stock recruitment relationship 
 #' for a given steepness and virgin biomass
