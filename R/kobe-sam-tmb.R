@@ -28,19 +28,52 @@
 
 utils::globalVariables(c("pctl","FLQuant","stock.n<-","propagate","stock.n","harvest<-","mvrnorm","llply"))
 
-readSamTMB<-function(x, reduced=FALSE){
+readSamTMB<-function(x, y){
+  
+  dmns=list(age=x$conf$minAge:x$conf$maxAge,year=x$data$years)
+  
+  F=FLQuant(NA,dimnames=list(age=x$conf$minAge:x$conf$maxAge,year=x$data$years))
+  F[-dim(F)[1],]=exp(FLQuant(c(t(x$plsd$logF)),dimnames=list(age=x$conf$minAge:(x$conf$maxAge-1),year=x$data$years)))
+  F[ dim(F)[1],]= F[ dim(F)[1]-1,]
+    
+  res=FLStock(
+    catch       =FLQuant(NA,dimnames=dmns[-1]),        
+    catch.n     =FLQuant(NA,dimnames=dmns), 
+    catch.wt    =FLQuant(t(x$data$catchMeanWeight),dimnames=dmns), 
+    discards    =FLQuant(NA,dimnames=dmns[-1]), 
+    discards.n  =FLQuant(NA,dimnames=dmns), 
+    discards.wt =FLQuant(t(x$data$disMeanWeight),dimnames=dmns), 
+    landings    =FLQuant(NA,dimnames=dmns[-1]),
+    landings.n  =FLQuant(x[[4]]$landFrac,dimnames=dmns), 
+    landings.wt =FLQuant(t(x$data$landMeanWeight),dimnames=dmns), 
+    stock       =FLQuant(NA,dimnames=dmns[-1]), 
+    stock.n     =FLQuant(exp(c(t(x$plsd$logN))),dimnames=dmns), 
+    stock.wt    =FLQuant(t(x$data$stockMeanWeight),dimnames=dmns), 
+    m           =FLQuant(t(x$data$natMor),dimnames=dmns), 
+    mat         =FLQuant(t(x$data$propMat),dimnames=dmns),
+    harvest     =F, 
+    harvest.spwn=FLQuant(t(x$data$propF),dimnames=dmns), 
+    m.spwn      =FLQuant(t(x$data$propM,dimnames=dmns), 
+    name        ="SAM", 
+    desc        ="", 
+    range       =unlist(list(min=x$conf$minAge,max=x$conf$maxAge,plusgroup=x$conf$maxAge,
+                             minyear=min(x$data$years),max=max(x$data$years),
+                             minfbar=x$conf$minAge,maxfbar=x$conf$maxAge)))
+  
   
   # Function to read a basic fit
   ret<-list()
-  parfile<-as.numeric(scan(paste(file,'.par', sep=''), 
-                           what='', n=16, quiet=TRUE)[c(6,11,16)])
-  ret$nopar<-as.integer(parfile[1])
-  ret$nlogl<-parfile[2]
+  #parfile<-as.numeric(scan(paste(file,'.par', sep=''), 
+  #                         what='', n=16, quiet=TRUE)[c(6,11,16)])
+  
+  #ret$nopar<-length(x$opt$par)
+  #ret$nlogl<-parfile[2]
   ret$maxgrad<-parfile[3]
-  rep<-scan(paste(file,'.rep', sep=''), quiet=TRUE)
-  ret$res<-read.table(paste(file,'.res', sep=''),header=FALSE)
-  ret$stateDim<-rep[1]
-  ret$years<-rep[-1]
+  #rep<-scan(paste(file,'.rep', sep=''), quiet=TRUE)
+  #ret$res<-read.table(paste(file,'.res', sep=''),header=FALSE)
+  #ret$stateDim<-rep[1]
+  ret$years<-x$data$years
+  
   file<-paste(file,'.cor', sep='')
   lin<-readLines(file)
   ret$npar<-length(lin)-2
