@@ -48,8 +48,10 @@ Collate:
     kobe-pid.R
     kobe-read.R
     kobe-sam.R
+    kobe-sam-tmb.R
     kobe-shade.R
     kobe-ss3.R
+    kobe-jabba.R
     kobe-utilities.R
 BuildResaveData: NA
 RoxygenNote: 6.0.1
