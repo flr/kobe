@@ -53,7 +53,7 @@ readSamTMB<-function(x, y){
     mat         =FLQuant(t(x$data$propMat),dimnames=dmns),
     harvest     =F, 
     harvest.spwn=FLQuant(t(x$data$propF),dimnames=dmns), 
-    m.spwn      =FLQuant(t(x$data$propM,dimnames=dmns), 
+    m.spwn      =FLQuant(t(x$data$propM),dimnames=dmns), 
     name        ="SAM", 
     desc        ="", 
     range       =unlist(list(min=x$conf$minAge,max=x$conf$maxAge,plusgroup=x$conf$maxAge,
