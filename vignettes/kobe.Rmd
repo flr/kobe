@@ -49,7 +49,7 @@ options(warn=warn)
 
 [Quick Start](#QuickStart)
 
-[Stock Assessment](#Current Status)
+[Stock Assessment](#Stock Assessment)
 
 [Current Status](#Current Status)
 
