@@ -67,18 +67,41 @@ nmsRef <- c("iter",
             "f90max", "y90max", "yr90max",  "sr90max",            "ssb90max",
             "f75max", "y75max", "yr75max",  "sr75max",            "ssb75max")
 
+nmsRef2<- c("iter", 
+            "fmsy",   "ymsy",   "yrmsy",    "srmsy",   "sprmsy",  "ssbmsy",
+            "fmax",   "ymax",   "yrmax",    "srmax",   "sprmax",  "ssbmax",
+            "f0.1",   "y0.1",   "yr0.1",    "sr0.1",   "spr0.1",  "ssb0.1",
+            "f20",    "y20",    "yr20",     "sr20",               "ssb20",
+            "f30",    "y30",    "yr30",     "sr30",               "ssb30",
+            "f40",    "y40",    "yr40",     "sr40",               "ssb40",
+            "f90max", "y90max", "yr90max",  "sr90max",            "ssb90max",
+            "f75max", "y75max", "yr75max",  "sr75max",            "ssb75max")
+
 ## Heavy lifting functions ##############################################################
 read2box=function(path,proxy=c("fmsy","fmax","f0.1","f20","f30","f40","f90max","f75max")[3]){
 
-  rfp=read.table(paste(path,"BENCH-1.OUT",sep="/"),header=F,skip=1,col.names=nmsRef)[,c("iter",proxy,paste("ssb",substr(proxy,2,nchar(proxy)),sep=""))]
- 
-  bio=read.table(paste(path,"SSBIO-1.OUT",sep="/"),header=F,skip=0)
+  bFile=file.path(path,"BENCH-1.OUT")
+  
+  if (!file.exists(bFile))
+    bFile=file.path(path,"BENCH.OUT")
+  
+  rfp=read.table(bFile,header=F,skip=1)
+  
+  if(dim(rfp)[2]==39) nms=nmsRef else nms=nmsRef2
+  
+  rfp=read.table(bFile,header=F,skip=1,col.names=nms)[,c("iter",proxy,paste("ssb",substr(proxy,2,nchar(proxy)),sep=""))]
+
+  if(dim(rfp)[2]==39) ssbFile=file.path(path,"SSBIO-1.OUT") else ssbFile=file.path(path,"SStot.OUT")
+  
+  bio=read.table(ssbFile,header=F,skip=0)
   names(bio)=c("tac","iter",seq(dim(bio)[2]-2))
   bio=merge(bio,rfp)
   bio=melt(bio,id.vars=c("tac",names(rfp)),variable_name="year")
   names(bio)[6]="stock"
   
-  hvt=read.table(paste(path,"Fapex-1.OUT",sep="/"),header=F,skip=0)
+  if(dim(rfp)[2]==39) fFile=file.path(path,"Fapex-1.OUT") else fFile=file.path(path,"Fapex.OUT")
+  
+  hvt=read.table(fFile,header=F,skip=0)
   names(hvt)=c("tac","iter",seq(dim(hvt)[2]-2))
   hvt=merge(hvt,rfp)
   hvt=melt(hvt,id.vars=c("tac",names(rfp)),variable_name="year")
