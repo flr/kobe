@@ -2,8 +2,8 @@
 # kobe
 - Version: 2.1.0
 - Date: 2014-06-07
-- Author: Laurence T. Kell <<laurie@kell.es>>
-- Maintainer: Laurence T. Kell <<laurie@kell.es>>
+- Author: Laurence T. Kell <<laurie@seaplusplus.co.uk>>
+- Maintainer: Laurence T. Kell <<laurie@seaplusplus.co.uk>>
 - Repository: <https://github.com/flr/kobe/>
 - Bug reports: <https://github.com/flr/kobe/issues>
 
@@ -36,4 +36,4 @@ You are welcome to:
 
 - Submit suggestions and bug-reports at: <https://github.com/flr/kobe/issues>
 - Send a pull request on: <https://github.com/flr/kobe/>
-- Compose a friendly e-mail to: Laurence T. Kell <<laurie@kell.es>>
+- Compose a friendly e-mail to: Laurence T. Kell <<laurie@seaplusplus.co.uk>>

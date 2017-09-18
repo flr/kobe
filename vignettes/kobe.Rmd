@@ -428,7 +428,7 @@ When using MSE a variety of performance measures (related to catch levels and ca
 
 ## Author information
 
-**Laurence KELL**. laurie@kell.es
+**Laurence KELL**. laurie@seaplusplus.co.uk
 
 # References {#References}
 

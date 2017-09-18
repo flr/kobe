@@ -3,7 +3,7 @@ Type: Package
 Title: Tools for Scientific Fisheries Management Advice
 Version: 2.1.0
 Date: 2014-06-07
-Author: Laurence Kell <laurie@kell.es>
+Author: Laurence Kell <laurie@seaplusplus.co.uk>
 Maintainer: Laurence Kell <laurie@seaplusplus.co.uk>
 Description: The tuna Regional Fisheries Management Organisations (tRFMOs) use
     a common framework for providing scientific advice, i.e. the Kobe II
