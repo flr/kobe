@@ -1,0 +1,27 @@
+# .travis.yml for R projects.
+warnings_are_errors: false
+
+os:
+  - linux
+
+language: r
+
+r:
+  - release
+
+sudo: false
+
+repos:
+  CRAN: https://cloud.r-project.org
+  flr: http://flr-project.org/R
+
+cache: packages
+
+notifications:
+  email:
+    on_success: change
+    on_failure: change
+
+branches:
+  only:
+    - master
