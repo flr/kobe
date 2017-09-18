@@ -3,7 +3,7 @@
 \docType{methods}
 \name{hinge}
 \alias{hinge}
-\title{incr}
+\title{hinge}
 \usage{
 hinge(s, v, rec)
 }

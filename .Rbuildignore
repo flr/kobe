@@ -3,3 +3,6 @@
 ^\.Rproj\.user$
 kobe.Rproj
 .gitignore
+Makefile
+^_pkgdown.yml$
+^docs$
