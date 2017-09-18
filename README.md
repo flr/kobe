@@ -1,7 +1,7 @@
 
 # kobe
 - Version: 2.1.1
-- Date: 2019-09-18
+- Date: 2017-09-18
 - Author: Laurence T. Kell <<laurie@seaplusplus.co.uk>>
 - Maintainer: Laurence T. Kell <<laurie@seaplusplus.co.uk>>
 - Repository: <https://github.com/flr/kobe/>

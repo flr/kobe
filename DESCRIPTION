@@ -3,8 +3,8 @@ Type: Package
 Title: Tools for Scientific Fisheries Management Advice
 Version: 2.1.1
 Date: 2017-09-18
-Author: Laurence Kell <laurie@seaplusplus.co.uk>
-Maintainer: Laurence Kell <laurie@seaplusplus.co.uk>
+Authors@R: c(
+  person("Laurence T.", "Kell", email = "laurie@seaplusplus.co.uk", role = c("aut", "cre")))
 Description: The tuna Regional Fisheries Management Organisations (tRFMOs) use
     a common framework for providing scientific advice, i.e. the Kobe II
     Framework. This is based on maintaining fishing mortality below FMSY and
@@ -21,6 +21,7 @@ Suggests:
     knitr,
     rmarkdown,
     FLCore
+Additional_repositories: http://flr-project.org/R
 Imports:
     plyr,
     ggplot2,

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>hinge — hinge • kobe</title>
+<title>kobeSam — kobeSam • kobe</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -81,35 +81,69 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>hinge</h1>
+    <h1>kobeSam</h1>
     </div>
 
     
-    <p>Break point for segmented regression stock recruitment relationship 
-for a given steepness and virgin biomass</p>
+    <p>Creates summary data.frame for presenting advice using SAM projections</p>
+
+    <p>Creates summary data.frame for presenting advice using SAM projections</p>
     
 
-    <pre><span class='fu'>hinge</span>(<span class='no'>s</span>, <span class='no'>v</span>, <span class='no'>rec</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
-      <dt>s</dt>
-      <dd>steepness</dd>
-      <dt>v</dt>
-      <dd>virgin biomass</dd>
-      <dt>rec</dt>
-      <dd>a vector holding constant recruitment level</dd>
+      <dt>path</dt>
+      <dd><code>character</code> name of target files</dd>
+      <dt>what</dt>
+      <dd><code>character</code> output data.frame all &quot;sims&quot; by default or one of c(&quot;sims&quot;,&quot;trks&quot;,&quot;pts&quot;,&quot;smry&quot;,&quot;wrms&quot;,ellipse)[1]</dd>
+      <dt>prob</dt>
+      <dd><code>numeric</code> probabilities if trks output, by default c(0.75,0.5,0.25)</dd>
+      <dt>year</dt>
+      <dd><code>numeric</code> for year when slecting points</dd>
+      <dt>nits</dt>
+      <dd><code>numeric</code> number of iterations for simulations</dd>
+      <dt>nwrms</dt>
+      <dd><code>numeric</code> number of worms to select by default 10</dd>
+      <dt>bmsy</dt>
+      <dd><code>numeric</code> value for biomass reference point</dd>
+      <dt>fmsy</dt>
+      <dd><code>numeric</code> value for F reference point</dd>
+      <dt>path</dt>
+      <dd><code>character</code> name of target files</dd>
+      <dt>what</dt>
+      <dd><code>character</code> output data.frame all &quot;sims&quot; by default or one of c(&quot;sims&quot;,&quot;trks&quot;,&quot;pts&quot;,&quot;smry&quot;,&quot;wrms&quot;,ellipse)[1]</dd>
+      <dt>prob</dt>
+      <dd><code>numeric</code> probabilities if trks output, by default c(0.75,0.5,0.25)</dd>
+      <dt>year</dt>
+      <dd><code>numeric</code> for year when slecting points</dd>
+      <dt>nits</dt>
+      <dd><code>numeric</code> number of iterations for simulations</dd>
+      <dt>nwrms</dt>
+      <dd><code>numeric</code> number of worms to select by default 10</dd>
+      <dt>bmsy</dt>
+      <dd><code>numeric</code> value for biomass reference point</dd>
+      <dt>fmsy</dt>
+      <dd><code>numeric</code> value for F reference point</dd>
     </dl>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a <code>numeric</code> giving break point</p>
+    <p>a <code>data.frame</code> or a list of <code>data.frame</code> with historical simulations
+from SAM, i.e. for both historical assessment results and projections. These can either
+be in the form of summaries or all reults</p>
+    <p>a <code>data.frame</code> or a list of <code>data.frame</code> with historical simulations
+from SAM, i.e. for both historical assessment results and projections. These can either
+be in the form of summaries or all reults</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Not run: ------------------------------------</span>
-<span class='co'>#    hinge(.7,1000,2000)</span>
-<span class='co'>## ---------------------------------------------</span></div></pre>
+<span class='co'># sims=kobeSam("vpa")</span>
+<span class='co'>## --------------------------------------------- </span>
+<span class='co'>## Not run: ------------------------------------</span>
+<span class='co'># sims=kobeSam("vpa")</span>
+<span class='co'>## --------------------------------------------- </span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -8,7 +8,7 @@ vignette: >
   %\VignetteIndexEntry{Vignette Title}
   %\VignetteEncoding{UTF-8}
 bibliography: refs.bib
-tags: FLPKG FLR
+tags: kobe FLR
 license: Creative Commons Attribution-ShareAlike 4.0 International
 ---
 
@@ -408,13 +408,13 @@ When using MSE a variety of performance measures (related to catch levels and ca
 
 [More information](#More information)
 
-* You can submit bug reports, questions or suggestions on `FLPKG` at the `FLPKG` issue page ^[<https://github.com/flr/FLPKG/issues>], or on the *FLR* mailing list.
-* Or send a pull request to <https://github.com/flr/FLPKG/>
+* You can submit bug reports, questions or suggestions on `kobe` at the `kobe` issue page ^[<https://github.com/flr/kobe/issues>], or on the *FLR* mailing list.
+* Or send a pull request to <https://github.com/flr/kobe/>
 * For more information on the FLR Project for Quantitative Fisheries Science in R, visit the FLR webpage ^[<http://flr-project.org>].
-* The latest version of `FLPKG` can always be installed using the `devtools` package, by calling
+* The latest version of `kobe` can always be installed using the `devtools` package, by calling
 ```{r, devtools, echo=TRUE, eval=FALSE}
 	library(devtools)
-	install_github('flr/FLPKG')
+	install_github('flr/kobe')
 ```
 
 
@@ -422,7 +422,7 @@ When using MSE a variety of performance measures (related to catch levels and ca
 
 * `r version$version.string`
 * FLCore: `r packageVersion('FLCore')`
-* FLPKG: `r # packageVersion('FLPKG')`
+* kobe: `r # packageVersion('kobe')`
 * **Compiled**: `r date()`
 * **Git Hash**: `r system("git log --pretty=format:'%h' -n 1", intern=TRUE)`
 
