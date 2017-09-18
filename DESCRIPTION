@@ -3,8 +3,8 @@ Type: Package
 Title: Tools for Scientific Fisheries Management Advice
 Version: 2.1.0
 Date: 2014-06-07
-Authors@R: person("Laurence T.", "Kell", email = "laurie.kell@iccat.int", role = c("cre", "aut"))
-Maintainer: Laurence Kell <laurie.kell@iccat.int>
+Author: Laurence Kell <laurie@kell.es>
+Maintainer: Laurence Kell <laurie@seaplusplus.co.uk>
 Description: The tuna Regional Fisheries Management Organisations (tRFMOs) use
     a common framework for providing scientific advice, i.e. the Kobe II
     Framework. This is based on maintaining fishing mortality below FMSY and
