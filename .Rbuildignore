@@ -5,3 +5,4 @@ kobe.Rproj
 Makefile
 ^_pkgdown.yml$
 ^docs$
+^.travis.yml$

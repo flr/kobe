@@ -1,7 +1,7 @@
 
 # kobe
-- Version: 2.1.1
-- Date: 2017-09-18
+- Version: 2.1.2
+- Date: 2018-07-18
 - Author: Laurence T. Kell <<laurie@seaplusplus.co.uk>>
 - Maintainer: Laurence T. Kell <<laurie@seaplusplus.co.uk>>
 - Repository: <https://github.com/flr/kobe/>
@@ -23,7 +23,7 @@ or download from the [kobe releases page](https://github.com/flr/kobe/releases/l
 ## Build Status
 [![Travis Build Status](https://travis-ci.org/flr/kobe.svg?branch=master)](https://travis-ci.org/flr/kobe)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/flr/kobe?branch=master&svg=true)](https://ci.appveyor.com/project/flr/kobe)
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/kobe)](https://cran.r-project.org/package=kobe)
+<!-- [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/kobe)](https://cran.r-project.org/package=kobe) -->
 
 ## Releases
 - [All release](https://github.com/flr/kobe/releases/)

@@ -11,26 +11,38 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
+
+
+<meta property="og:title" content="Function reference" />
+
+
+
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -44,8 +56,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">kobe</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">kobe</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.1.2</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -71,6 +87,7 @@
   <a href="http://flr-project.org/">FLR</a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -78,104 +95,132 @@
       
       </header>
 
-      <div class="row">
-  <div class="col-md-9">
+<div class="row">
+  <div class="contents col-md-9">
     <div class="page-header">
-      <h1>Function reference</h1>
-      <h4>version&nbsp;2.1.1</h4>
+      <h1>Reference</h1>
     </div>
 
-    <div class="contents">
-      <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-      <p class="section-desc"></p>
+    <table class="ref-index">
 
+    <colgroup>
       
-      <p><a href="density.html">density</a></p>
-      <ul>
-        <li><code><a href="density.html">density</a></code></li>
-      </ul>
-      
-      <p><a href="dRate.html">dRate</a></p>
-      <ul>
-        <li><code><a href="dRate.html">dRate</a></code></li>
-      </ul>
-      
-      <p><a href="freq.html">freq</a></p>
-      <ul>
-        <li><code><a href="freq.html">freq</a></code></li>
-      </ul>
-      
-      <p><a href="hinge.html">hinge</a></p>
-      <ul>
-        <li><code><a href="hinge.html">hinge</a></code></li>
-      </ul>
-      
-      <p><a href="iav.html">iav</a></p>
-      <ul>
-        <li><code><a href="iav.html">iav</a></code></li>
-      </ul>
-      
-      <p><a href="incr.html">incr</a></p>
-      <ul>
-        <li><code><a href="incr.html">incr</a></code></li>
-      </ul>
-      
-      <p><a href="kobe2box.html">kobe2box</a></p>
-      <ul>
-        <li><code><a href="kobe2box.html">kobe2box</a></code></li><li><code><a href="kobe2box.html">kobe2box-method</a></code></li><li><code><a href="kobe2box.html">kobe2box,character-method</a></code></li>
-      </ul>
-      
-      <p><a href="kobePhaseMar-method.html">Kobe Phase Plot with Marginal Densities</a></p>
-      <ul>
-        <li><code><a href="kobePhaseMar-method.html">kobePhaseMar</a></code></li><li><code><a href="kobePhaseMar-method.html">kobePhaseMar2</a></code></li><li><code><a href="kobePhaseMar-method.html">kobePhaseMar3</a></code></li>
-      </ul>
-      
-      <p><a href="kobePhase-method.html">kobePhase</a></p>
-      <ul>
-        <li><code><a href="kobePhase-method.html">kobePhase</a></code></li><li><code><a href="kobePhase-method.html">kobePhase-method</a></code></li><li><code><a href="kobePhase-method.html">kobePhase,missing-method</a></code></li><li><code><a href="kobePhase-method.html">kobePhase,data.frame-method</a></code></li>
-      </ul>
-      
-      <p><a href="kobeSam.html">kobeSam</a></p>
-      <ul>
-        <li><code><a href="kobeSam.html">kobeSam</a></code></li><li><code><a href="kobeSam.html">kobeSam-method</a></code></li><li><code><a href="kobeSam.html">kobeSam,character-method</a></code></li><li><code><a href="kobeSam.html">kobeSam</a></code></li><li><code><a href="kobeSam.html">kobeSam-method</a></code></li><li><code><a href="kobeSam.html">kobeSam,character-method</a></code></li>
-      </ul>
-      
-      <p><a href="multiplot.html">multiplot</a></p>
-      <ul>
-        <li><code><a href="multiplot.html">multiplot</a></code></li>
-      </ul>
-      
-      <p><a href="prob.html">prob</a></p>
-      <ul>
-        <li><code><a href="prob.html">probFn2</a></code></li><li><code><a href="prob.html">prob</a></code></li>
-      </ul>
-      
-      <p><a href="recovered.html">recovered</a></p>
-      <ul>
-        <li><code><a href="recovered.html">recovered</a></code></li>
-      </ul>
-      
-      <p><a href="shade.html">Creates Kobe II Strategy Matrices</a></p>
-      <ul>
-        <li><code><a href="shade.html">shade</a></code></li><li><code><a href="shade.html">shade-method</a></code></li><li><code><a href="shade.html">shade,numeric-method</a></code></li><li><code><a href="shade.html">shade,matrix-method</a></code></li><li><code><a href="shade.html">shade,data.frame-method</a></code></li>
-      </ul>
-      
-      <p><a href="smry-method.html">Creates Summaries i.e. probability of being in the green quadrant</a></p>
-      <ul>
-        <li><code><a href="smry-method.html">smry</a></code></li><li><code><a href="smry-method.html">smry-method</a></code></li><li><code><a href="smry-method.html">smry,numeric,numeric-method</a></code></li><li><code><a href="smry-method.html">smry,data.frame,missing-method</a></code></li>
-      </ul>
-      
-      <p><a href="trks-method.html">Creates tracks for plotting on phase plot</a></p>
-      <ul>
-        <li><code><a href="trks-method.html">trks</a></code></li><li><code><a href="trks-method.html">trks-method</a></code></li><li><code><a href="trks-method.html">trks,numeric,numeric-method</a></code></li><li><code><a href="trks-method.html">trks,data.frame,missing-method</a></code></li>
-      </ul>
-      
-      <p><a href="yft.html">yft</a></p>
-      <ul>
-        <li><code><a href="yft.html">yft</a></code></li>
-      </ul>
-    
-    </div>
+      <col class="alias" />
+      <col class="title" />
+    </colgroup>
+
+    <tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="dRate.html">dRate()</a></code> </p>
+        </td>
+        <td><p>dRate</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="density.html">density()</a></code> </p>
+        </td>
+        <td><p>density</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="freq.html">freq()</a></code> </p>
+        </td>
+        <td><p>freq</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="hinge.html">hinge()</a></code> </p>
+        </td>
+        <td><p>hinge</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="iav.html">iav()</a></code> </p>
+        </td>
+        <td><p>iav</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="incr.html">incr()</a></code> </p>
+        </td>
+        <td><p>incr</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="kobe2box.html">kobe2box(<i>&lt;character&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>kobe2box</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="kobePhase-method.html">kobePhase(<i>&lt;missing&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>kobePhase</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="kobePhaseMar-method.html">kobePhaseMar()</a></code> </p>
+        </td>
+        <td><p>Kobe Phase Plot with Marginal Densities</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="kobeSam.html">kobeSam</a></code> </p>
+        </td>
+        <td><p>kobeSam</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="multiplot.html">multiplot()</a></code> </p>
+        </td>
+        <td><p>multiplot</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="prob.html">probFn2()</a></code> </p>
+        </td>
+        <td><p>prob</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="recovered.html">recovered()</a></code> </p>
+        </td>
+        <td><p>recovered</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="shade.html">shade(<i>&lt;numeric&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Creates Kobe II Strategy Matrices</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="smry-method.html">smry(<i>&lt;numeric&gt;</i>,<i>&lt;numeric&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Creates Summaries i.e. probability of being in the green quadrant</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="trks-method.html">trks(<i>&lt;numeric&gt;</i>,<i>&lt;numeric&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Creates tracks for plotting on phase plot</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="yft.html">yft</a></code> </p>
+        </td>
+        <td><p>yft</p></td>
+      </tr>
+    </tbody>
+    </table>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -192,11 +237,14 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

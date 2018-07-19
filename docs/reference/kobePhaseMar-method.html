@@ -11,26 +11,42 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
+
+
+<meta property="og:title" content="Kobe Phase Plot with Marginal Densities — kobePhaseMar" />
+
+<meta property="og:description" content="Plots a Kobe Phase Plot with marginal densities
+'" />
+<meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -44,8 +60,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">kobe</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">kobe</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.1.2</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -71,6 +91,7 @@
   <a href="http://flr-project.org/">FLR</a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -78,52 +99,83 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Kobe Phase Plot with Marginal Densities</h1>
+    
+    <div class="hidden name"><code>kobePhaseMar-method.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Plots a Kobe Phase Plot with marginal densities
-&#39;</p>
+'</p>
     
+    </div>
 
-    <pre><span class='fu'>kobePhaseMar</span>(<span class='no'>pts</span>, <span class='kw'>trks</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mns</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+    <pre class="usage"><span class='fu'>kobePhaseMar</span>(<span class='no'>pts</span>, <span class='kw'>trks</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mns</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='fu'>expression</span>(<span class='no'>B</span>:<span class='no'>B</span>[<span class='no'>MSY</span>]), <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='fu'>expression</span>(<span class='no'>F</span>:<span class='no'>F</span>[<span class='no'>MSY</span>]), <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fl'>2</span>,
   <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='no'>xlim</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'>colorRampPalette</span>(<span class='fu'>c</span>(<span class='st'>"orange"</span>, <span class='st'>"blue"</span>), <span class='kw'>space</span> <span class='kw'>=</span> <span class='st'>"Lab"</span>),
   <span class='kw'>shade</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>col2</span> <span class='kw'>=</span> <span class='fu'>grey</span>(<span class='no'>shade</span>), <span class='kw'>col3</span> <span class='kw'>=</span> <span class='fu'>grey</span>(<span class='no'>shade</span> * <span class='fl'>1.1</span>),
   <span class='kw'>layer</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>pts</dt>
-      <dd>data.frame with stock and harvest variables respresenting points for a year</dd>
-      <dt>trks</dt>
-      <dd>data.frame with stock and harvest variables respresenting tracks, NULL by default</dd>
-      <dt>mns</dt>
-      <dd>logical, do you want mean by year of pts be plotted, FALSE  by default</dd>
-      <dt>size</dt>
-      <dd>of points1  by default</dd>
-      <dt>xlab</dt>
-      <dd>character or expression for x axis title, expression(B:B[MSY])  by default</dd>
-      <dt>ylab</dt>
-      <dd>character or expression for x axis title, expression(F:F[MSY])  by default</dd>
-      <dt>xlim</dt>
-      <dd>upper limit of x axis, 2  by default</dd>
-      <dt>ylim</dt>
-      <dd>upper limit of x axis, 2  by default</dd>
-      <dt>col</dt>
-      <dd>colorRampPalette(c(&quot;orange&quot;,&quot;blue&quot;),space=&quot;Lab&quot;)  by default</dd>
-      <dt>shade</dt>
-      <dd>.5  by default</dd>
-      <dt>col2</dt>
-      <dd>grey(shade)  by default</dd>
-      <dt>col3</dt>
-      <dd>grey(shade*1.1)  by default</dd>
-      <dt>layer</dt>
-      <dd>a ggplot2 layer to add to phase plot</dd>
-    </dl>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>pts</th>
+      <td><p>data.frame with stock and harvest variables respresenting points for a year</p></td>
+    </tr>
+    <tr>
+      <th>trks</th>
+      <td><p>data.frame with stock and harvest variables respresenting tracks, NULL by default</p></td>
+    </tr>
+    <tr>
+      <th>mns</th>
+      <td><p>logical, do you want mean by year of pts be plotted, FALSE  by default</p></td>
+    </tr>
+    <tr>
+      <th>size</th>
+      <td><p>of points1  by default</p></td>
+    </tr>
+    <tr>
+      <th>xlab</th>
+      <td><p>character or expression for x axis title, expression(B:B[MSY])  by default</p></td>
+    </tr>
+    <tr>
+      <th>ylab</th>
+      <td><p>character or expression for x axis title, expression(F:F[MSY])  by default</p></td>
+    </tr>
+    <tr>
+      <th>xlim</th>
+      <td><p>upper limit of x axis, 2  by default</p></td>
+    </tr>
+    <tr>
+      <th>ylim</th>
+      <td><p>upper limit of x axis, 2  by default</p></td>
+    </tr>
+    <tr>
+      <th>col</th>
+      <td><p>colorRampPalette(c("orange","blue"),space="Lab")  by default</p></td>
+    </tr>
+    <tr>
+      <th>shade</th>
+      <td><p>.5  by default</p></td>
+    </tr>
+    <tr>
+      <th>col2</th>
+      <td><p>grey(shade)  by default</p></td>
+    </tr>
+    <tr>
+      <th>col3</th>
+      <td><p>grey(shade*1.1)  by default</p></td>
+    </tr>
+    <tr>
+      <th>layer</th>
+      <td><p>a ggplot2 layer to add to phase plot</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
@@ -131,7 +183,9 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>   <span class='co'>## Not run: rnorm(10)</span></div></pre>
+    <pre class="examples"><div class='input'>   </div><span class='co'># NOT RUN {</span>
+<span class='fu'>rnorm</span>(<span class='fl'>10</span>)
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -152,11 +206,14 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+
