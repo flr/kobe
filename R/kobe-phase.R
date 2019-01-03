@@ -3,7 +3,7 @@
 utils::globalVariables(c("x","y","fill"))
 
 ### provide a back drop on which to overlay data
-kobePhaseFn=function(object,xlim,ylim,quadcol=c("yellow","green","red","yellow")){    
+kobePhaseFn=function(object,xlim,ylim,quadcol=c("yellow","green","red","gold")){    
   quads<- rbind(data.frame(x=c(-Inf,-Inf, Inf,Inf), y=c(-Inf,Inf,Inf,-Inf), fill=as.factor(quadcol[1])),
                 data.frame(x=c(   1,   1,Inf,Inf), y=c(-Inf,  1,  1, -Inf), fill=as.factor(quadcol[2])),
                 data.frame(x=c(-Inf,-Inf,  1,  1), y=c(   1,Inf,Inf,    1), fill=as.factor(quadcol[3])),
@@ -37,14 +37,14 @@ kobePhaseFn=function(object,xlim,ylim,quadcol=c("yellow","green","red","yellow")
 #' @examples
 #' \dontrun{kobePhase()}
 setMethod('kobePhase', signature(object='missing'),
-  function(object,xlim=c(0,2),ylim=xlim,quadcol=c("yellow","green","red","yellow")){
+  function(object,xlim=c(0,2),ylim=xlim,quadcol=c("yellow","green","red","gold")){
    
        invisible(kobePhaseFn(NULL,xlim,ylim,quadcol=quadcol))})
 
 setMethod('kobePhase', signature(object='data.frame'),
   function(object,xlim=c(0,ceiling(2*max(object$stock,  na.rm=TRUE))/2),
                   ylim=c(0,ceiling(2*max(object$harvest,na.rm=T))/2),
-                  quadcol=c("yellow","green","red","yellow")){
+                  quadcol=c("yellow","green","red","gold")){
     
        invisible(kobePhaseFn(object,xlim,ylim,quadcol=quadcol))})
 
