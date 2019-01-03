@@ -33,6 +33,7 @@ kobePhaseMar=function(pts,trks=NULL,mns=FALSE,size=1,
              xlab=expression(B:B[MSY]),
              ylab=expression(F:F[MSY]),
              xlim=2,ylim=xlim,
+             quadcol=c("red","green","yellow","yellow"),
              col =colorRampPalette(c("orange","blue"),space="Lab"),
              shade=.5,col2=grey(shade),col3=grey(shade*1.1),
              layer=NULL){
@@ -99,7 +100,7 @@ kobePhaseMar=function(pts,trks=NULL,mns=FALSE,size=1,
                 )
   
     # kobe phase plot
-    kC=kobePhase(pts) +
+    kC=kobePhase(pts,quadcol=quadcol) +
       geom_point(aes(stock,harvest,group=run),col="black",size=size[1]) +  
       geom_point(aes(stock,harvest,col=run,group=run),size=size[1]*.5) +  
       coord_cartesian(xlim=c(0,xlim),ylim=c(0,ylim)) +
@@ -208,7 +209,7 @@ kobePhaseMar2=function(pts,trks=NULL,mns=FALSE,size=1,
     )
   
   # kobe phase plot
-  kC=kobePhase(pts) +
+  kC=kobePhase(pts,quadcol=quadcol) +
     geom_point(aes(stock,harvest,group=run),col="black",size=size[1]) +  
     geom_point(aes(stock,harvest,col=run,group=run),size=size[1]*.5) +  
     coord_cartesian(xlim=c(0,xlim),ylim=c(0,ylim)) +
@@ -315,7 +316,7 @@ kobePhaseMar3=function(pts,trks=NULL,mns=FALSE,size=1,
     )
   
   # kobe phase plot
-  kC=kobePhase(pts) +
+  kC=kobePhase(pts,quadcol=quadcol) +
     geom_point(aes(stock,harvest,group=run),col="black",size=size[1]) +  
     geom_point(aes(stock,harvest,col=run,group=run),size=size[1]*.5) +  
     coord_cartesian(xlim=c(0,xlim),ylim=c(0,ylim)) +
