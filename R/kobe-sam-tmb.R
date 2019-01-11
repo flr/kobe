@@ -68,7 +68,7 @@ readSamTMB<-function(x, y){
   
   #ret$nopar<-length(x$opt$par)
   #ret$nlogl<-parfile[2]
-  ret$maxgrad<-parfile[3]
+  #ret$maxgrad<-parfile[3]
   #rep<-scan(paste(file,'.rep', sep=''), quiet=TRUE)
   #ret$res<-read.table(paste(file,'.res', sep=''),header=FALSE)
   #ret$stateDim<-rep[1]
@@ -114,7 +114,7 @@ readSamTMB<-function(x, y){
   ret$R<-cbind(exp(ret$stateEst[,1]), NA, exp(ret$stateLow[,1]), 
                exp(ret$stateHig[,1]))
   
-  if(reduced)
+  #if(reduced)
     ret<-ret[which(!names(ret)%in%c('cov','cor'))]
   
   return(ret)}

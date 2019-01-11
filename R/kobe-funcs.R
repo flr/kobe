@@ -12,7 +12,7 @@
 #' @importFrom MASS kde2d bandwidth.nrd 
 #' @importFrom emdbook HPDregionplot
 #' @importFrom coda mcmc
-#' @import methods
+#' @import methods FLCore
 
 
 utils::globalVariables(c("xFac","yFac","freq","count"))

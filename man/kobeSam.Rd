@@ -4,9 +4,6 @@
 \alias{kobeSam}
 \alias{kobeSam-method}
 \alias{kobeSam,character-method}
-\alias{kobeSam}
-\alias{kobeSam-method}
-\alias{kobeSam,character-method}
 \title{kobeSam}
 \arguments{
 \item{path}{\code{character} name of target files}

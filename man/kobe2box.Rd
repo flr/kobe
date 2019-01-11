@@ -7,9 +7,10 @@
 \alias{kobe2box,character-method}
 \title{kobe2box}
 \usage{
-\S4method{kobe2box}{character}(path, proxy = c("fmsy", "fmax", "f0.1", "f20",
-  "f30", "f40", "f90max", "f75max")[3], what = c("sims", "trks", "pts",
-  "smry", "wrms")[1], prob = c(0.75, 0.5, 0.25), year = NULL, nwrms = 10)
+\S4method{kobe2box}{character}(path, proxy = c("fmsy", "fmax", "f0.1",
+  "f20", "f30", "f40", "f90max", "f75max")[3], what = c("sims", "trks",
+  "pts", "smry", "wrms")[1], prob = c(0.75, 0.5, 0.25), year = NULL,
+  nwrms = 10)
 }
 \arguments{
 \item{path}{\code{character} directory or directories with target files}

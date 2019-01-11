@@ -9,7 +9,8 @@
 \usage{
 kobePhaseMar(pts, trks = NULL, mns = FALSE, size = 1,
   xlab = expression(B:B[MSY]), ylab = expression(F:F[MSY]), xlim = 2,
-  ylim = xlim, col = colorRampPalette(c("orange", "blue"), space = "Lab"),
+  ylim = xlim, quadcol = c("red", "green", "yellow", "yellow"),
+  col = colorRampPalette(c("orange", "blue"), space = "Lab"),
   shade = 0.5, col2 = grey(shade), col3 = grey(shade * 1.1),
   layer = NULL)
 }
@@ -29,6 +30,8 @@ kobePhaseMar(pts, trks = NULL, mns = FALSE, size = 1,
 \item{xlim}{upper limit of x axis, 2  by default}
 
 \item{ylim}{upper limit of x axis, 2  by default}
+
+\item{quadcol}{colours for the quadrants}
 
 \item{col}{colorRampPalette(c("orange","blue"),space="Lab")  by default}
 

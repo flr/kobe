@@ -6,8 +6,9 @@
 \alias{prob}
 \title{prob}
 \usage{
-probFn2(x, y, prob = c(0.5, 0.75, 0.95), n = 21, h = c(bandwidth.nrd(x),
-  bandwidth.nrd(y)), lims = NULL, na.rm = FALSE)
+probFn2(x, y, prob = c(0.5, 0.75, 0.95), n = 21,
+  h = c(bandwidth.nrd(x), bandwidth.nrd(y)), lims = NULL,
+  na.rm = FALSE)
 }
 \arguments{
 \item{x}{a vector}
