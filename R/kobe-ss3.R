@@ -74,7 +74,7 @@ ioSS3=function(x,prob=c(0.75,0.5,0.25),yrs=NULL,pts=NULL,nwrms=10,
                        skip=2)
   
     res <- dat[ ,]
-    rfs<<-res[,c("Iter",refs)]
+    rfs <- res[, c("Iter", refs)]
     names(rfs)[1]="iter"
 
     if (biomass=="bratio")
