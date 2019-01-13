@@ -9,7 +9,7 @@
 \title{kobePhase}
 \usage{
 \S4method{kobePhase}{missing}(object, xlim = c(0, 2), ylim = xlim,
-  quadcol = c("yellow", "green", "red"))
+  quadcol = c("red", "green", "yellow", "gold"))
 }
 \arguments{
 \item{object}{an object of class \code{missing,data.frame,...}}

@@ -9,10 +9,10 @@
 \alias{shade,data.frame-method}
 \title{Creates Kobe II Strategy Matrices}
 \usage{
-\S4method{shade}{numeric}(object, breaks = c(-0.1, 50, 60, 70, 80, 90, 100),
-  shades = c("\\\\cellcolor{gray100}", "\\\\cellcolor{gray90}",
-  "\\\\cellcolor{gray80}", "\\\\cellcolor{gray70}", "\\\\cellcolor{gray60}",
-  "\\\\cellcolor{gray50}"), pct = "\\\\\%", ...)
+\S4method{shade}{numeric}(object, breaks = c(-0.1, 50, 60, 70, 80, 90,
+  100), shades = c("\\\\cellcolor{gray100}", "\\\\cellcolor{gray90}",
+  "\\\\cellcolor{gray80}", "\\\\cellcolor{gray70}",
+  "\\\\cellcolor{gray60}", "\\\\cellcolor{gray50}"), pct = "\\\\\%", ...)
 }
 \arguments{
 \item{object}{an object of class \code{vector,data.frame,...}}

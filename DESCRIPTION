@@ -19,11 +19,11 @@ Depends:
 Suggests:
     akima,
     knitr,
-    rmarkdown,
-    FLCore
+    rmarkdown
 Additional_repositories: http://flr-project.org/R
 Imports:
     plyr,
+    FLCore,
     ggplot2,
     MASS,
     emdbook,
@@ -56,4 +56,5 @@ Collate:
     kobe-jabba.R
     kobe-utilities.R
 BuildResaveData: NA
-RoxygenNote: 6.0.1
+Encoding: UTF-8
+RoxygenNote: 6.1.1

@@ -16,6 +16,7 @@ utils::globalVariables(c("stock","..count..","group","harvest","run","is"))
 #' @param  ylab character or expression for x axis title, expression(F:F[MSY])  by default
 #' @param  xlim upper limit of x axis, 2  by default
 #' @param  ylim upper limit of x axis, 2  by default
+#' @param  quadcol colours for the quadrants
 #' @param  col colorRampPalette(c("orange","blue"),space="Lab")  by default
 #' @param  shade .5  by default
 #' @param  col2 grey(shade)  by default

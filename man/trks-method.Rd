@@ -8,8 +8,8 @@
 \alias{trks,data.frame,missing-method}
 \title{Creates tracks for plotting on phase plot}
 \usage{
-\S4method{trks}{numeric,numeric}(stock, harvest, prob = c(0.25, 0.5, 0.75),
-  na.rm = FALSE)
+\S4method{trks}{numeric,numeric}(stock, harvest, prob = c(0.25, 0.5,
+  0.75), na.rm = FALSE)
 }
 \arguments{
 \item{stock}{an object of class \code{vector,data.frame,...}}
