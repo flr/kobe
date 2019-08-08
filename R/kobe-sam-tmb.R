@@ -31,22 +31,24 @@ utils::globalVariables(c("pctl","FLQuant","stock.n<-","propagate","stock.n","har
 readSamTMB<-function(x, y){
   
   dmns=list(age=x$conf$minAge:x$conf$maxAge,year=x$data$years)
+  dmny=dmns
+  dmny[[1]]="all"
   
   F=FLQuant(NA,dimnames=list(age=x$conf$minAge:x$conf$maxAge,year=x$data$years))
   F[-dim(F)[1],]=exp(FLQuant(c(t(x$plsd$logF)),dimnames=list(age=x$conf$minAge:(x$conf$maxAge-1),year=x$data$years)))
   F[ dim(F)[1],]= F[ dim(F)[1]-1,]
     
   res=FLStock(
-    catch       =FLQuant(NA,dimnames=dmns[-1]),        
+    catch       =FLQuant(NA,dimnames=dmny),        
     catch.n     =FLQuant(NA,dimnames=dmns), 
     catch.wt    =FLQuant(t(x$data$catchMeanWeight),dimnames=dmns), 
-    discards    =FLQuant(NA,dimnames=dmns[-1]), 
-    discards.n  =FLQuant(NA,dimnames=dmns), 
+    discards    =FLQuant(NA,dimnames=dmny), 
+    discards.n  =FLQuant(0,dimnames=dmns), 
     discards.wt =FLQuant(t(x$data$disMeanWeight),dimnames=dmns), 
-    landings    =FLQuant(NA,dimnames=dmns[-1]),
-    landings.n  =FLQuant(x[[4]]$landFrac,dimnames=dmns), 
+    landings    =FLQuant(NA,dimnames=dmny),
+    landings.n  =FLQuant(c(x[[4]]$landFrac),dimnames=dmns), 
     landings.wt =FLQuant(t(x$data$landMeanWeight),dimnames=dmns), 
-    stock       =FLQuant(NA,dimnames=dmns[-1]), 
+    stock       =FLQuant(NA,dimnames=dmny), 
     stock.n     =FLQuant(exp(c(t(x$plsd$logN))),dimnames=dmns), 
     stock.wt    =FLQuant(t(x$data$stockMeanWeight),dimnames=dmns), 
     m           =FLQuant(t(x$data$natMor),dimnames=dmns), 
@@ -57,10 +59,13 @@ readSamTMB<-function(x, y){
     name        ="SAM", 
     desc        ="", 
     range       =unlist(list(min=x$conf$minAge,max=x$conf$maxAge,plusgroup=x$conf$maxAge,
-                             minyear=min(x$data$years),max=max(x$data$years),
+                             minyear=min(x$data$years),maxyear=max(x$data$years),
                              minfbar=x$conf$minAge,maxfbar=x$conf$maxAge)))
   
-  
+  units(harvest(res))="f"
+  # catch(res)=computeCatch(res,"all")
+
+  return(res)  
   # Function to read a basic fit
   ret<-list()
   #parfile<-as.numeric(scan(paste(file,'.par', sep=''), 
@@ -73,7 +78,7 @@ readSamTMB<-function(x, y){
   #ret$res<-read.table(paste(file,'.res', sep=''),header=FALSE)
   #ret$stateDim<-rep[1]
   ret$years<-x$data$years
-  
+
   file<-paste(file,'.cor', sep='')
   lin<-readLines(file)
   ret$npar<-length(lin)-2

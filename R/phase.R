@@ -3,11 +3,11 @@
 utils::globalVariables(c("x","y","fill"))
 
 ### provide a back drop on which to overlay data
-kobePhaseFn=function(object,xlim,ylim,quadcol=c("red","green","yellow","yellow"),bref=1,  fref=1){    
-  quads<- rbind(data.frame(x=c(bref[1],bref[1],-Inf,-Inf), y=c(fref[1], Inf,     Inf,     fref[1]), fill="1"),
-                data.frame(x=c(bref[1],bref[1], Inf, Inf), y=c(-Inf,    fref[1], fref[1],-Inf),     fill="2"),
-                data.frame(x=c(bref[1],bref[1],-Inf,-Inf), y=c(fref[1],-Inf,    -Inf,     fref[1]), fill="3"),
-                data.frame(x=c(bref[1],bref[1], Inf, Inf), y=c( Inf,    fref[1], fref[1], Inf),     fill="4"))
+kobePhaseFn=function(object,xlim,ylim,quadcol=c("red","green","yellow","yellow"),bref=1,fref=1){    
+  quads<- rbind(data.frame(x=c(bref[1],fref[1],-Inf,-Inf), y=c(   1, Inf, Inf,   1),   fill="1"),
+                data.frame(x=c(bref[1],fref[1], Inf, Inf), y=c(-Inf,   1,   1,-Inf),   fill="2"),
+                data.frame(x=c(bref[1],fref[1],-Inf,-Inf), y=c(   1,-Inf,-Inf,   1),   fill="3"),
+                data.frame(x=c(bref[1],fref[1], Inf, Inf), y=c( Inf,   1,   1, Inf),   fill="4"))
   
   p=ggplot(object)+geom_polygon(data=quads,aes(x,y,fill=fill)) +
     scale_fill_manual(values=quadcol[1:4], guide="none") +

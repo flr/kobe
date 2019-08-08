@@ -37,7 +37,8 @@ kobePhaseMar=function(pts,trks=NULL,mns=FALSE,size=1,
              quadcol=c("red","green","yellow","yellow"),
              col =colorRampPalette(c("orange","blue"),space="Lab"),
              shade=.5,col2=grey(shade),col3=grey(shade*1.1),
-             layer=NULL){
+             layer=NULL,
+             bref=1,fref=1){
      
     if (!("run" %in% names(pts)))
        pts=cbind(pts,run=factor(1))
@@ -54,7 +55,7 @@ kobePhaseMar=function(pts,trks=NULL,mns=FALSE,size=1,
     dS<-ggplot(pts) + 
           geom_density(aes(x = stock, y =  ..count.., group=run), fill=col2, col=col3, position = "stack") + 
           geom_density(aes(x = stock, y = -..count.., fill =run, alpha=0.4)) + 
-          geom_vline(xintercept=1,col="red")       +
+          geom_vline(xintercept=bref,col="red",data=data.frame(bref=bref))+
           coord_cartesian(xlim=c(0,xlim)) +
               scale_fill_manual(values=col)        +
               xlab(xlab) + ylab(ylab)              +
@@ -78,7 +79,7 @@ kobePhaseMar=function(pts,trks=NULL,mns=FALSE,size=1,
       dH<-ggplot(pts) + 
             geom_density(aes(x = harvest, y =  ..count.., group=run), fill=col2, col=col3, position = "stack") + 
             geom_density(aes(x = harvest, y = -..count..,             fill=run, alpha=0.4)) + 
-            geom_vline(xintercept=1,col="red")  +
+            geom_vline(xintercept=fref,col="red",data=data.frame(fref=fref))+
             coord_cartesian(xlim=c(0,ylim))   +
             #scale_x_continuous(limits=c(0,ylim))   +
             scale_fill_manual(values=col)          +
@@ -101,7 +102,7 @@ kobePhaseMar=function(pts,trks=NULL,mns=FALSE,size=1,
                 )
   
     # kobe phase plot
-    kC=kobePhase(pts,quadcol=quadcol) +
+    kC=kobePhase(pts,quadcol=quadcol,bref=bref) +
       geom_point(aes(stock,harvest,group=run),col="black",size=size[1]) +  
       geom_point(aes(stock,harvest,col=run,group=run),size=size[1]*.5) +  
       coord_cartesian(xlim=c(0,xlim),ylim=c(0,ylim)) +
@@ -110,8 +111,15 @@ kobePhaseMar=function(pts,trks=NULL,mns=FALSE,size=1,
        theme(legend.position = "none",
              axis.text.y=element_text(colour="black", angle=90), 
              plot.margin = unit(c(0, 0, 1, 1), "lines")
-       )+layer
-   
+       )
+    if ("LayerInstance"%in%is(layer))
+      kC=kC+layer
+    else if ("list"%in%is(layer))
+      if (length(layer)==2)
+         kC=kC+layer[[1]]+layer[[2]]
+      if (length(layer)==3)
+         kC=kC+layer[[1]]+layer[[2]]
+    
 #     if (length(run)>1){
 #         dS=dS+scale_fill_manual(values=col)
 #         dH=dH+scale_fill_manual(values=col)
@@ -136,7 +144,6 @@ kobePhaseMar=function(pts,trks=NULL,mns=FALSE,size=1,
         }
     
     fnVP(dH,dS,kC)
-    #print(kC)
 
     invisible(list(harvest=dH,stock=dS,phase=kC))}
 
@@ -148,7 +155,9 @@ kobePhaseMar2=function(pts,trks=NULL,mns=FALSE,size=1,
                        quadcol=c("red","green","yellow","yellow"),
                        col =colorRampPalette(c("orange","blue"),space="Lab"),
                        shade=.5,col2=grey(shade),col3=grey(shade*1.1),
-                       layer=NULL){
+                       layer=NULL,
+                       bref=1,
+                       fref=1,fourth){
   
   if (!("run" %in% names(pts)))
     pts=cbind(pts,run=factor(1))
@@ -165,7 +174,7 @@ kobePhaseMar2=function(pts,trks=NULL,mns=FALSE,size=1,
   dS<-ggplot(pts) + 
     #geom_density(aes(x = stock, y =  ..count.., group=run), fill=col2, col=col3, position = "stack") + 
     geom_density(aes(x = stock, y = ..count.., fill =run, alpha=0.4)) + 
-    geom_vline(xintercept=1,col="red")       +
+    geom_vline(xintercept=bref,col="red",data=data.frame(bref=bref))+
     coord_cartesian(xlim=c(0,xlim)) +
     scale_fill_manual(values=col)        +
     xlab(xlab) + ylab(ylab)              +
@@ -189,7 +198,7 @@ kobePhaseMar2=function(pts,trks=NULL,mns=FALSE,size=1,
   dH<-ggplot(pts) + 
     #geom_density(aes(x = harvest, y =  ..count.., group=run), fill=col2, col=col3, position = "stack") + 
     geom_density(aes(x = harvest, y = ..count..,               fill=run, alpha=0.4)) + 
-    geom_vline(xintercept=1,col="red")  +
+    geom_vline(xintercept=fref,col="red",data=data.frame(fref=fref))+
     coord_cartesian(xlim=c(0,ylim))   +
     scale_fill_manual(values=col)          +
     xlab(xlab) + ylab(ylab)                +
@@ -211,7 +220,7 @@ kobePhaseMar2=function(pts,trks=NULL,mns=FALSE,size=1,
     )
   
   # kobe phase plot
-  kC=kobePhase(pts,quadcol=quadcol) +
+  kC=kobePhase(pts,quadcol=quadcol,bref=bref,fref=fref) +
     geom_point(aes(stock,harvest,group=run),col="black",size=size[1]) +  
     geom_point(aes(stock,harvest,col=run,group=run),size=size[1]*.5) +  
     coord_cartesian(xlim=c(0,xlim),ylim=c(0,ylim)) +
@@ -219,8 +228,13 @@ kobePhaseMar2=function(pts,trks=NULL,mns=FALSE,size=1,
     xlab(xlab) + ylab(ylab)              +
     theme(legend.position = "none",
           axis.text.y  = element_text(colour="black", angle=90), 
-          plot.margin = unit(c(0, 0, 1, 1), "lines"))+
-    layer
+          plot.margin = unit(c(0, 0, 1, 1), "lines"))
+  
+  if ("LayerInstance"%in%is(layer))
+    kC=kC+layer
+  else if ("list"%in%is(layer))
+    kC=kC+layer[[1]]+layer[[2]]
+  
   
   #     if (length(run)>1){
   #         dS=dS+scale_fill_manual(values=col)
@@ -234,7 +248,7 @@ kobePhaseMar2=function(pts,trks=NULL,mns=FALSE,size=1,
   if (!is.null(trks))
     kC=kC+geom_path(aes(stock,harvest, col=run,group=run),size=1*size[2], data=trks)   
   
-  fnVP=function(dH,dS,kC){
+  fnVP=function(dH,dS,kC,fourth=NULL){
     vplayout <- function(x, y)
       viewport(layout.pos.row = x, layout.pos.col = y)
     
@@ -243,9 +257,28 @@ kobePhaseMar2=function(pts,trks=NULL,mns=FALSE,size=1,
     print(dS, vp=vplayout(1,1:4))                       # the first density plot will occupy the top of the grid
     print(dH +coord_flip(xlim=c(0,ylim)), vp=vplayout(2:5,5))         # 2nd to the left +opts(legend.position = c(0,1.05)) + opts(legend.text = theme_text(colour = "black")) 
     print(kC, vp=vplayout(2:5,1:4))                     # the main x/y plot will instead spread across most of the grid
+    if (!is.null(fourth)) print(fourth, vp=vplayout(1,5)) 
   }
   
-  fnVP(dH,dS,kC)
+  if (!is.null(fourth))
+    fourth=fourth+
+    theme(legend.position = "none", 
+          axis.title.y = element_blank(), 
+          axis.text.y  = element_blank(), 
+          axis.ticks.y = element_blank(),
+          axis.ticks =   element_blank(),
+          
+          axis.title.x = element_blank(), 
+          axis.text.x  = element_blank(), 
+          axis.ticks.x = element_blank(), 
+          
+          plot.margin = unit(c(0, 0, 0, 0), "lines"),
+          panel.background = element_rect(fill   ="NA", colour="NA"), 
+          panel.border     = element_rect(fill   ="NA", colour="NA"), 
+          panel.grid.major = element_line(colour ="NA"), 
+          panel.grid.minor = element_line(colour ="NA")              )
+  
+  fnVP(dH,dS,kC,fourth)
   
   invisible(list(harvest=dH,stock=dS,phase=kC))}
 
@@ -256,7 +289,8 @@ kobePhaseMar3=function(pts,trks=NULL,mns=FALSE,size=1,
                        quadcol=c("red","green","yellow","yellow"),
                        col =colorRampPalette(c("orange","blue"),space="Lab"),
                        shade=.5,col2=grey(shade),col3=grey(shade*1.1),
-                       layer=NULL){
+                       layer=NULL,
+                       bref=1){
   
   if (!("run" %in% names(pts)))
     pts=cbind(pts,run=factor(1))
@@ -273,7 +307,7 @@ kobePhaseMar3=function(pts,trks=NULL,mns=FALSE,size=1,
   dS<-ggplot(pts) + 
     geom_density(aes(x = stock, y =  ..count.., group=run), fill=col2, col=col3, position = "stack") + 
     #geom_density(aes(x = stock, y = ..count.., fill =run, alpha=0.4)) + 
-    geom_vline(xintercept=1,col="red")       +
+    geom_vline(xintercept=bref,col="red",data=data.frame(bref=bref))+
     coord_cartesian(xlim=c(0,xlim)) +
     scale_fill_manual(values=col)        +
     xlab(xlab) + ylab(ylab)              +
@@ -297,7 +331,7 @@ kobePhaseMar3=function(pts,trks=NULL,mns=FALSE,size=1,
   dH<-ggplot(pts) + 
     geom_density(aes(x = harvest, y =  ..count.., group=run), fill=col2, col=col3, position = "stack") + 
     #geom_density(aes(x = harvest, y = ..count..,               fill=run, alpha=0.4)) + 
-    geom_vline(xintercept=1,col="red")  +
+    geom_vline(xintercept=fref,col="red",data=data.frame(fref=fref))+
     coord_cartesian(ylim=c(0,ylim))   +
     scale_fill_manual(values=col)          +
     xlab(xlab) + ylab(ylab)                +
@@ -319,7 +353,7 @@ kobePhaseMar3=function(pts,trks=NULL,mns=FALSE,size=1,
     )
   
   # kobe phase plot
-  kC=kobePhase(pts,quadcol=quadcol) +
+  kC=kobePhase(pts,quadcol=quadcol,bref=bref,fref=fref) +
     geom_point(aes(stock,harvest,group=run),col="black",size=size[1]) +  
     geom_point(aes(stock,harvest,col=run,group=run),size=size[1]*.5) +  
     coord_cartesian(xlim=c(0,xlim),ylim=c(0,ylim)) +
@@ -327,8 +361,13 @@ kobePhaseMar3=function(pts,trks=NULL,mns=FALSE,size=1,
     xlab(xlab) + ylab(ylab)              +
     theme(legend.position = "none",
           axis.text.y  = element_text(colour="black", angle=90), 
-          plot.margin = unit(c(0, 0, 1, 1), "lines"))+
-    layer
+          plot.margin = unit(c(0, 0, 1, 1), "lines"))
+  
+  if ("LayerInstance"%in%is(layer))
+    kC=kC+layer
+  else if ("list"%in%is(layer))
+    kC=kC+layer[[1]]+layer[[2]]
+  
   
   #     if (length(run)>1){
   #         dS=dS+scale_fill_manual(values=col)
