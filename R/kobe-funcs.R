@@ -8,12 +8,11 @@
 ##                                                                              ##
 ##################################################################################
 
-#' @importFrom plyr ddply ldply .
+#' @importFrom plyr ddply ldply  
+#' @import methods
 #' @importFrom MASS kde2d bandwidth.nrd 
 #' @importFrom emdbook HPDregionplot
 #' @importFrom coda mcmc
-#' @import methods FLCore
-
 
 utils::globalVariables(c("xFac","yFac","freq","count"))
 

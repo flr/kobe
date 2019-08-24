@@ -1,7 +1,7 @@
 Package: kobe
 Type: Package
 Title: Tools for Scientific Fisheries Management Advice
-Version: 2.1.2
+Version: 2.2.0
 Date: 2018-07-18
 Authors@R: c(
   person("Laurence T.", "Kell", email = "laurie@seaplusplus.co.uk", role = c("aut", "cre")))
@@ -12,22 +12,19 @@ Description: The tuna Regional Fisheries Management Organisations (tRFMOs) use
     results from stock assessments and Management Strategy Evaluations in the
     Kobe format.
 License: GPL (>= 2)
-VignetteBuilder: knitr
 Depends:
-    R(>= 3.0.1),
-    methods
-Suggests:
-    akima,
-    knitr,
-    rmarkdown
+  R(>= 3.5.1)
 Additional_repositories: http://flr-project.org/R
 Imports:
-    plyr,
-    FLCore,
-    ggplot2,
-    MASS,
-    emdbook,
-    coda
+  methods,
+  MASS,
+  emdbook,
+  coda, 
+  ggplot2,
+  plyr
+suggests:
+  knitr,
+  FLCore
 Collate:
     kobe-generics.R
     kobe-data.R

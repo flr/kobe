@@ -5,7 +5,7 @@ date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: rmarkdown:::html_document
 vignette: >
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Kobe}
   %\VignetteEncoding{UTF-8}
 bibliography: refs.bib
 tags: kobe FLR

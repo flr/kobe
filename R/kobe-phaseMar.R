@@ -1,4 +1,4 @@
-utils::globalVariables(c("stock","..count..","group","harvest","run","is"))
+utils::globalVariables(c("stock","..count..","group","harvest","run","is","fref"))
 #' @importFrom grid grid.newpage pushViewport viewport grid.layout unit
 #' 
 #' @name kobePhaseMar
@@ -22,6 +22,8 @@ utils::globalVariables(c("stock","..count..","group","harvest","run","is"))
 #' @param  col2 grey(shade)  by default
 #' @param  col3 grey(shade*1.1)  by default
 #' @param  layer a ggplot2 layer to add to phase plot
+#' @param  bref vertical seperation between quadants and reference line for marginal densities
+#' @param  fref horizontal seperation between quadants and reference line for marginal densities
 #' 
 #' @return a list with 3 ggplot objects, the 2 marginal densities and the phase plot
 #' @export kobePhaseMar
@@ -157,8 +159,8 @@ kobePhaseMar2=function(pts,trks=NULL,mns=FALSE,size=1,
                        shade=.5,col2=grey(shade),col3=grey(shade*1.1),
                        layer=NULL,
                        bref=1,
-                       fref=1,fourth){
-  
+                       fref=1,fourth=NULL){
+
   if (!("run" %in% names(pts)))
     pts=cbind(pts,run=factor(1))
   if (!is.null(trks) & !("run" %in% names(trks)))
@@ -248,7 +250,7 @@ kobePhaseMar2=function(pts,trks=NULL,mns=FALSE,size=1,
   if (!is.null(trks))
     kC=kC+geom_path(aes(stock,harvest, col=run,group=run),size=1*size[2], data=trks)   
   
-  fnVP=function(dH,dS,kC,fourth=NULL){
+  fnVP=function(dH,dS,kC,fourth=fourth){
     vplayout <- function(x, y)
       viewport(layout.pos.row = x, layout.pos.col = y)
     
@@ -257,6 +259,7 @@ kobePhaseMar2=function(pts,trks=NULL,mns=FALSE,size=1,
     print(dS, vp=vplayout(1,1:4))                       # the first density plot will occupy the top of the grid
     print(dH +coord_flip(xlim=c(0,ylim)), vp=vplayout(2:5,5))         # 2nd to the left +opts(legend.position = c(0,1.05)) + opts(legend.text = theme_text(colour = "black")) 
     print(kC, vp=vplayout(2:5,1:4))                     # the main x/y plot will instead spread across most of the grid
+
     if (!is.null(fourth)) print(fourth, vp=vplayout(1,5)) 
   }
   
@@ -290,7 +293,7 @@ kobePhaseMar3=function(pts,trks=NULL,mns=FALSE,size=1,
                        col =colorRampPalette(c("orange","blue"),space="Lab"),
                        shade=.5,col2=grey(shade),col3=grey(shade*1.1),
                        layer=NULL,
-                       bref=1){
+                       bref=1,fref=1){
   
   if (!("run" %in% names(pts)))
     pts=cbind(pts,run=factor(1))

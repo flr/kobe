@@ -26,10 +26,12 @@ kobePhaseFn=function(object,xlim,ylim,quadcol=c("red","green","yellow","yellow")
 #' Creates The Kobe Phase Plot
 #' @aliases kobePhase-method kobePhase,missing-method kobePhase,data.frame-method
 #'
-#' @param   object an object of class \code{missing,data.frame,...}
-#' @param   xlim a numeric vector with x-axis limits, by default is c(0.2) 
-#' @param   ylim a numeric vector with y-axis limits, by default is the same as xlim 
-#' @param   quadcol colours for the quadrants
+#' @param  object an object of class \code{missing,data.frame,...}
+#' @param  xlim a numeric vector with x-axis limits, by default is c(0.2) 
+#' @param  ylim a numeric vector with y-axis limits, by default is the same as xlim 
+#' @param  quadcol colours for the quadrants
+#' @param  bref vertical seperation between quadants 
+#' @param  fref horizontal seperation between quadants 
 #' @export
 #' @docType methods
 #' @rdname  kobePhase-method
@@ -39,7 +41,7 @@ kobePhaseFn=function(object,xlim,ylim,quadcol=c("red","green","yellow","yellow")
 setMethod('kobePhase', signature(object='missing'),
   function(object,xlim=c(0,2),ylim=xlim,quadcol=c("red","green","yellow","gold"),bref=1,fref=1){
    
-       invisible(kobePhaseFn(NULL,xlim,ylim,quadcol=quadcol),bref=bref,fref=fref)})
+       invisible(kobePhaseFn(NULL,xlim,ylim,quadcol=quadcol,bref=bref,fref=fref))})
 
 setMethod('kobePhase', signature(object='data.frame'),
   function(object,xlim=c(0,ceiling(2*max(object$stock,  na.rm=TRUE))/2),

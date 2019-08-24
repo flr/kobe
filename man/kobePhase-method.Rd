@@ -9,7 +9,7 @@
 \title{kobePhase}
 \usage{
 \S4method{kobePhase}{missing}(object, xlim = c(0, 2), ylim = xlim,
-  quadcol = c("red", "green", "yellow", "gold"))
+  quadcol = c("red", "green", "yellow", "gold"), bref = 1, fref = 1)
 }
 \arguments{
 \item{object}{an object of class \code{missing,data.frame,...}}
@@ -19,6 +19,10 @@
 \item{ylim}{a numeric vector with y-axis limits, by default is the same as xlim}
 
 \item{quadcol}{colours for the quadrants}
+
+\item{bref}{vertical seperation between quadants}
+
+\item{fref}{horizontal seperation between quadants}
 }
 \description{
 Creates The Kobe Phase Plot

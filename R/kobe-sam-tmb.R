@@ -1,3 +1,4 @@
+
 #' @title kobeSam
 #' @name kobeSam
 #' 
@@ -26,7 +27,7 @@
 #' sims=kobeSam("vpa")
 #' } 
 
-utils::globalVariables(c("pctl","FLQuant","stock.n<-","propagate","stock.n","harvest<-","mvrnorm","llply"))
+utils::globalVariables(c("pctl","FLStock","FLQuant","stock.n<-","propagate","stock.n","harvest<-","mvrnorm","llply"))
 
 readSamTMB<-function(x, y){
   
