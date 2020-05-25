@@ -1,6 +1,6 @@
 
 # kobe
-- Version: 2.1.2
+- Version: 2.2.0
 - Date: 2018-07-18
 - Author: Laurence T. Kell <<laurie@seaplusplus.co.uk>>
 - Maintainer: Laurence T. Kell <<laurie@seaplusplus.co.uk>>
