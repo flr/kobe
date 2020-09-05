@@ -6,14 +6,14 @@ setGeneric('kobePhase',  function(object,...)         standardGeneric('kobePhase
 
 ### provide a back drop on which to overlay data
 kobePhaseFn=function(object,xlim,ylim){    
-  quads<- rbind(data.frame(x=c(-Inf,-Inf,Inf,Inf), y=c(-Inf,Inf,Inf,-Inf), fill=as.factor("yellow")),
-                data.frame(x=c(   1,   1,Inf,Inf), y=c(-Inf,  1,  1,-Inf), fill=as.factor("green")),
-                data.frame(x=c(-Inf,-Inf,  1,  1), y=c(   1,Inf,Inf,   1), fill=as.factor("red")))
+  quads<- rbind(data.frame(x=c(-Inf,-Inf,Inf,Inf), y=c(-Inf,Inf,Inf,-Inf), fill=as.factor("yellow2")),
+                data.frame(x=c(   1,   1,Inf,Inf), y=c(-Inf,  1,  1,-Inf), fill=as.factor("green3")),
+                data.frame(x=c(-Inf,-Inf,  1,  1), y=c(   1,Inf,Inf,   1), fill=as.factor("tomato2")))
   
   p=ggplot(object)+geom_polygon(data=quads,aes(x,y,fill=fill)) +
-    scale_fill_manual(values = c("yellow","green","red"), guide="none") +
-    ylab(expression(F/F[MSY]))        +
-    xlab(expression(SSB/B[MSY]))      +
+    scale_fill_manual(values = c("yellow2","green3","tomato2"), guide="none") +
+    ylab(expression(H/H[MSY]))        +
+    xlab(expression(B/B[MSY]))      +
     scale_y_continuous(limits=ylim)   +
     scale_x_continuous(limits=xlim)
   
