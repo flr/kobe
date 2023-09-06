@@ -52,6 +52,7 @@ Collate:
     kobe-ss3.R
     kobe-jabba.R
     kobe-utilities.R
+    trend-plot.R
 BuildResaveData: NA
 Encoding: UTF-8
 RoxygenNote: 6.1.1
