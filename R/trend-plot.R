@@ -115,7 +115,7 @@ trendPhaseMar2=function(object,pts=object[,ac(max(dimnames(object)$year))],
                        layer=NULL){
   
   ##### Density plots   #############################################################################################
-  marginal<-ggplot(as.data.frame(pts,drop=T)) + 
+  marginal<-ggplot(FLCore:::as.data.frame(pts,drop=T)) + 
     geom_density(aes(x = data, y =  ..count..), fill="blue",col="grey50",position = "stack")+ 
     geom_vline(xintercept=1,col="red")+
     #coord_cartesian(xlim=c(0,ylim))   +
