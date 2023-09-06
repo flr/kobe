@@ -139,7 +139,7 @@ trendPhaseMar2=function(object,pts=object[,ac(max(dimnames(object)$year))],
           panel.grid.minor = element_line(colour ="NA")                    
     )
   
-  pbs=ddply(as.data.frame(object,drop=T),.(year), with, t(quantile(data,probs=c(0,0.05,0.25,0.50,0.75,0.95,1),na.rm=T)))
+  pbs=ddply(FLCore:::as.data.frame(object,drop=T),.(year), with, t(quantile(data,probs=c(0,0.05,0.25,0.50,0.75,0.95,1),na.rm=T)))
   
   trend=
     ggplot(pbs)+ 
@@ -188,7 +188,7 @@ trendPhaseMar3=function(objects,pts=FLQuants(llply(objects, function(x) x[,ac(ma
   
   ##### Density plots   #############################################################################################
   marginal=
-    ggplot(as.data.frame(pts,drop=T)) + 
+    ggplot(FLCore:::as.data.frame(pts,drop=T)) + 
     geom_vline(xintercept=1,col="red")+
     geom_density(aes(x = data, y =  ..count.., fill=qname, col=qname),position="identity",alpha=0.5)+ 
     #coord_cartesian(xlim=c(0,ylim))   +
@@ -212,7 +212,7 @@ trendPhaseMar3=function(objects,pts=FLQuants(llply(objects, function(x) x[,ac(ma
           panel.grid.minor = element_line(colour ="NA")                    
     )
   
-  pbs=ddply(as.data.frame(objects,drop=T),.(year,qname), with, t(quantile(data,probs=c(0,0.05,0.25,0.50,0.75,0.95,1),na.rm=T)))
+  pbs=ddply(FLCore:::as.data.frame(objects,drop=T),.(year,qname), with, t(quantile(data,probs=c(0,0.05,0.25,0.50,0.75,0.95,1),na.rm=T)))
   
   trend=
     ggplot(pbs)+ 
